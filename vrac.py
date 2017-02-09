@@ -257,3 +257,5 @@ ep = "666"
 for b in building :
     mc.file("//ava_server/projets/avalor/ava_maya/scenes/ribarchives/" + ep + "/" + ep + "-building" + b + "/publish/ava_mts_" + ep + "-building" + b + "_v000.ma",
             i=1, type="mayaAscii", ignoreVersion=1, ra=1, mergeNamespacesOnClash=1, namespace=":", options="v=0;", pr=1)
+
+# petite modification ici !
