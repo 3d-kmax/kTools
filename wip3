@@ -1,0 +1,12 @@
+# all
+import maya.cmds as mc
+selectionList = mc.ls(selection=True, type='transform')
+if selectionList >= 2:
+    newTranslation = mc.xform(selectionList[-1], q=True, translation=True, worldSpace=True)
+    newRotation = mc.xform(selectionList[-1], q=True, rotation=True, worldSpace=True)
+    newScale = mc.xform(selectionList[-1], q=True, scale=True)
+    for objMacth in selectionList[:-1]:
+		mc.xform(objMacth, p=True, translation=newTranslation, worldSpace=True)
+		mc.xform(objMacth, p=True, rotation=newRotation, worldSpace=True)
+		mc.xform(objMacth, p=True, scale=newScale)
+		print ">> Match All" 
