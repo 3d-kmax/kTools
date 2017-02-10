@@ -21,7 +21,7 @@ class kShelfBar():
         scaleIcon = 30
         scaleSeparator = 18
         path_list = os.path.realpath(__file__).split('\\')[:-2]
-        path_list.extend(['prefs', 'icons'])
+        path_list.extend(['scripts', 'kTools', 'icons'])
         self.target = ''
         for item in path_list:
             self.target += item + '/'
@@ -195,6 +195,9 @@ class kShelfBar():
         self.bt_scatter = mc.iconTextButton(image1=self.target + "scatter32.png", highlightImage=self.target + "scatter32b.png",
                                     annotation="Scattering", command=self.icPolyScatter, width=scaleIcon)
 
+        self.bt_kitBuilder = mc.iconTextButton(image1=self.target + "scatter32.png", highlightImage=self.target + "scatter32b.png",
+                                    annotation="Scattering", command=self.kitBuilder, width=scaleIcon)
+
         ''' TEAM TO
         self.bt_setSmooth = mc.iconTextButton(image1=self.target + "smoothSetTool.png",
                                 highlightImage=self.target + "smoothSetTool.png",
@@ -245,7 +248,7 @@ class kShelfBar():
                                     annotation="Switch renderThumbnailUpdate", command=self.kmSwitchBallPreview, width=scaleIcon)    
                                     
             
-        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=236, enable=0)
+        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=160, enable=0)
 
         self.bt_preferences = mc.iconTextButton(image1=self.target + "settings32.png", highlightImage=self.target + "settings32b.png",
                                         annotation="Preferences", command=self.kmSetting, width=scaleIcon)
@@ -470,7 +473,13 @@ class kShelfBar():
         
     def icPolyScatter(self):
         pm.mel.icPolyScatter()
-     
+
+    def kitBuilder(self):
+        import mayaTools.assetKitBuilder.main
+        import mayaTools.assetKitBuilder.core
+
+        mayaTools.assetKitBuilder.main.load()
+
     ''' TEAMTO
      
     def kmSetSmoothGroupTool(self):

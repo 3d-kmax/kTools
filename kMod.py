@@ -277,8 +277,8 @@ class kModBar():
                                     annotation="Convert selected instance(s) to object(s)",
                                     command="pm.mel.ConvertInstanceToObject()", height=scaleIcon)
 
-        bt_edgeToCurve = mc.iconTextButton(image1=target + "polyEdgeToCurve.png",
-                                       highlightImage=target + "polyEdgeToCurve.png", label="EdgeToCurve",
+        bt_edgeToCurve = mc.iconTextButton(image1=target + "instanceToObject.png",
+                                       highlightImage=target + "instanceToObject.png", label="EdgeToCurve",
                                        annotation="Convert selected edges to curve",
                                        command="pm.mel.CreateCurveFromPoly()", height=scaleIcon)
 
