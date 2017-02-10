@@ -80,7 +80,7 @@ mc.setParent( '..' )
 mc.frameLayout( label='Transform', collapse=False, collapsable=True)
 mc.columnLayout()
 #192 370
-mc.channelBox('Channel Box', height=192, preventOverride=False, attributeEditorMode=False, containerAtTop=False, precision=3)#, fixedAttrList = ("translateX","translateY","translateZ","rotateX","rotateY","rotateZ","scaleX","scaleY","scaleZ","visibility"))
+mc.channelBox('Channel Box', height=192, preventOverride=False, attributeEditorMode=False, containerAtTop=False, precision=3, fixedAttrList = ("translateX","translateY","translateZ","rotateX","rotateY","rotateZ","scaleX","scaleY","scaleZ","visibility"))
 mc.rowColumnLayout(numberOfColumns=4, columnWidth=[(1, 66), (2, 66), (3, 66), (4,66)])
 mc.iconTextButton(label='DEL HIST', style='iconAndTextCentered', font="tinyBoldLabelFont", image=target+"/btn/imageActif.png", highlightImage=target+"/btn/imageHighlight.png", selectionImage=target+"/btn/imageEnable.png", height=20)
 mc.iconTextButton(label='CP', style='iconAndTextCentered', font="tinyBoldLabelFont", image=target+"/btn/imageActif.png", highlightImage=target+"/btn/imageHighlight.png", selectionImage=target+"/btn/imageEnable.png", height=20)

@@ -42,6 +42,10 @@ class kShelfBar():
         self.bt_kMaxToolBar = mc.iconTextButton(image1=self.target + "kMaxTool32.png", highlightImage=self.target + "kMaxTool32b.png",
                                         annotation="Launch kMaxTools", command=self.kMaxTool, width=scaleIcon)
 
+        self.bt_kMaxToolBar2 = mc.iconTextButton(image1=self.target + "kMaxTool32.png",
+                                                highlightImage=self.target + "kMaxTool32b.png",
+                                                annotation="Launch kMaxTools", command=self.kMaxUi2, width=scaleIcon)
+
         self.bt_sepHor1 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
 
@@ -248,7 +252,7 @@ class kShelfBar():
                                     annotation="Switch renderThumbnailUpdate", command=self.kmSwitchBallPreview, width=scaleIcon)    
                                     
             
-        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=160, enable=0)
+        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=130, enable=0)
 
         self.bt_preferences = mc.iconTextButton(image1=self.target + "settings32.png", highlightImage=self.target + "settings32b.png",
                                         annotation="Preferences", command=self.kmSetting, width=scaleIcon)
@@ -315,6 +319,10 @@ class kShelfBar():
         import kmaxUi_main
         reload(kmaxUi_main)
         kmaxUi_main.launchUi()
+
+    def kMaxUi2(self):
+        import kMaxUi2
+        reload(kMaxUi2)
 
     def kMod(self):
         import kMod
