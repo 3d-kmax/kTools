@@ -114,7 +114,12 @@ class kModBar():
                                     annotation="Extract the currently selected faces from their shell and shows a manipulator to adjust their offset",
                                     command="pm.mel.performPolyChipOff(0,0)", height=scaleIcon)
 
-        mc.separator(style='none', height=scaleIcon)
+        bt_mirrorOption = mc.iconTextButton(image1=target + "polyMirrorGeometry.png",
+                                    highlightImage=target + "polyMirrorGeometry.png", label="Poly Mirror Options",
+                                    annotation="Mirror Geometry",
+                                    command="pm.mel.MirrorPolygonGeometryOptions()", height=scaleIcon)
+
+        #mc.separator(style='none', height=scaleIcon)
 
         bt_separate = mc.iconTextButton(image1=target + "polySeparate.png",
                                     highlightImage=target + "polySeparate.png",
@@ -160,7 +165,7 @@ class kModBar():
                                          annotation="Split polygon", command=self.multiCut,
                                          doubleClickCommand="pm.mel.InteractiveSplitTool()", height=scaleIcon)
 
-        CutPolygon
+        #CutPolygon cut face
 
         bt_connectComponents = mc.iconTextButton(image1=target + "polyConnectComponents.png",
                                               highlightImage=target + "polyConnectComponents.png", label="Connect",
@@ -271,6 +276,11 @@ class kModBar():
                                     highlightImage=target + "instanceToObject.png", label="InstanceToObject",
                                     annotation="Convert selected instance(s) to object(s)",
                                     command="pm.mel.ConvertInstanceToObject()", height=scaleIcon)
+
+        bt_edgeToCurve = mc.iconTextButton(image1=target + "polyEdgeToCurve.png",
+                                       highlightImage=target + "polyEdgeToCurve.png", label="EdgeToCurve",
+                                       annotation="Convert selected edges to curve",
+                                       command="pm.mel.CreateCurveFromPoly()", height=scaleIcon)
 
         # mc.setParent('..') pour le shelfTabLayout
 
