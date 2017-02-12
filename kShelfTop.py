@@ -15,13 +15,12 @@ from time import localtime, strftime
 
 
 class kShelfBar():
-
     def __init__(self):
         
         scaleIcon = 30
         scaleSeparator = 18
-        path_list = os.path.realpath(__file__).split('\\')[:-2]
-        path_list.extend(['scripts', 'kTools', 'icons'])
+        path_list = os.path.realpath(__file__).split('\\')[:-1]
+        path_list.extend(['icons'])
         self.target = ''
         for item in path_list:
             self.target += item + '/'

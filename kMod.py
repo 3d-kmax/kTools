@@ -22,12 +22,12 @@ class kModBar():
         
         # /homes/mte/maya/2016/scripts/kTools/icons/        
         #print os.path.realpath(__file__)
-        path_list = os.path.realpath(__file__).split('\\')[:-2]
-        path_list.extend(['scripts', 'kTools', 'icons'])
+        path_list = os.path.realpath(__file__).split('\\')[:-1]
+        path_list.extend(['icons'])
         target = ''
         for item in path_list:
             target += item + '/'
-        #print target
+        print ">> " + target
 
         self.nPlane = 1
 
@@ -56,7 +56,7 @@ class kModBar():
                                       label="Plane", annotation="Create a tuned polygonal plane on the grid",
                                       command=self.kmPlaneDisk, height=scaleIcon)
 
-        bt_cube = mc.iconTextButton(image1=target + "polyCube2016.png", highlightImage=target + "polyCube2016b.png",
+        bt_cube = mc.iconTextButton(image1=target + "polyCube.png", highlightImage=target + "polyCube.png",
                                  label="Cube", annotation="Create a polygonal cube on the grid",
                                  command=self.kmPolycube, doubleClickCommand="pm.mel.CreatePolygonCubeOptions()", height=scaleIcon)
 
@@ -64,12 +64,12 @@ class kModBar():
                                        label="kSphere", annotation="Create a tuned polygonal cube on the grid",
                                        command=self.kmPolycubeSphere, height=scaleIcon)
 
-        bt_sphere = mc.iconTextButton(image1=target + "polySphere2016.png", highlightImage=target + "polySphere2016b.png",
+        bt_sphere = mc.iconTextButton(image1=target + "polySphere.png", highlightImage=target + "polySphere.png",
                                    label="Sphere", annotation="Create a polygonal sphere on the grid",
                                    command=self.kmSphere, doubleClickCommand="pm.mel.CreatePolygonSphereOptions()", height=scaleIcon)
 
-        bt_cylinder = mc.iconTextButton(image1=target + "polyCylinder2016.png",
-                                     highlightImage=target + "polyCylinder2016b.png", label="Cylinder",
+        bt_cylinder = mc.iconTextButton(image1=target + "polyCylinder.png",
+                                     highlightImage=target + "polyCylinder.png", label="Cylinder",
                                      annotation="Create a polygonal cylinder on the grid", command=self.kmCylinder,
                                      doubleClickCommand="pm.mel.CreatePolygonCylinderOptions()", height=scaleIcon)
 
@@ -160,8 +160,8 @@ class kModBar():
                                               annotation="Delete the selected Vertices / Edges",
                                               command="pm.mel.performPolyDeleteElements()", height=scaleIcon)
 
-        bt_splitPolygon = mc.iconTextButton(image1=target + "multiCut2016.png",
-                                         highlightImage=target + "multiCut2016b.png", label="SplitFace",
+        bt_splitPolygon = mc.iconTextButton(image1=target + "multicutnex.png",
+                                         highlightImage=target + "multicutnex.png", label="SplitFace",
                                          annotation="Split polygon", command=self.multiCut,
                                          doubleClickCommand="pm.mel.InteractiveSplitTool()", height=scaleIcon)
 
@@ -277,8 +277,8 @@ class kModBar():
                                     annotation="Convert selected instance(s) to object(s)",
                                     command="pm.mel.ConvertInstanceToObject()", height=scaleIcon)
 
-        bt_edgeToCurve = mc.iconTextButton(image1=target + "instanceToObject.png",
-                                       highlightImage=target + "instanceToObject.png", label="EdgeToCurve",
+        bt_edgeToCurve = mc.iconTextButton(image1=target + "polyEdgeToCurve.png",
+                                       highlightImage=target + "polyEdgeToCurve.png", label="EdgeToCurve",
                                        annotation="Convert selected edges to curve",
                                        command="pm.mel.CreateCurveFromPoly()", height=scaleIcon)
 

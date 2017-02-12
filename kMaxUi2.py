@@ -3,9 +3,14 @@ import pymel.core as pm
 import maya.mel as mel
 import os
 
-target = "/homes/mte/maya/2016/scripts/kTools"
+path_list = os.path.realpath(__file__).split('\\')[:-2]
+path_list.extend(['kTools'])
+target = ''
+for item in path_list:
+    target += item + '/'
+
 widthWin = 64+200+8
-heightWin = 1100
+heightWin = 1000
 windowName = "kMaxUi2"
 
 if mc.window(windowName, q=True, exists=True):
