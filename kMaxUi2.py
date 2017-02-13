@@ -5,11 +5,14 @@ import os
 
 path_list = os.path.realpath(__file__).split('\\')[:-2]
 path_list.extend(['kTools'])
+print ">> : ", path_list, " Version :", path_list[5]
 target = ''
-for item in path_list:
-    target += item + '/'
-
-target = "/homes/mte/maya/2016/scripts/kTools"
+if path_list[5] == "2018":
+    for item in path_list:
+        target += item + '/'
+if path_list[5] == "2016":
+    target = "/homes/mte/maya/2016/scripts/kTools"
+print ">> :", target
 
 widthWin = 64+200+8
 heightWin = 1000

@@ -20,13 +20,15 @@ class kShelfBar():
         scaleIcon = 30
         scaleSeparator = 18
         path_list = os.path.realpath(__file__).split('\\')[:-1]
-        path_list.extend(['icons'])
+        print ">> : ", path_list, " Version :", path_list[5]
         self.target = ''
-        for item in path_list:
-            self.target += item + '/'
-
-        self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
-        print self.target
+        if path_list[5] == "2018" :
+            path_list.extend(['icons'])
+            for item in path_list:
+                self.target += item + '/'
+        if path_list[5] == "2016" :
+            self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+        print ">> :", self.target
 
         windowName = "kShelfTop"
         toolName = "toolShelfTop"
@@ -246,13 +248,13 @@ class kShelfBar():
             
         self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=250, enable=0)
 
-        self.bt_preferences = mc.iconTextButton(image1=self.target + "settings32.png", highlightImage=self.target + "settings32b.png",
+        self.bt_preferences = mc.iconTextButton(image1=self.target + "settings32.png", highlightImage=self.target + "settings32.png",
                                         annotation="Preferences", command=self.kmSetting, width=scaleIcon)
 
-        self.bt_hotkeys = mc.iconTextButton(image1=self.target + "hotkey32.png", highlightImage=self.target + "hotkey32b.png",
+        self.bt_hotkeys = mc.iconTextButton(image1=self.target + "hotkey32.png", highlightImage=self.target + "hotkey32.png",
                                     annotation="Hotkeys Editor", command=self.kmHotKey, width=scaleIcon)
 
-        self.bt_plugins = mc.iconTextButton(image1=self.target + "plug32.png", highlightImage=self.target + "plug32b.png",
+        self.bt_plugins = mc.iconTextButton(image1=self.target + "plug32.png", highlightImage=self.target + "plug32.png",
                                     annotation="Plug-ins Manager", command=self.kmPlugIn, width=scaleIcon)
 
         self.bt_sepHor2 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
