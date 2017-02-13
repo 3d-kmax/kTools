@@ -43,7 +43,7 @@ class kRandomizer():
         mc.rowLayout(numberOfColumns=5)
 
         # POSITION
-        mc.frameLayout(label='Position :', labelVisible=0, borderVisible=True, borderStyle='out', marginHeight=4,
+        mc.frameLayout(label='Position :', labelVisible=0, borderVisible=False, borderStyle='out', marginHeight=4,
                        marginWidth=4)
 
         mc.rowColumnLayout("Position", numberOfColumns=2, columnSpacing=[(1, 4), (2, 4)], rowSpacing=[(1, 2)],
@@ -69,7 +69,7 @@ class kRandomizer():
         mc.setParent('..')
 
         # ROTATION
-        mc.frameLayout(label='Rotation :', labelVisible=0, borderVisible=True, borderStyle='out', marginHeight=4,
+        mc.frameLayout(label='Rotation :', labelVisible=0, borderVisible=False, borderStyle='out', marginHeight=4,
                        marginWidth=4)
 
         mc.rowColumnLayout("Rotation", numberOfColumns=2, columnSpacing=[(1, 4), (2, 4)], rowSpacing=[(1, 2)],
@@ -95,7 +95,7 @@ class kRandomizer():
         mc.setParent('..')
 
         # SCALE
-        mc.frameLayout(label='Scale :', labelVisible=0, borderVisible=True, borderStyle='out', marginHeight=4,
+        mc.frameLayout(label='Scale :', labelVisible=0, borderVisible=False, borderStyle='out', marginHeight=4,
                        marginWidth=4)
 
         mc.rowColumnLayout("Scale", numberOfColumns=2, columnSpacing=[(1, 4), (2, 4)], rowSpacing=[(1, 2)], width=110,
@@ -122,7 +122,7 @@ class kRandomizer():
         mc.setParent('..')
 
         # RANDOMIZE SPECIAL
-        mc.frameLayout(label='One Axe :', labelVisible=0, borderVisible=True, borderStyle='out', marginHeight=4,
+        mc.frameLayout(label='One Axe :', labelVisible=0, borderVisible=False, borderStyle='out', marginHeight=4,
                        marginWidth=4)
 
         mc.rowColumnLayout("One axe", numberOfColumns=2, columnSpacing=[(1, 4), (2, 4)], rowSpacing=[(1, 2)], width=110,

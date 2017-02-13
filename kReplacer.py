@@ -36,7 +36,7 @@ class kReplacer():
         selectionList = mc.ls(sl=True)
         selectionLong = len(selectionList)
 
-        mc.frameLayout(label="New object :", labelVisible=1, borderVisible=True, borderStyle="out", marginHeight=2, marginWidth=2)
+        mc.frameLayout(label="New object :", labelVisible=1, borderVisible=False, borderStyle="out", marginHeight=2, marginWidth=2)
         
         self.newSelObj = mc.textField(text="New object", enable=True, editable=False, backgroundColor=[.2,.2,.2], height=24, width=94 )
         if selectionList:
@@ -47,7 +47,7 @@ class kReplacer():
                 
         mc.setParent( '..' )
         
-        self.newObjsOptionsLayout = mc.frameLayout(label="News objects options :", collapsable=True, collapse=False, labelVisible=1, borderVisible=True, borderStyle="out", marginHeight=2, marginWidth=2, width=216, collapseCommand=partial(self.actuUIsize, -64), expandCommand=partial(self.actuUIsize, 64))
+        self.newObjsOptionsLayout = mc.frameLayout(label="News objects options :", collapsable=True, collapse=False, labelVisible=1, borderVisible=False, borderStyle="out", marginHeight=2, marginWidth=2, width=216, collapseCommand=partial(self.actuUIsize, -64), expandCommand=partial(self.actuUIsize, 64))
         mc.radioCollection("Hierarchies options")
         mc.columnLayout(rowSpacing=0)
         self.parentOption = mc.radioButton(label='Parent / On hierarchy', select=True)
@@ -59,7 +59,7 @@ class kReplacer():
         mc.setParent( '..' )
         mc.setParent( '..' )
         
-        self.obj2rplPanel = mc.frameLayout(label="Objects to replace :", labelVisible=1, borderVisible=True, borderStyle="out", marginHeight=2, marginWidth=2)
+        self.obj2rplPanel = mc.frameLayout(label="Objects to replace :", labelVisible=1, borderVisible=False, borderStyle="out", marginHeight=2, marginWidth=2)
         mc.paneLayout(height=216, width=210)
         self.objToReplace = mc.textScrollList(numberOfRows=20, allowMultiSelection=True)
         if selectionList:
@@ -78,7 +78,7 @@ class kReplacer():
         mc.setParent( '..' )
         mc.setParent( '..' )
 
-        self.targetsOptionsLayout = mc.frameLayout(label="Targets options :", collapsable=True, collapse=False, labelVisible=1, borderVisible=True, borderStyle="out", marginHeight=2, marginWidth=2, width=216, collapseCommand=partial(self.actuUIsize, -66), expandCommand=partial(self.actuUIsize, 66))
+        self.targetsOptionsLayout = mc.frameLayout(label="Targets options :", collapsable=True, collapse=False, labelVisible=1, borderVisible=False, borderStyle="out", marginHeight=2, marginWidth=2, width=216, collapseCommand=partial(self.actuUIsize, -66), expandCommand=partial(self.actuUIsize, 66))
         mc.rowLayout(numberOfColumns=3, columnWidth=[(1, 86), (2, 60), (3, 60)])
         mc.radioCollection("Targets options")
         mc.radioButton(label='Dont touch !', select=True)
@@ -92,7 +92,7 @@ class kReplacer():
         mc.setParent( '..' )
         mc.setParent( '..' )
         
-        self.offsetsLayout = mc.frameLayout(label="Offsets :", collapsable=True, collapse=False, labelVisible=1, borderVisible=True, borderStyle="out", marginHeight=2, marginWidth=2, width=216, collapseCommand=partial(self.actuUIsize, -52), expandCommand=partial(self.actuUIsize, 52))
+        self.offsetsLayout = mc.frameLayout(label="Offsets :", collapsable=True, collapse=False, labelVisible=1, borderVisible=False, borderStyle="out", marginHeight=2, marginWidth=2, width=216, collapseCommand=partial(self.actuUIsize, -52), expandCommand=partial(self.actuUIsize, 52))
         mc.rowColumnLayout(numberOfColumns=4, columnWidth=[(1, 56), (2, 51), (3, 51), (4, 51)], columnAlign=(1, "right"))
         mc.text("Translate :")
         self.offTx = mc.floatField(precision=3)
@@ -112,7 +112,7 @@ class kReplacer():
         mc.setParent( '..' )
         mc.setParent( '..' )        
         
-        mc.frameLayout(label="Replace", labelVisible=0, borderVisible=True, borderStyle="out", marginHeight=1, marginWidth=1)
+        mc.frameLayout(label="Replace", labelVisible=0, borderVisible=False, borderStyle="out", marginHeight=1, marginWidth=1)
         mc.columnLayout()
         replaceBtn = mc.button(label="Replace", width=210, height=30, command=self.kReplace)#, backgroundColor=[ .404, .553, .698])
         self.selTargets = mc.button(label="Select Targets", width=210, height=20, enable=0, command=self.selTarget)

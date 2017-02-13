@@ -18,6 +18,7 @@ class kModBar():
     def __init__(self):
 
         scaleIcon = 30
+        scaleSeparator = 12
         #scaleColumn = scaleIcon+2
         
         # /homes/mte/maya/2016/scripts/kTools/icons/        
@@ -48,11 +49,11 @@ class kModBar():
 
         modeling = mc.rowColumnLayout(numberOfColumns = 2, columnWidth=[(1,scaleIcon),(2,scaleIcon)])
 
-        bt_plane = mc.iconTextButton(image1=target + "polyMesh2016.png", highlightImage=target + "polyMesh2016b.png",
+        bt_plane = mc.iconTextButton(image1=target + "polykPlane.png", highlightImage=target + "polykPlane.png",
                                   label="Plane", annotation="Create a polygonal plane on the grid",
                                   command=self.kmPlane, doubleClickCommand="pm.mel.CreatePolygonPlaneOptions()", height=scaleIcon)
 
-        bt_planeDisk = mc.iconTextButton(image1=target + "kPlane32.png", highlightImage=target + "kPlane32b.png",
+        bt_planeDisk = mc.iconTextButton(image1=target + "polykDisk.png", highlightImage=target + "polykDisk.png",
                                       label="Plane", annotation="Create a tuned polygonal plane on the grid",
                                       command=self.kmPlaneDisk, height=scaleIcon)
 
@@ -60,7 +61,7 @@ class kModBar():
                                  label="Cube", annotation="Create a polygonal cube on the grid",
                                  command=self.kmPolycube, doubleClickCommand="pm.mel.CreatePolygonCubeOptions()", height=scaleIcon)
 
-        bt_cubeSphere = mc.iconTextButton(image1=target + "kSphere32.png", highlightImage=target + "kSphere32b.png",
+        bt_cubeSphere = mc.iconTextButton(image1=target + "polykSphere.png", highlightImage=target + "polykSphere.png",
                                        label="kSphere", annotation="Create a tuned polygonal cube on the grid",
                                        command=self.kmPolycubeSphere, height=scaleIcon)
 
@@ -81,10 +82,10 @@ class kModBar():
                                  label="Cone", annotation="Create a polygonal cone on the grid", command=self.kmCone,
                                  doubleClickCommand="pm.mel.CreatePolygonConeOptions()", height=scaleIcon)
 
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2 * scaleIcon, height=9, enable=0,
-                                      highlightImage=target + "separateHorizontal.png")
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2 * scaleIcon, height=9, enable=0,
-                                      highlightImage=target + "separateHorizontal.png")
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
+                          highlightImage=target + "separateHorizontal.png")
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
+                          highlightImage=target + "separateHorizontal.png")
 
         bt_locator = mc.iconTextButton(image1=target + "locator.png", highlightImage=target + "locator.png",
                                     label="Locator", annotation="Create a Locator", command=self.kmLocator, height=scaleIcon)
@@ -95,9 +96,9 @@ class kModBar():
                                     command="mc.lattice(divisions=(2, 2, 2), objectCentered=True, ldv=(2, 2, 2))", height=scaleIcon)
 
         #mc.separator( style='none', height=scaleIcon)
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
                                    highlightImage=target + "separateHorizontal.png")
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
                                    highlightImage=target + "separateHorizontal.png")
 
         bt_extrude = mc.iconTextButton(image1=target + "polyExtrudeFacet.png",
@@ -195,10 +196,10 @@ class kModBar():
 
         mc.separator(style='none', height=scaleIcon)
 
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
-                                   highlightImage=target + "separateHorizontal.png")
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
-                                   highlightImage=target + "separateHorizontal.png")
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
+                          highlightImage=target + "separateHorizontal.png")
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
+                          highlightImage=target + "separateHorizontal.png")
 
         bt_bridge = mc.iconTextButton(image1=target + "polyBridge.png", highlightImage=target + "polyBridge.png",
                                    label="Bridge", annotation="Create a bridge between two sets of edges or faces",
@@ -216,9 +217,9 @@ class kModBar():
                                      command="pm.mel.FillHole()", height=scaleIcon)
 
         mc.separator( style='none', height=scaleIcon)
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
                                    highlightImage=target + "separateHorizontal.png")
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
                                    highlightImage=target + "separateHorizontal.png")
         
         bt_smooth = mc.iconTextButton(image1=target + "polySmooth.png", highlightImage=target + "polySmooth.png",
@@ -239,9 +240,9 @@ class kModBar():
                                       annotation="Transform (Scale, Rotate, Translate...) the selected components (Vertices, Edges or Faces). UVs are moved in the UV Texture Editor",
                                       command="pm.mel.performPolyMove('',0)", height=scaleIcon)
 
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
                                    highlightImage=target + "separateHorizontal.png")
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
                                    highlightImage=target + "separateHorizontal.png")
 
         bt_softEdge30 = mc.iconTextButton(image1=target + "polyNormalSetAngle.png",
@@ -267,9 +268,9 @@ class kModBar():
                                     doubleClickCommand="pm.mel.ReversePolygonNormalsOptions()", height=scaleIcon)
 
         mc.separator( style='none', height=scaleIcon)
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
                                    highlightImage=target + "separateHorizontal.png")
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
                                    highlightImage=target + "separateHorizontal.png")
                                    
         bt_instObj = mc.iconTextButton(image1=target + "instanceToObject.png",
@@ -284,9 +285,11 @@ class kModBar():
 
         # mc.setParent('..') pour le shelfTabLayout
 
-        mc.separator( style='none', height=scaleIcon)
-        mc.iconTextButton(image1=target + "separateHorizontal.png", width=2*scaleIcon, height=9, enable=0,
+        #mc.separator( style='none', height=scaleIcon)
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=9, enable=0,
                                    highlightImage=target + "separateHorizontal.png")
+        mc.iconTextButton(image1=target + "separateHorizontal.png", width=scaleIcon, height=scaleSeparator, enable=0,
+                          highlightImage=target + "separateHorizontal.png")
 
         #my_dock = mc.dockControl(dockName, label="", area='left', content=my_window, allowedArea=['right', 'left'],
                                  #sizeable=False, width=2*scaleColumn+2) #label="kMod",
