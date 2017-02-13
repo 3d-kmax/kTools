@@ -28,6 +28,8 @@ class kModBar():
         target = ''
         for item in path_list:
             target += item + '/'
+
+        target = "/homes/mte/maya/2016/scripts/kTools/icons/"
         print ">> " + target
 
         self.nPlane = 1

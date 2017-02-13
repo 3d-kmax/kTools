@@ -24,6 +24,8 @@ class kShelfBar():
         self.target = ''
         for item in path_list:
             self.target += item + '/'
+
+        self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
         print self.target
 
         windowName = "kShelfTop"
@@ -625,16 +627,17 @@ class kShelfBar():
 
             mc.toolBar("MayaWindow|toolBar1", visible=False, e=True)
             mc.toolBar("MayaWindow|toolBar2", visible=False, e=True)
-            mc.toolBar("MayaWindow|toolBar4", visible=False, e=True)
+            #mc.toolBar("MayaWindow|toolBar4", visible=False, e=True)
             mc.toolBar("MayaWindow|toolBar5", visible=False, e=True)
             mc.toolBar("MayaWindow|toolBar6", visible=False, e=True)
             mc.toolBar("MayaWindow|toolBar7", visible=False, e=True)
             mc.window(gMainWindow, titleBar=False, e=True)
+            #self.kmToggleInterfaceLines()
 
         else:
             mc.toolBar("MayaWindow|toolBar1", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar2", visible=True, e=True)
-            mc.toolBar("MayaWindow|toolBar4", visible=True, e=True)
+            #mc.toolBar("MayaWindow|toolBar4", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar5", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar6", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar7", visible=True, e=True)

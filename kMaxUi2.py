@@ -9,6 +9,8 @@ target = ''
 for item in path_list:
     target += item + '/'
 
+target = "/homes/mte/maya/2016/scripts/kTools"
+
 widthWin = 64+200+8
 heightWin = 1000
 heightBtn = 20
@@ -29,7 +31,7 @@ mc.columnLayout()
 mc.rowLayout(numberOfColumns=2, columnWidth=[(1, 62), (2, 198)])
 #mc.rowColumnLayout(numberOfColumns=4, columnWidth=[(1, 66), (2, 66), (3, 66), (4, 66)])#, columnAlign4=["center","center","center","center"], columnAttach4=["both","both","both","both"], rowAttach=[(1, "both", 0), (1, "both", 0), (1, "both", 0), (1, "both", 0)])
 #mc.rowLayout(numberOfColumns=2, columnWidth=[(1, 66), (2, 198)])
-mc.iconTextStaticLabel( style='iconOnly', image=target+"icons/moveTool.png", height=2*heightBtn)
+mc.iconTextStaticLabel( style='iconOnly', image=target+"/icons/moveTool.png", height=2*heightBtn)
 
 mc.rowColumnLayout(numberOfColumns=3, columnWidth=[(1, 66), (2, 66), (3, 66)])
 mc.iconTextRadioCollection("Selection Type")
@@ -53,16 +55,16 @@ mc.setParent( '..' )
 #mc.setParent( '..' )
 
 mc.rowColumnLayout(numberOfColumns=2, columnWidth=[(1, 24), (2,240)], columnAlign=[(1, "right"),(2, "right")])
-mc.iconTextStaticLabel( style='iconOnly', image=target+"icons/transform.png", height=heightBtn)
+mc.iconTextStaticLabel( style='iconOnly', image=target+"/icons/transform.png", height=heightBtn)
 #mc.text(label="Transform  : ", font="tinyBoldLabelFont")
 mc.textField()
-mc.iconTextStaticLabel( style='iconOnly', image=target+"icons/shape.png", height=heightBtn)
+mc.iconTextStaticLabel( style='iconOnly', image=target+"/icons/shape.png", height=heightBtn)
 #mc.text(label="Shape  : ", font="tinyBoldLabelFont")
 mc.textField()
-mc.iconTextStaticLabel( style='iconOnly', image=target+"icons/constructionHistory.png", height=heightBtn)
+mc.iconTextStaticLabel( style='iconOnly', image=target+"/icons/constructionHistory.png", height=heightBtn)
 #mc.text(label="History  : ", font="tinyBoldLabelFont")
 mc.textField()
-mc.iconTextStaticLabel( style='iconOnly', image=target+"icons/quickRename.png", height=heightBtn)
+mc.iconTextStaticLabel( style='iconOnly', image=target+"/icons/quickRename.png", height=heightBtn)
 #mc.text(label="Sel. by name  : ", font="tinyBoldLabelFont")
 mc.textField()
 mc.setParent( '..' )
