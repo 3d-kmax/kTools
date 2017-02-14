@@ -3,16 +3,24 @@ import pymel.core as pm
 import maya.mel as mel
 import os
 
-path_list = os.path.realpath(__file__).split('\\')[:-2]
-path_list.extend(['kTools'])
-print ">> : ", path_list, " Version :", path_list[5]
+path_nomr = os.path.normcase(os.path.realpath(__file__))  # os.path.normcase()
+path_list = os.path.realpath(path_nomr).split('/')[:-1]
+#print ">> : ", path_list
+#path_list.extend(['kTools'])
 target = ''
 if path_list[5] == "2018":
+    print ">> : ", path_list, " Version :", path_list[5]
     for item in path_list:
         target += item + '/'
-if path_list[5] == "2016":
-    target = "/homes/mte/maya/2016/scripts/kTools"
+if path_list[4] == "2016":
+    print ">> : ", path_list, " Version :", path_list[4]
+    for item in path_list:
+        target += item + '/'
+    #target = "/homes/mte/maya/2016/scripts/kTools"
 print ">> :", target
+
+#target = "/homes/mte/maya/2016/scripts/kTools"
+#print target
 
 widthWin = 64+200+8
 heightWin = 1000

@@ -19,15 +19,23 @@ class kShelfBar():
         
         scaleIcon = 30
         scaleSeparator = 18
-        path_list = os.path.realpath(__file__).split('\\')[:-1]
-        print ">> : ", path_list, " Version :", path_list[5]
+
+        #self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+
+        path_nomr = os.path.normcase(os.path.realpath(__file__))    #os.path.normcase()
+        path_list = os.path.realpath(path_nomr).split('/')[:-1]
+        path_list.extend(['icons'])
         self.target = ''
-        if path_list[5] == "2018" :
-            path_list.extend(['icons'])
+        if path_list[5] == "2018":
+            print ">> : ", path_list, " Version :", path_list[5]
             for item in path_list:
                 self.target += item + '/'
-        if path_list[5] == "2016" :
-            self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+        if path_list[4] == "2016":
+            print ">> : ", path_list, " Version :", path_list[4]
+            for item in path_list:
+                self.target += item + '/'
+                # target = "/homes/mte/maya/2016/scripts/kTools"
+
         print ">> :", self.target
 
         windowName = "kShelfTop"
