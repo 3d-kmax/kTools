@@ -20,8 +20,8 @@ class kColorizer():
 
     def colorizerUI(self):
 
-        path_list = os.path.realpath(__file__).split('\\')[:-2]
-        path_list.extend(['prefs', 'icons'])
+        path_list = os.path.realpath(__file__).split('/')[:-1]
+        path_list.extend(['icons'])
         target = ""
         for item in path_list:
             target += item + '/'
@@ -77,7 +77,7 @@ class kColorizer():
         mc.setParent( '..' )
         
         mc.iconTextButton(image=target + "separateHor.png", disabledImage=target + "separateHor.png", width=9, enable=0)
-        self.selUnknowNodesBtn = mc.iconTextButton(style='iconOnly', image="delUnusedNode32.png", command=self.delUnknowNodes)
+        self.selUnknowNodesBtn = mc.iconTextButton(style='iconOnly', image=target + "delUnusedNode32.png", command=self.delUnknowNodes)
         mc.setParent( '..' )
         
         mc.setParent( '..' )                 

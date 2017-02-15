@@ -18,8 +18,8 @@ class kCleaner():
     #----------------------------------------------------------------------
     def cleanerUI(self):
     
-        path_list = os.path.realpath(__file__).split('\\')[:-2]
-        path_list.extend(['prefs', 'icons'])
+        path_list = os.path.realpath(__file__).split('/')[:-1]
+        path_list.extend(['icons'])
         target = ''
         for item in path_list:
             target += item + '/'

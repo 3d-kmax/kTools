@@ -20,26 +20,7 @@ class kShelfBar():
         scaleIcon = 30
         scaleSeparator = 18
 
-        #self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
-        path_brut = os.path.realpath(__file__)
-        print ">> path brut : ", path_brut
-        path_norm = os.path.normcase(path_brut)    #os.path.normcase()
-        print ">> path norm : ", path_norm
-        path_list = os.path.realpath(path_norm).split('\\')[:-1]
-        print ">> path split : ", path_list
-        path_list.extend(['icons'])
-        self.target = ''
-        if path_list[5] == "2018":
-            print ">> : ", path_list, " Version :", path_list[5]
-            for item in path_list:
-                self.target += item + '/'
-        if path_list[4] == "2016":
-            print ">> : ", path_list, " Version :", path_list[4]
-            for item in path_list:
-                self.target += item + '/'
-                # target = "/homes/mte/maya/2016/scripts/kTools"
-
-        print ">> :", self.target
+        self.initMayaVersion()
 
         windowName = "kShelfTop"
         toolName = "toolShelfTop"
@@ -327,6 +308,31 @@ class kShelfBar():
         allowedAreas = ['top', 'bottom']
         myTool = mc.toolBar(toolName, area='top', content=myWindow, allowedArea=allowedAreas)
         self.kmClock()
+
+    def initMayaVersion(self):
+        # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+        path_brut = os.path.realpath(__file__)
+        print ">> path brut : ", path_brut
+        path_norm = os.path.normpath(path_brut)  # os.path.normcase()
+        print ">> path norm : ", path_norm
+        path_list = os.path.realpath(path_norm).split('/')[:-1]
+        print ">> path split : ", path_list
+        path_list.extend(['icons'])
+        self.target = ''
+        #path_list = ["", "homes", "mte", "maya", "2016", "scripts", "kTools", "icons"]
+        for item in path_list:
+            self.target += item + '/'
+        '''if path_list[5] == "2018":
+            print ">> : ", path_list, " Version :", path_list[5]
+            for item in path_list:
+                self.target += item + '/'
+        if path_list[4] == "2016":
+            print ">> : ", path_list, " Version :", path_list[4]
+            for item in path_list:
+                self.target += item + '/'
+                # target = "/homes/mte/maya/2016/scripts/kTools"
+        '''
+        print ">> :", self.target
 
     def kMaxTool(self):
         import kmaxUi_main
