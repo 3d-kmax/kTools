@@ -26,15 +26,17 @@ class kModBar():
         path_list = os.path.realpath(path_nomr).split('/')[:-1]
         path_list.extend(['icons'])
         self.target = ''
-        if path_list[5] == "2018":
-            print ">> : ", path_list, " Version :", path_list[5]
-            for item in path_list:
-                self.target += item + '/'
-        if path_list[4] == "2016":
-            print ">> : ", path_list, " Version :", path_list[4]
-            for item in path_list:
-                self.target += item + '/'
-                # target = "/homes/mte/maya/2016/scripts/kTools"
+        # if path_list[5] == "2018":
+        #     print ">> : ", path_list, " Version :", path_list[5]
+        #     for item in path_list:
+        #         self.target += item + '/'
+        # if path_list[4] == "2016":
+        #     print ">> : ", path_list, " Version :", path_list[4]
+        #     for item in path_list:
+        #         self.target += item + '/'
+        #         # target = "/homes/mte/maya/2016/scripts/kTools"
+
+        self.target = "C:/Users/mterray/Documents/maya/2018/scripts/kTools/icons/"
 
         print ">> :", self.target
 

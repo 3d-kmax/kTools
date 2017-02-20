@@ -96,40 +96,40 @@ class kShelfBar():
         self.bt_sepHor1 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
 
-        self.bt_new = mc.iconTextButton(image1=self.target + "new32.png", highlightImage=self.target + "new32b.png",
+        self.bt_new = mc.iconTextButton(image1=self.target + "new32.png", highlightImage=self.target + "new32.png",
                                 annotation="Create a New Scene", command=self.kmNew, width=scaleIcon)
 
-        self.bt_open = mc.iconTextButton(image1=self.target + "open32.png", highlightImage=self.target + "open32b.png",
+        self.bt_open = mc.iconTextButton(image1=self.target + "open32.png", highlightImage=self.target + "open32.png",
                                  annotation="Open a Scene", command=self.kmOpen, width=scaleIcon)
 
-        self.bt_save = mc.iconTextButton(image1=self.target + "save32.png", highlightImage=self.target + "save32b.png",
+        self.bt_save = mc.iconTextButton(image1=self.target + "save.png", highlightImage=self.target + "save.png",
                                  annotation="Save the current Scene", command=self.kmSave, width=scaleIcon)
 
-        self.bt_savePlus = mc.iconTextButton(image1=self.target + "save+32.png", highlightImage=self.target + "save+32b.png",
+        self.bt_savePlus = mc.iconTextButton(image1=self.target + "save+.png", highlightImage=self.target + "save+.png",
                                      annotation="Incrementale Save", command=self.kmSavePlus, width=scaleIcon)
 
-        self.bt_saveAs = mc.iconTextButton(image1=self.target + "saveAs32.png", highlightImage=self.target + "saveAs32b.png",
+        self.bt_saveAs = mc.iconTextButton(image1=self.target + "saveAs.png", highlightImage=self.target + "saveAs.png",
                                    annotation="Save the current scene under a new name or export all",
                                    command=self.kmSaveAs, width=scaleIcon)
 
-        self.bt_import = mc.iconTextButton(image1=self.target + "import32.png", highlightImage=self.target + "import32b.png",
+        self.bt_import = mc.iconTextButton(image1=self.target + "import.png", highlightImage=self.target + "import.png",
                                    annotation="Import file", command=self.kmImport, width=scaleIcon)
 
-        self.bt_export = mc.iconTextButton(image1=self.target + "export32.png", highlightImage=self.target + "export32b.png",
+        self.bt_export = mc.iconTextButton(image1=self.target + "export.png", highlightImage=self.target + "export.png",
                                    annotation="Export entire scene (including contents of all references) into one file",
                                    command=self.kmExport, width=scaleIcon)
 
-        self.bt_exportSel = mc.iconTextButton(image1=self.target + "exportSel32.png", highlightImage=self.target + "exportSel32b.png",
+        self.bt_exportSel = mc.iconTextButton(image1=self.target + "exportSel.png", highlightImage=self.target + "exportSel.png",
                                       annotation="Export Selection...", command=self.kmExportSel, width=scaleIcon)
 
         self.bt_referenceEditor = mc.iconTextButton(image1=self.target + "reference32.png",
-                                            highlightImage=self.target + "reference32b.png", annotation="Reference Editor",
+                                            highlightImage=self.target + "reference32.png", annotation="Reference Editor",
                                             command=self.kmReferenceEditor, width=scaleIcon)
 
         self.bt_sepHor1 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
 
-        self.bt_outliner = mc.iconTextButton(image1=self.target + "outliner32.png", highlightImage=self.target + "outliner32b.png",
+        self.bt_outliner = mc.iconTextButton(image1=self.target + "outliner32.png", highlightImage=self.target + "outliner32.png",
                                      annotation="Outliner", command=self.kmOutliner, width=scaleIcon)
 
         self.bt_nodeEditor = mc.iconTextButton(image1=self.target + "nodeEditor.png", highlightImage=self.target + "nodeEditor.png",
@@ -315,7 +315,7 @@ class kShelfBar():
         print ">> path brut : ", path_brut
         path_norm = os.path.normpath(path_brut)  # os.path.normcase()
         print ">> path norm : ", path_norm
-        path_list = os.path.realpath(path_norm).split('/')[:-1]
+        path_list = os.path.realpath(path_norm).split('\\')[:-2]
         print ">> path split : ", path_list
         path_list.extend(['icons'])
         self.target = ''
@@ -332,6 +332,7 @@ class kShelfBar():
                 self.target += item + '/'
                 # target = "/homes/mte/maya/2016/scripts/kTools"
         '''
+        self.target = "C:/Users/mterray/Documents/maya/2018/scripts/kTools/icons/"
         print ">> :", self.target
 
     def kMaxTool(self):
