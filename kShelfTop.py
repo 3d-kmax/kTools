@@ -66,7 +66,7 @@ class kShelfBar():
                                              highlightImage=self.target + "fourViewLayout2016_32.png",
                                              annotation="Four View", command=self.kmFourView, width=scaleIcon)
 
-        self.bt_sepHor7 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
+        self.bt_sepHor2 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
 
         '''
@@ -91,7 +91,7 @@ class kShelfBar():
         self.bt_initScene = mc.iconTextButton(image1=self.target + "initScene.png", highlightImage=self.target + "initScene.png",
                                 annotation="Init Scene", command=self.kmInitScene, width=scaleIcon)
 
-        self.bt_sepHor1 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
+        self.bt_sepHor3 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
 
         self.bt_new = mc.iconTextButton(image1=self.target + "new32.png", highlightImage=self.target + "new32.png",
@@ -124,7 +124,7 @@ class kShelfBar():
                                             highlightImage=self.target + "reference32.png", annotation="Reference Editor",
                                             command=self.kmReferenceEditor, width=scaleIcon)
 
-        self.bt_sepHor1 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
+        self.bt_sepHor4 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
 
         self.bt_outliner = mc.iconTextButton(image1=self.target + "outliner32.png", highlightImage=self.target + "outliner32.png",
@@ -172,7 +172,7 @@ class kShelfBar():
                                   annotation="Cleaner tool",
                                   command=self.kmCleanTool, width=scaleIcon)
 
-        self.bt_sepHor5 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
+        self.bt_sepHor6 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
                                     
         self.bt_switchDisplayPoly = mc.iconTextButton(image1=self.target+"switchAllPoly32.png", highlightImage=self.target+"switchAllPoly32.png",
@@ -193,7 +193,7 @@ class kShelfBar():
         self.bt_plugins = mc.iconTextButton(image1=self.target + "plug32.png", highlightImage=self.target + "plug32.png",
                                     annotation="Plug-ins Manager", command=self.kmPlugIn, width=scaleIcon)
 
-        self.bt_sepHor2 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
+        self.bt_sepHor7 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
 
         self.bt_modelingToolKit = mc.iconTextButton(image1=self.target + "modelToolKit.png",
@@ -216,7 +216,7 @@ class kShelfBar():
                                             annotation="Channel Box / Layer Editor",
                                             command=self.kmChannelBox, width=scaleIcon)
 
-        self.bt_sepHor7 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
+        self.bt_sepHor8 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
 
         self.bt_clock = mc.iconTextButton(image1=self.target + "clock32.png", highlightImage=self.target + "clock32b.png",
@@ -228,7 +228,7 @@ class kShelfBar():
         self.bt_m01 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
         self.bt_m02 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
 
-        self.bt_sepHor8 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
+        self.bt_sepHor9 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
 
         self.bt_reduce = mc.iconTextButton(image1=self.target + "minimize32.png", highlightImage=self.target + "minimize32.png",
@@ -491,12 +491,13 @@ class kShelfBar():
 
         if mc.toolBar("MayaWindow|toolBar1", visible=True, q=True):
 
-            mc.toolBar("MayaWindow|toolBar1", visible=False, e=True)
-            mc.toolBar("MayaWindow|toolBar2", visible=False, e=True)
-            #mc.toolBar("MayaWindow|toolBar4", visible=False, e=True)
-            mc.toolBar("MayaWindow|toolBar5", visible=False, e=True)
-            mc.toolBar("MayaWindow|toolBar6", visible=False, e=True)
-            mc.toolBar("MayaWindow|toolBar7", visible=False, e=True)
+            mc.toolBar("MayaWindow|toolBar1", visible=False, e=True) # status line
+            mc.toolBar("MayaWindow|toolBar2", visible=False, e=True) # shelf
+            # mc.toolBar("MayaWindow|toolBar3", visible=False, e=True) # help line
+            # mc.toolBar("MayaWindow|toolBar4", visible=False, e=True) # command line
+            mc.toolBar("MayaWindow|toolBar5", visible=False, e=True) # range slider
+            mc.toolBar("MayaWindow|toolBar6", visible=False, e=True) # time slider
+            mc.toolBar("MayaWindow|toolBar7", visible=False, e=True) # tool box
             mc.window(gMainWindow, titleBar=False, e=True)
             #self.kmToggleInterfaceLines()
 

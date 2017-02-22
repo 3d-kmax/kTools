@@ -206,11 +206,12 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         # mayaVersion = "2014-x64"
         # target = "C:/Users/"+user+"/Documents/maya/"+mayaVersion+"/prefs/icons/"
 
-        path_list = os.path.realpath(__file__).split('\\')[:-2]
-        path_list.extend(['prefs', 'icons'])
+        path_list = os.path.realpath(__file__).split('/')[:-1]
+        path_list.extend(['icons'])
         target = ''
         for item in path_list:
             target += item + '/'
+        print target
 
         self.iconLockOn = QtGui.QIcon()
         self.iconLockOn.addPixmap(QtGui.QPixmap(target + "lock_closed_b.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
