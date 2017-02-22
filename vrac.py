@@ -258,4 +258,8 @@ for b in building :
     mc.file("//ava_server/projets/avalor/ava_maya/scenes/ribarchives/" + ep + "/" + ep + "-building" + b + "/publish/ava_mts_" + ep + "-building" + b + "_v000.ma",
             i=1, type="mayaAscii", ignoreVersion=1, ra=1, mergeNamespacesOnClash=1, namespace=":", options="v=0;", pr=1)
 
-# petite modification ici !
+# conversion UI to PY
+def kmConvertUI(self):
+    # transform UI to PY
+    import pysideuic
+    pysideuic.compileUiDir(r'C:\Users\m.terray\Documents\maya\2014-x64\scripts')

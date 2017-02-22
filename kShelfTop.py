@@ -73,9 +73,7 @@ class kShelfBar():
         self.bt_scriptView = mc.iconTextButton(image1=self.target + "scriptEdPersp32.png",
                                 highlightImage=self.target + "scriptEdPersp32b.png", annotation="Script/Persp",
                                 command=self.kmScriptView, width=scaleIcon)
-        '''
 
-        '''
         self.bt_textureView = mc.iconTextButton(image1=self.target + "perspTexture32.png",
                                 highlightImage=self.target + "perspTexture32b.png", annotation="Texture/Persp",
                                 command=self.kmTextureView, width=scaleIcon)
@@ -140,11 +138,6 @@ class kShelfBar():
 
         self.bt_textureEditor = mc.iconTextButton(image1=self.target + "uvEditor.png", highlightImage=self.target + "uvEditor.png",
                                           annotation="UV Texture Editor", command=self.kmUVTextureEditor, width=scaleIcon)
-                                    
-        '''
-        self.bt_textureFileManager = mc.iconTextButton(image1=self.target+"textMan32.png", annotation="UV Texture Editor", 
-                                            command=self.kmTextureFileManager, width=scaleIcon)
-        '''
 
         self.bt_nameSpaceEditor = mc.iconTextButton(image1=self.target + "nameSpace32.png",
                                             highlightImage=self.target + "nameSpace32b.png", annotation="Namespace Editor",
@@ -153,20 +146,6 @@ class kShelfBar():
         self.bt_relationshipEditor = mc.iconTextButton(image1=self.target + "relation32.png",
                                                highlightImage=self.target + "relation32b.png",
                                                annotation="Relation Ship Editor", command=self.kmRelationShipEditor, width=scaleIcon)
-
-        '''
-        self.bt_sepHor4 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
-                                    width=scaleSeparator, enable=0)
-                                     
-        self.bt_freezeScale = mc.iconTextButton(image1=self.target+"freezeT.png", highlightImage=self.target+"freezeT.png",
-                                    annotation="Freeze Scale", command=self.kmFreezeScale, width=scaleIcon)
-
-        self.bt_deleteHistory = mc.iconTextButton(image1=self.target+"delete_history.png", highlightImage=self.target+"delete_history.png",
-                                    annotation="Delete construction history", command=self.kmDeleteHistory, width=scaleIcon)
-                                    
-        self.bt_centerPivot = mc.iconTextButton(image1=self.target+"center.png", highlightImage=self.target+"center.png",
-                                    annotation="Center Pivot", command=self.kmCenterPivot, width=scaleIcon)                          
-        '''
 
         self.bt_sepHor5 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                 width=scaleSeparator, enable=0)
@@ -182,47 +161,12 @@ class kShelfBar():
        
         self.bt_replacer = mc.iconTextButton(image1=self.target+"kReplacer32.png", highlightImage=self.target+"kReplacer32.png",
                                         annotation="kReplacer", command=self.kmReplacer, width=scaleIcon)
-       
-        '''
-        self.bt_scatter = mc.iconTextButton(image1=self.target + "scatter32.png", highlightImage=self.target + "scatter32b.png",
-                                    annotation="Scattering", command=self.icPolyScatter, width=scaleIcon)
-        '''
 
         self.bt_kitBuilder = mc.iconTextButton(image1=self.target + "scatter32.png", highlightImage=self.target + "scatter32b.png",
                                     annotation="Scattering", command=self.kitBuilder, width=scaleIcon)
 
-        ''' TEAM TO
-        self.bt_setSmooth = mc.iconTextButton(image1=self.target + "smoothSetTool.png",
-                                highlightImage=self.target + "smoothSetTool.png",
-                                command=self.kmSetSmoothGroupTool, width=scaleIcon)
-                                
-        self.bt_propsBankManager = mc.iconTextButton(image1=self.target+"propsManager32.png", highlightImage=self.target+"propsManager32.png",
-                                    annotation="props bank manager", command=self.kmPropsManager, width=scaleIcon)
-                                    
-        self.bt_mainpackManager = mc.iconTextButton(image1=self.target+"mainPackTool32.png", highlightImage=self.target+"mainPackTool32.png",
-                                    annotation="mainpack manager", command=self.kmMainpackManager, width=scaleIcon)
-        '''
-                                    
         self.bt_frRenamer = mc.iconTextButton(image1=self.target + "text-32.png", highlightImage=self.target + "text-32.png",
                                       annotation="FrRenamer", command=self.frRenamer, width=scaleIcon)
-
-        '''
-        self.bt_selNgones = mc.iconTextButton(image1=self.target+"selNgones.png", highlightImage=self.target+"selNgones.png",
-                                        annotation="Select nGones", command=self.kmSelNgones, width=scaleIcon)
-                                                
-        self.bt_convertUItoPY = mc.iconTextButton(image1=self.target + "convertUI32.png", highlightImage=self.target + "convertUI32b.png",
-                                          annotation="Convert .ui file in .py file",
-                                          command=self.kmConvertUI, width=scaleIcon)
-                                          
-		self.bt_ttRig3 = mc.iconTextButton(image1=self.target+"ttRig3.png", highlightImage=self.target+"ttRig3.png",
-                                    annotation="Launch ttRig3", command=self.ttRig3, width=scaleIcon)
-        
-		self.bt_checkPublish = mc.iconTextButton(image1=self.target+"checkPublish.png", highlightImage=self.target+"checkPublish.png",
-                                    annotation="Check Publishability", command=self.checkPublish, width=scaleIcon)        
-        
-        self.bt_light = mc.iconTextButton(image1=self.target+"sun32.png", highlightImage=self.target+"sun32.png",
-                                    annotation="Create/Delete LightConfig for Viewport" , command=self.kmLightTheSun, width=scaleIcon)
-        '''
 
         self.bt_clean = mc.iconTextButton(image1=self.target + "kCleaner.png", highlightImage=self.target + "kCleaner.png",
                                   annotation="Cleaner tool",
@@ -272,9 +216,6 @@ class kShelfBar():
                                             annotation="Channel Box / Layer Editor",
                                             command=self.kmChannelBox, width=scaleIcon)
 
-        #self.bt_sceneManager = mc.shelfButton(image1=self.target + "stella32.png", highlightImage=self.target + "stella32b.png",
-        #                                 annotation="Scene manager", command=self.cubeSceneManager)
-
         self.bt_sepHor7 = mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
                                     width=scaleSeparator, enable=0)
 
@@ -311,28 +252,19 @@ class kShelfBar():
 
     def initMayaVersion(self):
         # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+
         path_brut = os.path.realpath(__file__)
         print ">> path brut : ", path_brut
         path_norm = os.path.normpath(path_brut)  # os.path.normcase()
         print ">> path norm : ", path_norm
-        path_list = os.path.realpath(path_norm).split('\\')[:-2]
+        path_list = os.path.realpath(path_norm).split('/')[:-1]
         print ">> path split : ", path_list
         path_list.extend(['icons'])
         self.target = ''
-        #path_list = ["", "homes", "mte", "maya", "2016", "scripts", "kTools", "icons"]
         for item in path_list:
             self.target += item + '/'
-        '''if path_list[5] == "2018":
-            print ">> : ", path_list, " Version :", path_list[5]
-            for item in path_list:
-                self.target += item + '/'
-        if path_list[4] == "2016":
-            print ">> : ", path_list, " Version :", path_list[4]
-            for item in path_list:
-                self.target += item + '/'
-                # target = "/homes/mte/maya/2016/scripts/kTools"
-        '''
-        self.target = "C:/Users/mterray/Documents/maya/2018/scripts/kTools/icons/"
+        print ">> :", self.target
+
         print ">> :", self.target
 
     def kMaxTool(self):
@@ -415,11 +347,6 @@ class kShelfBar():
 
     def kmUVTextureEditor(self):
         pm.mel.TextureViewWindow()
-        
-    '''
-    def kmTextureFileManager(self):
-        pm.mel.FileTextureManager()
-    '''
 
     def kmNameSpaceEditor(self):
         pm.mel.NamespaceEditor()
@@ -431,48 +358,30 @@ class kShelfBar():
         pm.mel.ToggleModelingToolkit()
 
     def kmAttributeEditor(self):
-        #pm.mel.AttributeEditor()
-        '''imageOne = mc.iconTextButton(self.bt_attributeEditor, image1=1, q=True)
-                if imageOne == self.target + "attribute32.png":
-            mc.iconTextButton(self.bt_attributeEditor, image1=self.target + "attribute32b.png", highlightImage=self.target + "attribute32.png", e=True)
-        else:
-            mc.iconTextButton(self.bt_attributeEditor, image1=self.target + "attribute32.png", highlightImage=self.target + "attribute32b.png", e=True)'''
-        
-        
+        # imageOne = mc.iconTextButton(self.bt_attributeEditor, image1=1, q=True)
+        #         if imageOne == self.target + "attribute32.png":
+        #     mc.iconTextButton(self.bt_attributeEditor, image1=self.target + "attribute32b.png", highlightImage=self.target + "attribute32.png", e=True)
+        # else:
+        #     mc.iconTextButton(self.bt_attributeEditor, image1=self.target + "attribute32.png", highlightImage=self.target + "attribute32b.png", e=True)
         pm.mel.ToggleAttributeEditor()
         
     def kmToolSettings(self):
-        #pm.mel.ToolSettingsWindow()
-        '''imageOne = mc.iconTextButton(self.bt_toolSettings, image1=1, q=True)
-        if imageOne == self.target + "toolSettings32.png":
-            mc.iconTextButton(self.bt_toolSettings, image1=self.target + "toolSettings32b.png", highlightImage=self.target + "toolSettings32.png", e=True)
-        else:
-            mc.iconTextButton(self.bt_toolSettings, image1=self.target + "toolSettings32.png", highlightImage=self.target + "toolSettings32b.png", e=True)
-        '''
-        
+        # pm.mel.ToolSettingsWindow()
+        # imageOne = mc.iconTextButton(self.bt_toolSettings, image1=1, q=True)
+        # if imageOne == self.target + "toolSettings32.png":
+        #     mc.iconTextButton(self.bt_toolSettings, image1=self.target + "toolSettings32b.png", highlightImage=self.target + "toolSettings32.png", e=True)
+        # else:
+        #     mc.iconTextButton(self.bt_toolSettings, image1=self.target + "toolSettings32.png", highlightImage=self.target + "toolSettings32b.png", e=True)
         pm.mel.ToggleToolSettings()
 
     def kmChannelBox(self, *args):
-        '''imageOne = mc.iconTextButton(self.bt_channelBoxLayerEditor, image1=1, q=True)
-        if imageOne == self.target + "channel32.png":
-            mc.iconTextButton(self.bt_channelBoxLayerEditor, image1=self.target + "channel32b.png", highlightImage=self.target + "channel32.png", e=True)
-        else:
-            mc.iconTextButton(self.bt_channelBoxLayerEditor, image1=self.target + "channel32.png", highlightImage=self.target + "channel32b.png", e=True)
-        '''
-        
-        pm.mel.ToggleChannelsLayers()     
-    
-    '''
-    def kmFreezeScale(self):
-        mc.makeIdentity(a=1, t=0, r=0, s=1, n=1, pn=1) 
+        # imageOne = mc.iconTextButton(self.bt_channelBoxLayerEditor, image1=1, q=True)
+        # if imageOne == self.target + "channel32.png":
+        #     mc.iconTextButton(self.bt_channelBoxLayerEditor, image1=self.target + "channel32b.png", highlightImage=self.target + "channel32.png", e=True)
+        # else:
+        #     mc.iconTextButton(self.bt_channelBoxLayerEditor, image1=self.target + "channel32.png", highlightImage=self.target + "channel32b.png", e=True)
+        pm.mel.ToggleChannelsLayers()
 
-    def kmDeleteHistory(self):
-        mc.delete(constructionHistory=True)
-    
-    def kmCenterPivot(self):
-        pm.mel.CenterPivot()
-    '''
-    
     def kmSinglePerspView(self):
         pm.mel.setNamedPanelLayout("Single Perspective View")
 
@@ -480,16 +389,11 @@ class kShelfBar():
         pm.mel.setNamedPanelLayout("Four View")
 
     def kmOutlinerView(self):
-        pm.mel.ToggleOutliner()
-        #pm.mel.setNamedPanelLayout("Persp/Outliner")
+        # pm.mel.ToggleOutliner()
+        pm.mel.setNamedPanelLayout("Persp/Outliner")
 
     def kmScriptView(self):
         pm.mel.setNamedPanelLayout("Script/View")
-
-    '''
-    def kmTextureView(self):
-        pm.mel.setNamedPanelLayout("Persp/UV Texture Editor")
-    '''
         
     def kmColorPicker(self):
         import kColorizer
@@ -502,33 +406,12 @@ class kShelfBar():
     def kmReplacer(self):
         import kReplacer
         reload (kReplacer)
-        
-    '''
-    def icPolyScatter(self):
-        pm.mel.icPolyScatter()
-    '''
 
     def kitBuilder(self):
         import mayaTools.assetKitBuilder.main
         import mayaTools.assetKitBuilder.core
 
         mayaTools.assetKitBuilder.main.load()
-
-    ''' TEAMTO
-     
-    def kmSetSmoothGroupTool(self):
-        import setSmoothGroupTool
-        reload(setSmoothGroupTool)
-    
-    def kmPropsManager(self):
-        pm.mel.ava_assetBankManager()
-        
-    def kmMainpackManager(self):
-        pm.mel.ava_mainpack_manager()
-        
-    def kmSelNgones(self):
-        mel.eval('polyCleanupArgList 3 { "0","2","1","0","1","0","0","0","0","1e-005","0","1e-005","0","1e-005","0","-1","0" };')
-    '''
 
     def frRenamer(self):
         import renamer.renamer as renamer
@@ -562,43 +445,6 @@ class kShelfBar():
         else :
             mc.renderThumbnailUpdate(True)
             print ">> Render Thumbnail ON"
-                
-    '''
-    def kmLightTheSun(self):
-        sel = mc.ls('groupLightPrev')
-        if not sel :
-            mc.ambientLight(n='ambiantLightPrev', intensity=2.5)
-            mc.spotLight(n='spotLightPrev', intensity=0.6, coneAngle=120)
-            mc.setAttr( 'spotLightPrevShape.emitSpecular', 0)
-            mc.setAttr( 'spotLightPrev.rotateX', -90 )
-            mc.setAttr( 'spotLightPrev.translateY', 300)
-            #mc.setAttr( 'spotLightPrev.scale', 200, 200, 200, type="double3")
-            mc.group( 'ambiantLightPrev', 'spotLightPrev', n='groupLightPrev' )
-            allModelPanel = mc.getPanel(type='modelPanel')
-            if allModelPanel:
-                for modelPanelName in allModelPanel:
-                    mc.modelEditor(modelPanelName, e=True, displayLights="all", shadows=True)
-        else :
-            mc.delete(sel)
-            allModelPanel = mc.getPanel(type='modelPanel')
-            if allModelPanel:
-                for modelPanelName in allModelPanel:
-                    mc.modelEditor(modelPanelName, e=True, displayLights="default", shadows=False)
-    
-    def ttRig3(self):
-        pm.mel.ttRig3()
-    
-    def checkPublish(self):
-        pm.mel.CheckPublishable()
-    
-    def kmConvertUI(self):
-        # transform UI to PY
-        import pysideuic
-        pysideuic.compileUiDir(r'C:\Users\m.terray\Documents\maya\2014-x64\scripts')
-
-    def cubeSceneManager(self):
-        pm.mel.cubeSceneManager()
-    '''
         
     def kmBasicBrowser(self):
         from mayaOverrides import tk_command_utils

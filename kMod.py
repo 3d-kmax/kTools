@@ -21,23 +21,16 @@ class kModBar():
 
         #self.target =  "/homes/mte/maya/2016/scripts/kTools/icons/"
 
-        #print ">> 1 :", os.path.realpath(__file__)
-        path_nomr = os.path.normcase(os.path.realpath(__file__))    #os.path.normcase()
-        path_list = os.path.realpath(path_nomr).split('/')[:-1]
+        path_brut = os.path.realpath(__file__)
+        print ">> path brut : ", path_brut
+        path_norm = os.path.normpath(path_brut)  # os.path.normcase()
+        print ">> path norm : ", path_norm
+        path_list = os.path.realpath(path_norm).split('/')[:-1]
+        print ">> path split : ", path_list
         path_list.extend(['icons'])
         self.target = ''
-        # if path_list[5] == "2018":
-        #     print ">> : ", path_list, " Version :", path_list[5]
-        #     for item in path_list:
-        #         self.target += item + '/'
-        # if path_list[4] == "2016":
-        #     print ">> : ", path_list, " Version :", path_list[4]
-        #     for item in path_list:
-        #         self.target += item + '/'
-        #         # target = "/homes/mte/maya/2016/scripts/kTools"
-
-        self.target = "C:/Users/mterray/Documents/maya/2018/scripts/kTools/icons/"
-
+        for item in path_list:
+            self.target += item + '/'
         print ">> :", self.target
 
         self.nPlane = 1
