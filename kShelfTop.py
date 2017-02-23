@@ -257,7 +257,9 @@ class kShelfBar():
         print ">> path brut : ", path_brut
         path_norm = os.path.normpath(path_brut)  # os.path.normcase()
         print ">> path norm : ", path_norm
-        path_list = os.path.realpath(path_norm).split('/')[:-1]
+        path_clean = path_norm.replace("\\", "/")
+        print ">> path clean : ", path_clean
+        path_list = path_clean.split('/')[:-1]
         print ">> path split : ", path_list
         path_list.extend(['icons'])
         self.target = ''
@@ -265,7 +267,6 @@ class kShelfBar():
             self.target += item + '/'
         print ">> :", self.target
 
-        print ">> :", self.target
 
     def kMaxTool(self):
         import kmaxUi_main
