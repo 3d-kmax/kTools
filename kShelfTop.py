@@ -614,10 +614,10 @@ class kShelfBar():
         mc.minimizeApp()
 
     def kmToggleInterfaceLines(self):
-        pm.mel.toggleShelfTabs()
-        pm.mel.ToggleMainMenubar()
-        pm.mel.ToggleModelEditorBars()
-        pm.mel.TogglePanelMenubar()
+        pm.mel.toggleShelfTabs() # shelf Tab
+        pm.mel.ToggleMainMenubar() # main menu bar
+        pm.mel.ToggleModelEditorBars() # model editor bar
+        pm.mel.TogglePanelMenubar() # panel menu bar
 
     def kmToggleToolBars(self):
         gMainWindow = pm.mel.eval('$tmpVar=$gMainWindow')
