@@ -18,11 +18,14 @@ import maya.mel as mel
 import os
 
 import kmaxUi
+
 reload(kmaxUi)
 
 import kMod
 import kShelfTop
-#mc.shelfTabLayout("MayaWindow|toolBar2|MainShelfLayout|formLayout14|ShelfLayout", selectTab="TTmod", e=True)
+
+
+# mc.shelfTabLayout("MayaWindow|toolBar2|MainShelfLayout|formLayout14|ShelfLayout", selectTab="TTmod", e=True)
 
 
 def wrapinstance(ptr, base=None):
@@ -96,10 +99,10 @@ def catchJobException(func):
 
 
 def isAutoAddNewObjsEnabled():
-	iJob = pm.mel.eval("$temp = $isolateSelectAutoAddScriptJob") #2106
-	#print iJob
-    #iJob = pm.mel.eval("$temp = $autoAddNewObjJobNum") #2015
-	return mc.scriptJob(ex=iJob)
+    iJob = pm.mel.eval("$temp = $isolateSelectAutoAddScriptJob")  # 2106
+    # print iJob
+    # iJob = pm.mel.eval("$temp = $autoAddNewObjJobNum") #2015
+    return mc.scriptJob(ex=iJob)
 
 
 # isolate selection pour le raccourci clavier				enableIsolateSelect modelPanel4 true; 		isolateSelect -state 1 modelPanel4;
@@ -932,7 +935,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
                                    w=self.wg_channelBox.width(),
                                    h=self.wg_channelBox.height(),
                                    # fixedAttrList = ("translateX","translateY","translateZ","rotateX","rotateY","rotateZ","scaleX","scaleY","scaleZ")
-        )
+                                   )
         qChbox = controlToPySide(sChboxName)
         self.lt_channelBox.addWidget(qChbox)
         mc.deleteUI(sTmpWin, window=True)
@@ -1092,7 +1095,6 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
                 self.bt_nearClip.setText("Near " + self.value[self.nearValue])
                 mc.setAttr(camShape + ".nearClipPlane", float(self.value[self.nearValue]))
             self.nearValue = self.nearValue + 1
-
 
     def setFarClip(self):
         self.value = ["100", "100000"]
@@ -1559,12 +1561,12 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         self.isolateSelection()
         self.isolateSelection()
         print "toto"
-        
+
     # autoadd to isolate : isoSelectAutoAddNewObjs modelPanel4 true;
     def autoAddIsolate(self):
         # self.allModelPanel = mc.getPanel(type='modelPanel') # ne fonctionne pas sur tous les panels en meme temps... bug maya
         self.focusPanel = mc.getPanel(withFocus=True)
-        #bAutoAdd = setIsolateSelectAutoAdd()
+        # bAutoAdd = setIsolateSelectAutoAdd()
         bAutoAdd = isAutoAddNewObjsEnabled()
         if self.focusPanel:
             if not bAutoAdd:
@@ -1741,19 +1743,19 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         if startSelection:
             selShapes = mc.listRelatives(startSelection, shapes=True)
             if selShapes:
-                #stateNormals = mc.polyOptions(selShapes[-1], displayNormal=True, query=True)[0]
+                # stateNormals = mc.polyOptions(selShapes[-1], displayNormal=True, query=True)[0]
                 stateNormals = mc.getAttr(selShapes[-1] + '.displayNormal')
-                #print ">> ", startSelection, selShapes[-1], stateNormals
+                # print ">> ", startSelection, selShapes[-1], stateNormals
 
                 if stateNormals:
                     for obj in selShapes:
                         mc.polyOptions(obj, displayNormal=False)
-                        #mc.setAttr(obj + '.displayNormal', False)
+                        # mc.setAttr(obj + '.displayNormal', False)
                     msg = ">> Display Normals OFF"
                 else:
                     for obj in selShapes:
                         mc.polyOptions(obj, displayNormal=True, facet=True, point=False, sizeNormal=1)
-                        #mc.setAttr(obj + '.displayNormal', True)
+                        # mc.setAttr(obj + '.displayNormal', True)
                     msg = ">> Display Normals ON"
             else:
                 msg = ">> No Shape selected"
