@@ -422,8 +422,14 @@ class kShelfBar():
         pm.mel.NewScene()
 
     def kmInitScene(self):
-        import kmrt.sceneInit
-        kmrt.sceneInit.sceneInit('setMod')
+        from mayaShotgun import pathShotgun
+        from mayaPipeline import assetPipe
+        assetType = pathShotgun.fieldFromPath(mc.file(query=True, sceneName=True), 'sg_asset_type')
+        assetPipe.createAssetDialog(namespace=':', assetType=assetType)
+
+        #old
+        #import kmrt.sceneInit
+        #kmrt.sceneInit.sceneInit('setMod')
 
     def kmOpen(self):
         pm.mel.OpenScene()
@@ -599,8 +605,11 @@ class kShelfBar():
         batcherTemplate.autoSetCategoryAndTemplate()
 
     def kmQualityCheck(sel):
-        import qualityCheck
-        qualityCheck.load()
+        # import qualityCheck
+        # qualityCheck.load()
+
+        from qualityCheck import gui2
+        gui2.launch()
 
     def kmClock(self):
         heure = strftime("%H:%M:%S", localtime())
