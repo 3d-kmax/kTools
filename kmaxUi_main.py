@@ -97,35 +97,7 @@ def catchJobException(func):
 
     return doIt
 
-
-def isAutoAddNewObjsEnabled():
-    iJob = pm.mel.eval("$temp = $isolateSelectAutoAddScriptJob")  # 2106
-    # print iJob
-    # iJob = pm.mel.eval("$temp = $autoAddNewObjJobNum") #2015
-    return mc.scriptJob(ex=iJob)
-
-
-# isolate selection pour le raccourci clavier				enableIsolateSelect modelPanel4 true; 		isolateSelect -state 1 modelPanel4;
-def toggleIsolateObject():
-    allModelPanel = mc.getPanel(type='modelPanel')
-    if allModelPanel:
-        for modelPanelName in allModelPanel:
-            state = mc.isolateSelect(modelPanelName, query=True, state=True)
-            if state == 0:
-                if mc.selectMode(q=True, object=True):
-                    pm.mel.enableIsolateSelect(modelPanelName, 1)
-                else:
-                    mc.selectMode(object=True)
-                    pm.mel.enableIsolateSelect(modelPanelName, 1)
-                    mc.selectMode(component=True)
-                # self.bt_isolateSel.setStyleSheet("background-color: "+self.selectColor+";\n"
-                # "selection-background-color: rgb(150, 150, 150);\n")
-                print ">> Isolate : ON."
-            else:
-                pm.mel.enableIsolateSelect(modelPanelName, 0)
-                # self.bt_isolateSel.setStyleSheet("background-color: "+self.unSelectColor+";\n"			
-                # "selection-background-color: "+self.selectColor+";\n")
-                print ">> Isolate : OFF."
+# ici isAutoAddNewObjsEnabled & toggleIsolateObject
 
 
 class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
@@ -203,6 +175,34 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         self.actuSelection()
         self.actuTypeSelection()
         self.actuToolSettings()
+
+    def isAutoAddNewObjsEnabled(self):
+        iJob = pm.mel.eval('$temp = $isolateSelectAutoAddScriptJob')  # 2106
+        print iJob
+        # iJob = pm.mel.eval("$temp = $autoAddNewObjJobNum") #2015
+        return mc.scriptJob(ex=iJob)
+
+    # isolate selection pour le raccourci clavier				enableIsolateSelect modelPanel4 true; 		isolateSelect -state 1 modelPanel4;
+    def toggleIsolateObject(self):
+        allModelPanel = mc.getPanel(type='modelPanel')
+        if allModelPanel:
+            for modelPanelName in allModelPanel:
+                state = mc.isolateSelect(modelPanelName, query=True, state=True)
+                if state == 0:
+                    if mc.selectMode(q=True, object=True):
+                        pm.mel.enableIsolateSelect(modelPanelName, 1)
+                    else:
+                        mc.selectMode(object=True)
+                        pm.mel.enableIsolateSelect(modelPanelName, 1)
+                        mc.selectMode(component=True)
+                    # self.bt_isolateSel.setStyleSheet("background-color: "+self.selectColor+";\n"
+                    # "selection-background-color: rgb(150, 150, 150);\n")
+                    print ">> Isolate : ON."
+                else:
+                    pm.mel.enableIsolateSelect(modelPanelName, 0)
+                    # self.bt_isolateSel.setStyleSheet("background-color: "+self.unSelectColor+";\n"
+                    # "selection-background-color: "+self.selectColor+";\n")
+                    print ">> Isolate : OFF."
 
     def initIcon(self):
         # user = "m.terray"
@@ -609,25 +609,25 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         if mc.modelEditor("modelPanel4", q=True, xray=True):  # probleme a regler : "modelPanel4" !!!		
             self.bt_xrayMat.setChecked(True)
             self.bt_xrayMat.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                    "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
         else:
             self.bt_xrayMat.setChecked(False)
             self.bt_xrayMat.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
+                                            "selection-background-color: " + self.selectColor + ";\n")
 
         # bt_defaultMat
         if mc.modelEditor("modelPanel4", q=True, useDefaultMaterial=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_defaultMat.setChecked(True)
             self.bt_defaultMat.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                       "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
         else:
             self.bt_defaultMat.setChecked(False)
             self.bt_defaultMat.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
+                                            "selection-background-color: " + self.selectColor + ";\n")
 
         # bt_defaultLight
         self.bt_defaultLight.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                     "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
         if mc.modelEditor("modelPanel4", q=True,
                           displayLights=True) == "default":  # probleme a regler : "modelPanel4" !!!
             self.bt_defaultLight.setText("DF LT")
@@ -638,71 +638,71 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         if mc.modelEditor("modelPanel4", q=True, wireframeOnShaded=True):  # probleme a regler : "modelPanel4" !!!		
             self.bt_wireframe.setChecked(True)
             self.bt_wireframe.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                      "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
         else:
             self.bt_wireframe.setChecked(False)
             self.bt_wireframe.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                        "selection-background-color: " + self.selectColor + ";\n")
+                                            "selection-background-color: " + self.selectColor + ";\n")
 
         # bt_selHighlight
         if mc.modelEditor("modelPanel4", q=True, selectionHiliteDisplay=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_selHighlight.setChecked(True)
             self.bt_selHighlight.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                         "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
         else:
             self.bt_selHighlight.setChecked(False)
             self.bt_selHighlight.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+                                            "selection-background-color: " + self.selectColor + ";\n")
 
         # bt_backFaceCulling
         if mc.modelEditor("modelPanel4", q=True, backfaceCulling=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_backFaceCulling.setChecked(True)
             self.bt_backFaceCulling.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                            "selection-background-color: rgb(150, 150, 150);\n")
+                                                "selection-background-color: rgb(150, 150, 150);\n")
         else:
             self.bt_backFaceCulling.setChecked(False)
             self.bt_backFaceCulling.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                              "selection-background-color: " + self.selectColor + ";\n")
+                                                "selection-background-color: " + self.selectColor + ";\n")
 
         # bt_twoSideLight
         if mc.modelEditor("modelPanel4", q=True, twoSidedLighting=True):  # probleme a regler : "modelPanel4" !!!	
             self.bt_twoSideLight.setChecked(True)
             self.bt_twoSideLight.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                         "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
         else:
             self.bt_twoSideLight.setChecked(False)
             self.bt_twoSideLight.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+                                            "selection-background-color: " + self.selectColor + ";\n")
 
         # bt_toggleGrid
         if mc.grid(toggle=True, q=True):
             self.bt_toggleGrid.setChecked(True)
             self.bt_toggleGrid.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                       "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
         else:
             self.bt_toggleGrid.setChecked(False)
             self.bt_toggleGrid.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
+                                            "selection-background-color: " + self.selectColor + ";\n")
 
         # bt_isolateSel	
         if mc.isolateSelect("modelPanel4", q=True, state=True):  # probleme a regler : "modelPanel4" !!!	
             self.bt_isolateSel.setChecked(True)
             self.bt_isolateSel.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                       "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
         else:
             self.bt_isolateSel.setChecked(False)
             self.bt_isolateSel.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
+                                                "selection-background-color: " + self.selectColor + ";\n")
 
         # bt_autoAddIsolate												
-        if isAutoAddNewObjsEnabled():
+        if self.isAutoAddNewObjsEnabled():
             self.bt_autoAddIsolate.setChecked(True)
             self.bt_autoAddIsolate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                           "selection-background-color: rgb(150, 150, 150);\n")
+                                                "selection-background-color: rgb(150, 150, 150);\n")
         else:
             self.bt_autoAddIsolate.setChecked(False)
             self.bt_autoAddIsolate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                             "selection-background-color: " + self.selectColor + ";\n")
+                                                "selection-background-color: " + self.selectColor + ";\n")
 
     def initDiscrete(self):
         self.bt_discreteMove.setChecked(mc.manipMoveContext("Move", q=True, snap=True))
@@ -1567,7 +1567,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         # self.allModelPanel = mc.getPanel(type='modelPanel') # ne fonctionne pas sur tous les panels en meme temps... bug maya
         self.focusPanel = mc.getPanel(withFocus=True)
         # bAutoAdd = setIsolateSelectAutoAdd()
-        bAutoAdd = isAutoAddNewObjsEnabled()
+        bAutoAdd = self.isAutoAddNewObjsEnabled()
         if self.focusPanel:
             if not bAutoAdd:
                 pm.mel.isoSelectAutoAddNewObjs(self.focusPanel, True)

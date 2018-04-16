@@ -2,7 +2,7 @@
 # functions clean
 # Author : Maxime.Terray
 # Date   : avril 2018
-# Ver    : 1.0
+# Ver    : xxx
 # felixlechA.com | f.rault
 # ----------------------------------------------------------------------
 import maya.cmds as mc
@@ -14,8 +14,9 @@ import os
 class kCleaner():
 
     def __init__(self):
-        self.cleanerUI()
         self.initPath()
+        self.cleanerUI()
+
     #----------------------------------------------------------------------
     def cleanerUI(self):
 

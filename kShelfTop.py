@@ -82,12 +82,12 @@ class kShelfBar():
                                              command=self.kmFourView,
                                              width=scaleIcon)
 
+        '''
         self.bt_sepHor2 = mc.iconTextButton(image1=self.target + "separateHor.png",
                                             disabledImage=self.target + "separateHor.png",
                                             width=scaleSeparator,
                                             enable=0)
 
-        '''
         self.bt_scriptView = mc.iconTextButton(image1=self.target + "scriptEdPersp32.png",
                                 highlightImage=self.target + "scriptEdPersp32b.png",
                                 annotation="Script/Persp",
@@ -99,7 +99,6 @@ class kShelfBar():
                                 annotation="Texture/Persp",
                                 command=self.kmTextureView,
                                 width=scaleIcon)
-        '''
 
         self.bt_basicBrowser = mc.iconTextButton(image1=self.target + "common_basicBrowser.png",
                                                  highlightImage=self.target + "common_basicBrowser.png",
@@ -124,8 +123,10 @@ class kShelfBar():
                                               annotation="Init Scene",
                                               command=self.kmInitScene,
                                               width=scaleIcon)
+        '''
 
-        self.bt_sepHor3 = mc.iconTextButton(image1=self.target + "separateHor.png",
+
+        mc.iconTextButton(image1=self.target + "separateHor.png",
                                             disabledImage=self.target + "separateHor.png",
                                             width=scaleSeparator,
                                             enable=0)
@@ -135,6 +136,11 @@ class kShelfBar():
                                         annotation="Create a New Scene",
                                         command=self.kmNew,
                                         width=scaleIcon)
+
+        mc.iconTextButton(image1=self.target + "separateHor.png",
+                                            disabledImage=self.target + "separateHor.png",
+                                            width=scaleSeparator,
+                                            enable=0)
 
         self.bt_open = mc.iconTextButton(image1=self.target + "open32.png",
                                          highlightImage=self.target + "open32.png",
@@ -148,16 +154,51 @@ class kShelfBar():
                                          command=self.kmSave,
                                          width=scaleIcon)
 
+        self.bt_saveAs = mc.iconTextButton(image1=self.target + "saveAs.png",
+                                           highlightImage=self.target + "saveAs.png",
+                                           annotation="Save the current scene under a new name or export all",
+                                           command=self.kmSaveAs,
+                                           width=scaleIcon)
+
+        self.bt_exportProps = mc.iconTextButton(image1=self.target + "exportSel.png",
+                                              highlightImage=self.target + "exportSel.png",
+                                              annotation="Export Selection...",
+                                              command=self.kmExportProps,
+                                              width=scaleIcon)
+
+        self.bt_checkPublishable = mc.iconTextButton(image1=self.target + "common_qualityCheck.png",
+                                                 highlightImage=self.target + "common_qualityCheck.png",
+                                                 annotation="Check Publishability",
+                                                 command=self.kmCheckPublishable,
+                                                 width=scaleIcon)
+
+        mc.iconTextButton(image1=self.target + "separateHor.png",
+                                            disabledImage=self.target + "separateHor.png",
+                                            width=scaleSeparator,
+                                            enable=0)
+
+        self.bt_classicOpen = mc.iconTextButton(image1=self.target + "open32.png",
+                                         highlightImage=self.target + "open32.png",
+                                         annotation="Open a Scene",
+                                         command=self.kmClassicOpenScene,
+                                         width=scaleIcon)
+
+        self.bt_classicSave = mc.iconTextButton(image1=self.target + "save.png",
+                                         highlightImage=self.target + "save.png",
+                                         annotation="Save the current Scene",
+                                         command=self.kmClassicSave,
+                                         width=scaleIcon)
+
         self.bt_savePlus = mc.iconTextButton(image1=self.target + "save+.png",
                                              highlightImage=self.target + "save+.png",
                                              annotation="Incrementale Save",
                                              command=self.kmSavePlus,
                                              width=scaleIcon)
 
-        self.bt_saveAs = mc.iconTextButton(image1=self.target + "saveAs.png",
+        self.bt_classicSaveAs = mc.iconTextButton(image1=self.target + "saveAs.png",
                                            highlightImage=self.target + "saveAs.png",
                                            annotation="Save the current scene under a new name or export all",
-                                           command=self.kmSaveAs,
+                                           command=self.kmClassicSaveAs,
                                            width=scaleIcon)
 
         self.bt_import = mc.iconTextButton(image1=self.target + "import.png",
@@ -184,7 +225,7 @@ class kShelfBar():
                                                     command=self.kmReferenceEditor,
                                                     width=scaleIcon)
 
-        self.bt_sepHor4 = mc.iconTextButton(image1=self.target + "separateHor.png",
+        mc.iconTextButton(image1=self.target + "separateHor.png",
                                             disabledImage=self.target + "separateHor.png",
                                             width=scaleSeparator,
                                             enable=0)
@@ -225,7 +266,7 @@ class kShelfBar():
                                                        command=self.kmRelationShipEditor,
                                                        width=scaleIcon)
 
-        self.bt_sepHor5 = mc.iconTextButton(image1=self.target + "separateHor.png",
+        mc.iconTextButton(image1=self.target + "separateHor.png",
                                             disabledImage=self.target + "separateHor.png",
                                             width=scaleSeparator,
                                             enable=0)
@@ -266,7 +307,7 @@ class kShelfBar():
                                           command=self.kmCleanTool,
                                           width=scaleIcon)
 
-        self.bt_sepHor6 = mc.iconTextButton(image1=self.target + "separateHor.png",
+        mc.iconTextButton(image1=self.target + "separateHor.png",
                                             disabledImage=self.target + "separateHor.png",
                                             width=scaleSeparator,
                                             enable=0)
@@ -282,9 +323,8 @@ class kShelfBar():
                                                       annotation="Switch renderThumbnailUpdate",
                                                       command=self.kmSwitchBallPreview,
                                                       width=scaleIcon)
-                                    
             
-        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=250, enable=0)
+        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=200, enable=0)
 
         self.bt_preferences = mc.iconTextButton(image1=self.target + "settings32.png",
                                                 highlightImage=self.target + "settings32.png",
@@ -304,7 +344,7 @@ class kShelfBar():
                                             command=self.kmPlugIn,
                                             width=scaleIcon)
 
-        self.bt_sepHor7 = mc.iconTextButton(image1=self.target + "separateHor.png",
+        mc.iconTextButton(image1=self.target + "separateHor.png",
                                             disabledImage=self.target + "separateHor.png",
                                             width=scaleSeparator,
                                             enable=0)
@@ -334,7 +374,7 @@ class kShelfBar():
                                                           command=self.kmChannelBox,
                                                           width=scaleIcon)
 
-        self.bt_sepHor8 = mc.iconTextButton(image1=self.target + "separateHor.png",
+        mc.iconTextButton(image1=self.target + "separateHor.png",
                                             disabledImage=self.target + "separateHor.png",
                                             width=scaleSeparator,
                                             enable=0)
@@ -351,7 +391,7 @@ class kShelfBar():
         self.bt_m01 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
         self.bt_m02 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
 
-        self.bt_sepHor9 = mc.iconTextButton(image1=self.target + "separateHor.png",
+        mc.iconTextButton(image1=self.target + "separateHor.png",
                                             disabledImage=self.target + "separateHor.png",
                                             width=scaleSeparator,
                                             enable=0)
@@ -451,6 +491,9 @@ class kShelfBar():
 
     def kmExportSel(self):
         pm.mel.ExportSelection()
+
+    def kmExportProps(self):
+        pm.mel.tak_ExportProp()
 
     def kmSetting(self):
         pm.mel.PreferencesWindow()
@@ -584,8 +627,9 @@ class kShelfBar():
             print ">> Render Thumbnail OFF"
         else :
             mc.renderThumbnailUpdate(True)
-            print ">> Render Thumbnail ON"
-        
+            print ">> Render Thumbnail ON"\
+
+    '''  mikros      
     def kmBasicBrowser(self):
         from mayaOverrides import tk_command_utils
         from mayaCore.ui import BusyCursor
@@ -610,6 +654,18 @@ class kShelfBar():
 
         from qualityCheck import gui2
         gui2.launch()
+    '''
+    def kmClassicOpenScene(self):
+        pm.mel.OpenSceneClassic()
+
+    def kmClassicSave(self):
+        pm.mel.SaveSceneClassic()
+
+    def kmClassicSaveAs(self):
+        pm.mel.SaveSceneAsClassic()
+
+    def kmCheckPublishable(self):
+        pm.mel.CheckPublishable()
 
     def kmClock(self):
         heure = strftime("%H:%M:%S", localtime())

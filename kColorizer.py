@@ -13,11 +13,11 @@ import os
 class kColorizer():
 
     def __init__(self):
+        self.initPath()
         self.pickColor = 0
         self.colorizerUI()
         self.actuUIsize()
         #self.shaderType = self.initShaderType()
-        self.initPath()
 
     def colorizerUI(self):
 
