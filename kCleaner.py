@@ -1,8 +1,9 @@
 # ----------------------------------------------------------------------
 # functions clean
-# Author : felixlechA.com | f.rault
-# Date   : february 2015
+# Author : Maxime.Terray
+# Date   : avril 2018
 # Ver    : 1.0
+# felixlechA.com | f.rault
 # ----------------------------------------------------------------------
 import maya.cmds as mc
 import pymel.core as pm
