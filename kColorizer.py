@@ -17,14 +17,17 @@ class kColorizer():
         self.colorizerUI()
         self.actuUIsize()
         #self.shaderType = self.initShaderType()
+        self.initPath()
 
     def colorizerUI(self):
 
+        '''
         path_list = os.path.realpath(__file__).split('/')[:-1]
         path_list.extend(['icons'])
         target = ""
         for item in path_list:
             target += item + '/'
+            '''
 
         allButtons = [("blueShader32.png", 0.63, 0.66, 0.70, "blue"),
                       ("greenShader32.png", 0.63, 0.70, 0.63, "green"),
@@ -55,9 +58,9 @@ class kColorizer():
             #print ">> color : " + str(btn[4])
             #annotationBtn = self.setBtnAnnotation(str(btn[4]))
             #print ">> annotation : " + annotationBtn
-            self.btnName = mc.iconTextButton(image=target + btn[0], command=partial(self.applyShaderColor, R=btn[1], G=btn[2], B=btn[3], name=btn[4]))
-        mc.iconTextButton(image=target + "separateHor.png", disabledImage=target + "separateHor.png", width=9, enable=0)
-        mc.iconTextButton(image=target + "pipette32.png", annotation="Pick Color to Apply on Selection", command=self.kPipette)
+            self.btnName = mc.iconTextButton(image=self.target + btn[0], command=partial(self.applyShaderColor, R=btn[1], G=btn[2], B=btn[3], name=btn[4]))
+        mc.iconTextButton(image=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png", width=9, enable=0)
+        mc.iconTextButton(image=self.target + "pipette32.png", annotation="Pick Color to Apply on Selection", command=self.kPipette)
         mc.setParent( '..' )
         
         self.optionsLayout = mc.frameLayout(label="Options :", labelVisible=False, borderVisible=False, collapsable=True, collapse=False, marginHeight=2, marginWidth=2, width=self.widthWin, collapseCommand=self.actuUIsize, expandCommand=self.actuUIsize)#borderStyle="out",
@@ -76,8 +79,8 @@ class kColorizer():
         self.shSuffix = mc.textField(text="", enable=True, editable=True, height=20, width=50 )
         mc.setParent( '..' )
         
-        mc.iconTextButton(image=target + "separateHor.png", disabledImage=target + "separateHor.png", width=9, enable=0)
-        self.selUnknowNodesBtn = mc.iconTextButton(style='iconOnly', image=target + "delUnusedNode32.png", command=self.delUnknowNodes)
+        mc.iconTextButton(image=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png", width=9, enable=0)
+        self.selUnknowNodesBtn = mc.iconTextButton(style='iconOnly', image=self.target + "delUnusedNode32.png", command=self.delUnknowNodes)
         mc.setParent( '..' )
         
         mc.setParent( '..' )                 
@@ -88,7 +91,23 @@ class kColorizer():
         
         '''for btn in allButtons:
             annotationBtn = self.setBtnAnnotation(str(btn[4]))
-            self.btnName = mc.iconTextButton(self.btnName, e=True, annotation=annotationBtn)'''           
+            self.btnName = mc.iconTextButton(self.btnName, e=True, annotation=annotationBtn)'''
+
+    def initPath(self):
+        # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+        path_brut = os.path.realpath(__file__)
+        print ">> path brut : ", path_brut
+        path_norm = os.path.normpath(path_brut)  # os.path.normcase()
+        print ">> path norm : ", path_norm
+        path_clean = path_norm.replace("\\", "/")
+        print ">> path clean : ", path_clean
+        path_list = path_clean.split('/')[:-1]
+        print ">> path split : ", path_list
+        path_list.extend(['icons'])
+        self.target = ''
+        for item in path_list:
+            self.target += item + '/'
+        print ">> :", self.target
 
     def setBtnAnnotation(self, btnColor="Color"):
         shaderType = self.initShaderType()

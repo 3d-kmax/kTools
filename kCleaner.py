@@ -14,15 +14,16 @@ class kCleaner():
 
     def __init__(self):
         self.cleanerUI()
-
+        self.initPath()
     #----------------------------------------------------------------------
     def cleanerUI(self):
-    
-        path_list = os.path.realpath(__file__).split('/')[:-1]
+
+        '''path_list = os.path.realpath(__file__).split('/')[:-1]
         path_list.extend(['icons'])
         target = ''
         for item in path_list:
             target += item + '/'
+            '''
 
         allButtons =    [("delNameSpace32.png", self.nameSpace_removeAll,"Remove all nameSpace in current scene"),
                         ("delUnusedNode32.png", self.unknowNodes_remove, "Remove unknow noReferenced nodes"),
@@ -52,12 +53,28 @@ class kCleaner():
         #mc.shelfLayout(windowName, style="iconOnly", cellWidthHeight=[32, 32], height=38, width=self.widthWin)
 
         for btn in allButtons:
-            mc.iconTextButton(image=target + btn[0], command=btn[1], annotation=btn[2])
+            mc.iconTextButton(image=self.target + btn[0], command=btn[1], annotation=btn[2])
 
-        mc.iconTextButton(image1=target + "separateHor.png", disabledImage=target + "separateHor.png", width=9, enable=0)
-        mc.iconTextButton(image1=target + "cleanAll32.png", command=self.cleanAll, annotation="Clean All")
+        mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png", width=9, enable=0)
+        mc.iconTextButton(image1=self.target + "cleanAll32.png", command=self.cleanAll, annotation="Clean All")
 
         mc.showWindow(self.myWindow)
+        
+    def initPath(self):
+        # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+        path_brut = os.path.realpath(__file__)
+        print ">> path brut : ", path_brut
+        path_norm = os.path.normpath(path_brut)  # os.path.normcase()
+        print ">> path norm : ", path_norm
+        path_clean = path_norm.replace("\\", "/")
+        print ">> path clean : ", path_clean
+        path_list = path_clean.split('/')[:-1]
+        print ">> path split : ", path_list
+        path_list.extend(['icons'])
+        self.target = ''
+        for item in path_list:
+            self.target += item + '/'
+        print ">> :", self.target
 
     #----------------------------------------------------------------------
     def nameSpace_removeAll(self):
