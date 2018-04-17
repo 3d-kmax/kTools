@@ -301,6 +301,10 @@ class kShelfBar():
                                               command=self.frRenamer,
                                               width=scaleIcon)
 
+        self.bt_setSmooth = mc.iconTextButton(image1=self.target + "smoothSetTool.png",
+                                              highlightImage=self.target + "smoothSetTool.png",
+                                              command=self.kmSetSmoothGroupTool, width=scaleIcon)
+
         self.bt_clean = mc.iconTextButton(image1=self.target + "kCleaner.png",
                                           highlightImage=self.target + "kCleaner.png",
                                           annotation="Cleaner tool",
@@ -323,8 +327,14 @@ class kShelfBar():
                                                       annotation="Switch renderThumbnailUpdate",
                                                       command=self.kmSwitchBallPreview,
                                                       width=scaleIcon)
+
+        self.bt_kmUnfreeze = mc.iconTextButton(image1=self.target+"unfreeze.png",
+                                               highlightImage=self.target + "unfreeze2.png",
+                                               annotation="unFreeze",
+                                               command=self.kmUnfreeze,
+                                               width=scaleIcon)
             
-        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=200, enable=0)
+        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=140, enable=0)
 
         self.bt_preferences = mc.iconTextButton(image1=self.target + "settings32.png",
                                                 highlightImage=self.target + "settings32.png",
@@ -602,7 +612,11 @@ class kShelfBar():
 
         class_renamer = renamer.Renamer()
         class_renamer.UI()
-        
+
+    def kmSetSmoothGroupTool(self):
+        import setSmoothGroupTool
+        reload(setSmoothGroupTool)
+
     def kmCleanTool(self):
         import kCleaner
 
@@ -628,6 +642,60 @@ class kShelfBar():
         else :
             mc.renderThumbnailUpdate(True)
             print ">> Render Thumbnail ON"\
+
+    def kmUnfreeze(selfself):
+        # unfreeze transform PYMEL
+        import pymel.core as pm
+
+        def cleanupUnfreeze(*args):
+            sel = pm.ls(sl=1)
+
+            nodes = pm.ls(args)
+            if not nodes:
+                nodes = sel
+            nodes = pm.ls(nodes, type='transform')
+            if not nodes:
+                raise RuntimeError()
+
+            for node in nodes:
+                _t = node.t.get()
+                _rp = node.rp.get()
+                _rpt = node.rpt.get()
+
+                _shape = None
+                shapes = node.getShapes()
+                if shapes:
+                    _shape = pm.createNode('transform', p=node)
+                    for _sh in shapes:
+                        _sh.setParent(_shape, r=1, s=1)
+                    _shape.setParent(w=1)
+
+                children = node.getChildren(type='transform')
+                for _ch in children:
+                    if not (node.t.isSettable() and node.r.isSettable() and node.s.isSettable()):
+                        pm.warning('cleanupUnfreeze: "%s" (child of "%s") have locked or connected transformations!' % (
+                            str(_ch), str(node)))
+                    _ch.setParent(w=1)
+
+                node.rp.set(0, 0, 0)
+                node.sp.set(0, 0, 0)
+                node.rpt.set(0, 0, 0)
+                node.spt.set(0, 0, 0)
+                node.t.set(_t + _rp + _rpt)
+
+                for _ch in children:
+                    _ch.setParent(node)
+
+                if _shape:
+                    _shape.setParent(node)
+                    pm.makeIdentity(_shape, a=1)
+                    for _sh in shapes:
+                        _sh.setParent(node, r=1, s=1)
+                    pm.delete(_shape)
+
+            pm.select(sel)
+
+        cleanupUnfreeze()
 
     '''  mikros      
     def kmBasicBrowser(self):

@@ -3,21 +3,26 @@ import pymel.core as pm
 import maya.mel as mel
 import os
 
-# path_brut = os.path.realpath(__file__)
-# print ">> path brut : ", path_brut
-# path_norm = os.path.normpath(path_brut)  # os.path.normcase()
-# print ">> path norm : ", path_norm
-# path_list = os.path.realpath(path_norm).split('/')[:-1]
-# print ">> path split : ", path_list
-# path_list.extend(['icons'])
-# target = ''
-# for item in path_list:
-#     target += item + '/'
-# print ">> :", target
 
-target = "/homes/mte/maya/2016/scripts/kTools"
 
-widthWin = 64+140+8
+# self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+path_brut = os.path.realpath(__file__)
+print ">> path brut : ", path_brut
+path_norm = os.path.normpath(path_brut)  # os.path.normcase()
+print ">> path norm : ", path_norm
+path_clean = path_norm.replace("\\", "/")
+print ">> path clean : ", path_clean
+path_list = path_clean.split('/')[:-1]
+print ">> path split : ", path_list
+#path_list.extend(['icons'])
+target = ''
+for item in path_list:
+    target += item + '/'
+print ">> : ", target
+print ">> : ", target[0:-1]
+target = target[0:-1]
+
+widthWin = 64+140+8#+20
 heightWin = 1000
 heightBtn = 20
 windowName = "kMaxUi2"
@@ -28,7 +33,7 @@ if mc.window(windowName, q=True, exists=True):
 kMaxUi2Window = mc.window(windowName, height=heightWin, width=widthWin, toolbox=True, titleBar=True, minimizeButton=False, maximizeButton=False, sizeable=False)#, resizeToFitChildren=True)
 mc.window(windowName, width=widthWin, height=heightWin, edit=True)
 mc.scrollLayout( 'scrollLayout', childResizable=True ) # to delete
-mc.columnLayout( adjustableColumn=True, width=widthWin-4)
+mc.columnLayout( adjustableColumn=True, width=widthWin)#-4)
 
 # Common Selection Options
 mc.frameLayout( label='Common Selection Options', collapse=False, collapsable=True)
@@ -165,7 +170,7 @@ mc.iconTextButton(label='-', style='iconAndTextCentered', font="tinyBoldLabelFon
 
 mc.iconTextCheckBox(label='Cam', style='iconOnly', font="tinyBoldLabelFont", image=target+"/icons/camera.png", highlightImage=target+"/icons/camera.png", selectionImage=target+"/btn/imageEnable.png", selectionHighlightImage=target+"/btn/imageHighlight.png", height=heightBtn, marginWidth=0, marginHeight=0)
 mc.iconTextCheckBox(label='Set', style='iconOnly', font="tinyBoldLabelFont", image=target+"/icons/cameraSetting.png", highlightImage=target+"/icons/cameraSetting.png", selectionImage=target+"/btn/imageEnable.png", selectionHighlightImage=target+"/btn/imageHighlight.png", height=heightBtn, marginWidth=0, marginHeight=0)
-mc.iconTextCheckBox(label='Lock', style='iconOnly', font="tinyBoldLabelFont", image=target+"/icons/camedraLock.png", highlightImage=target+"/icons/camedraLock.png", selectionImage=target+"/btn/imageEnable.png", selectionHighlightImage=target+"/btn/imageHighlight.png", height=heightBtn, marginWidth=0, marginHeight=0)
+mc.iconTextCheckBox(label='Lock', style='iconOnly', font="tinyBoldLabelFont", image=target+"/icons/cameraLock.png", highlightImage=target+"/icons/cameraLock.png", selectionImage=target+"/btn/imageEnable.png", selectionHighlightImage=target+"/btn/imageHighlight.png", height=heightBtn, marginWidth=0, marginHeight=0)
 mc.iconTextButton(label='Near', style='iconAndTextCentered', font="tinyBoldLabelFont", image=target+"/btn/imageActif.png", highlightImage=target+"/btn/imageHighlight.png", selectionImage=target+"/btn/imageEnable.png", height=heightBtn, marginWidth=0, marginHeight=0)
 mc.iconTextButton(label='Far', style='iconAndTextCentered', font="tinyBoldLabelFont", image=target+"/btn/imageActif.png", highlightImage=target+"/btn/imageHighlight.png", selectionImage=target+"/btn/imageEnable.png", height=heightBtn, marginWidth=0, marginHeight=0)
 

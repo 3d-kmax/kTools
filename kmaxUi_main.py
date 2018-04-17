@@ -116,6 +116,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         # initialisation des variables et des etats des boutons de kmaxToolBar en fonction de celles de maya		
         super(KmaxWin, self).__init__(parent)
 
+        self.initPath()
         self.debugMode = 0
 
         self.scriptJobIds = []
@@ -176,10 +177,26 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         self.actuTypeSelection()
         self.actuToolSettings()
 
+    def initPath(self):
+        # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+        path_brut = os.path.realpath(__file__)
+        print ">> path brut : ", path_brut
+        path_norm = os.path.normpath(path_brut)  # os.path.normcase()
+        print ">> path norm : ", path_norm
+        path_clean = path_norm.replace("\\", "/")
+        print ">> path clean : ", path_clean
+        path_list = path_clean.split('/')[:-1]
+        print ">> path split : ", path_list
+        path_list.extend(['icons'])
+        self.target = ''
+        for item in path_list:
+            self.target += item + '/'
+        print ">> :", self.target
+
     def isAutoAddNewObjsEnabled(self):
-        iJob = pm.mel.eval('$temp = $isolateSelectAutoAddScriptJob')  # 2106
-        print iJob
-        # iJob = pm.mel.eval("$temp = $autoAddNewObjJobNum") #2015
+        #iJob = pm.mel.eval('$temp = $isolateSelectAutoAddScriptJob')  # 2016
+        iJob = pm.mel.eval("$temp = $autoAddNewObjJobNum") #2015
+        print "JOB ID >> :", iJob
         return mc.scriptJob(ex=iJob)
 
     # isolate selection pour le raccourci clavier				enableIsolateSelect modelPanel4 true; 		isolateSelect -state 1 modelPanel4;
@@ -209,34 +226,36 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         # mayaVersion = "2014-x64"
         # target = "C:/Users/"+user+"/Documents/maya/"+mayaVersion+"/prefs/icons/"
 
+        '''
         path_list = os.path.realpath(__file__).split('/')[:-1]
         path_list.extend(['icons'])
         target = ''
         for item in path_list:
             target += item + '/'
         print target
+        '''
 
         self.iconLockOn = QtGui.QIcon()
-        self.iconLockOn.addPixmap(QtGui.QPixmap(target + "lock_closed_b.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.iconLockOn.addPixmap(QtGui.QPixmap(self.target + "lock_closed_b.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         bt_locks = (self.bt_commonLock, self.bt_displayLock, self.bt_transformLock, self.bt_toolLock, self.bt_softLock)
         for lock in bt_locks:
             lock.setIcon(self.iconLockOn)
 
         self.iconLockOff = QtGui.QIcon()
-        self.iconLockOff.addPixmap(QtGui.QPixmap(target + "lock_open_b.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.iconLockOff.addPixmap(QtGui.QPixmap(self.target + "lock_open_b.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
         self.presetSoftA = QtGui.QIcon()
         # self.presetSoftA.setIconSize(QtCore.QSize(32, 32))
-        self.presetSoftA.addPixmap(QtGui.QPixmap(target + "softPresetA3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        # self.presetSoftA.addPixmap(QtGui.QPixmap(target+"softPresetA_w.png"), QtGui.QIcon.Normal, QtGui.QIcon.On) ##OK !
+        self.presetSoftA.addPixmap(QtGui.QPixmap(self.target + "softPresetA3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        # self.presetSoftA.addPixmap(QtGui.QPixmap(self.target+"softPresetA_w.png"), QtGui.QIcon.Normal, QtGui.QIcon.On) ##OK !
         self.bt_softPresetA.setIcon(self.presetSoftA)
 
         self.presetSoftB = QtGui.QIcon()
-        self.presetSoftB.addPixmap(QtGui.QPixmap(target + "softPresetB3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.presetSoftB.addPixmap(QtGui.QPixmap(self.target + "softPresetB3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_softPresetB.setIcon(self.presetSoftB)
 
         self.presetSoftC = QtGui.QIcon()
-        self.presetSoftC.addPixmap(QtGui.QPixmap(target + "softPresetC3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.presetSoftC.addPixmap(QtGui.QPixmap(self.target + "softPresetC3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_softPresetC.setIcon(self.presetSoftC)
 
     # LIENS entre boutons et fonctions/methodes
@@ -1369,12 +1388,12 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
                 if state:
                     mc.modelEditor(modelPanelName, e=True, twoSidedLighting=False)
                     self.bt_twoSideLight.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                   "selection-background-color: " + self.selectColor + ";\n")
+                                                        "selection-background-color: " + self.selectColor + ";\n")
                     print ">> Two sided Lighted is OFF."
                 else:
                     mc.modelEditor(modelPanelName, e=True, twoSidedLighting=True)
                     self.bt_twoSideLight.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                                 "selection-background-color: rgb(150, 150, 150);\n")
+                                                        "selection-background-color: rgb(150, 150, 150);\n")
                     print ">> Two sided Lighted is ON."
 
                     # toggle border edge visibility
@@ -1394,14 +1413,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
             for obj in selectionList:
                 mc.setAttr(obj + '.displayBorders', True)
             self.bt_toggleBorderEdge.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                             "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
             mc.polyOptions(displayBorder=True, newPolymesh=True)
             print ">> Border Edge is Visible"
         else:
             for obj in selectionList:
                 mc.setAttr(obj + '.displayBorders', False)
             self.bt_toggleBorderEdge.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                               "selection-background-color: " + self.selectColor + ";\n")
+                                            "selection-background-color: " + self.selectColor + ";\n")
             mc.polyOptions(displayBorder=False, newPolymesh=True)
             print ">> Border Edge is NOT Visible"
 
@@ -1415,12 +1434,12 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
                 if state:
                     mc.modelEditor(modelPanelName, e=True, backfaceCulling=False)
                     self.bt_backFaceCulling.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                      "selection-background-color: " + self.selectColor + ";\n")
+                                            "selection-background-color: " + self.selectColor + ";\n")
                     print ">> BackFaceCulling is OFF."
                 else:
                     mc.modelEditor(modelPanelName, e=True, backfaceCulling=True)
                     self.bt_backFaceCulling.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                                    "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
                     print ">> BackFaceCulling is ON."
 
     def toggleGrid(self):
@@ -1429,21 +1448,21 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         if state:
             mc.grid(toggle=0)
             self.bt_toggleGrid.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
+                                            "selection-background-color: " + self.selectColor + ";\n")
             print ">> Grid ON."
         # self.bt_toggleGrid.setText("Grid Off")
 
         else:
             mc.grid(toggle=1)
             self.bt_toggleGrid.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                       "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
             print ">> Grid OFF."
             # self.bt_toggleGrid.setText("Grid On")
 
     def setBackgroundColor(self):
         mc.displayRGBColor('background', 0.27, 0.27, 0.27)
         self.bt_backgroundColor.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                        "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
         # self.bt_backgroundColor.setStyleSheet(self.textColor = "rgb(150, 150, 150)"
         # self.bt_backgroundColor.setDisabled(True)
         print ">> Background Color SET TO GREY."
@@ -1469,7 +1488,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
             mc.headsUpDisplay('HUDfaces', label='Faces :', ba='right', da='right', dw=50, s=4, b=8, preset="polyFaces",
                               visible=True)
             self.bt_hudInfos.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                     "selection-background-color: rgb(150, 150, 150);\n")
+                                            "selection-background-color: rgb(150, 150, 150);\n")
             # self.bt_hudInfos.setChecked(True)
             self.HUDState = 1
             print ">> HUD is ON."
@@ -1479,7 +1498,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
             mc.headsUpDisplay('HUDedges', rem=True)
             mc.headsUpDisplay('HUDfaces', rem=True)
             self.bt_hudInfos.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                       "selection-background-color: " + self.selectColor + ";\n")
+                                            "selection-background-color: " + self.selectColor + ";\n")
             self.HUDState = 0
             print ">> HUD is OFF."
 
