@@ -235,6 +235,22 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         print target
         '''
 
+        self.iconTransform = QtGui.QIcon()
+        self.iconTransform.addPixmap(QtGui.QPixmap(self.target + "transform23.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        self.btn_transformName.setIcon(self.iconTransform)
+
+        self.iconShape = QtGui.QIcon()
+        self.iconShape.addPixmap(QtGui.QPixmap(self.target + "shape.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        self.btn_shapeName.setIcon(self.iconShape)
+
+        self.iconHistory = QtGui.QIcon()
+        self.iconHistory.addPixmap(QtGui.QPixmap(self.target + "constructionHistory.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_history.setIcon(self.iconHistory)
+
+        self.iconSelec = QtGui.QIcon()
+        self.iconSelec.addPixmap(QtGui.QPixmap(self.target + "quickRename.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.btn_select.setIcon(self.iconSelec)
+
         self.iconLockOn = QtGui.QIcon()
         self.iconLockOn.addPixmap(QtGui.QPixmap(self.target + "lock_closed_b.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         bt_locks = (self.bt_commonLock, self.bt_displayLock, self.bt_transformLock, self.bt_toolLock, self.bt_softLock)
@@ -948,12 +964,13 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         sTmpWin = mc.window("channelBoxTmpWindow")
         mc.formLayout('channelBoxTmpForm')
         sChboxName = mc.channelBox('Channel Box',
+                                   preventOverride=False,
                                    attributeEditorMode=False,
                                    containerAtTop=False,
                                    precision=3,
                                    w=self.wg_channelBox.width(),
                                    h=self.wg_channelBox.height(),
-                                   # fixedAttrList = ("translateX","translateY","translateZ","rotateX","rotateY","rotateZ","scaleX","scaleY","scaleZ")
+                                   fixedAttrList = ("translateX","translateY","translateZ","rotateX","rotateY","rotateZ","scaleX","scaleY","scaleZ")
                                    )
         qChbox = controlToPySide(sChboxName)
         self.lt_channelBox.addWidget(qChbox)
