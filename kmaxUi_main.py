@@ -194,8 +194,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         print ">> :", self.target
 
     def isAutoAddNewObjsEnabled(self):
-        #iJob = pm.mel.eval('$temp = $isolateSelectAutoAddScriptJob')  # 2016
-        iJob = pm.mel.eval("$temp = $autoAddNewObjJobNum") #2015
+        #print ">> : ", self.target
+        #if "2015" in self.target:
+        iJob = pm.mel.eval("$temp = $autoAddNewObjJobNum")  # 2015
+        #if "2016" in self.target :
+            #iJob = pm.mel.eval('$temp = $isolateSelectAutoAddScriptJob')  # 2016
         print "JOB ID >> :", iJob
         return mc.scriptJob(ex=iJob)
 
@@ -235,6 +238,10 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         print target
         '''
 
+        self.iconTool = QtGui.QIcon()
+        self.iconTool.addPixmap(QtGui.QPixmap(self.target + "moveTool.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        self.bt_tool.setIcon(self.iconTool)
+
         self.iconTransform = QtGui.QIcon()
         self.iconTransform.addPixmap(QtGui.QPixmap(self.target + "transform23.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
         self.btn_transformName.setIcon(self.iconTransform)
@@ -273,6 +280,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         self.presetSoftC = QtGui.QIcon()
         self.presetSoftC.addPixmap(QtGui.QPixmap(self.target + "softPresetC3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_softPresetC.setIcon(self.presetSoftC)
+
+    def setIconTool(self, toolType):
+        self.iconTool = QtGui.QIcon()
+        self.iconTool.addPixmap(QtGui.QPixmap(self.target + toolType + ".png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_tool.setIcon(self.iconTool)
 
     # LIENS entre boutons et fonctions/methodes
     def initLink(self):
@@ -341,6 +353,8 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         self.bt_freezeRotation.clicked.connect(self.freezeRotate)
         self.bt_freezeScale.clicked.connect(self.freezeScale)
         self.bt_freezeAllTransform.clicked.connect(self.freezeAllTransform)
+
+        self.bt_unFreeze.clicked.connect(self.unFreeze)
 
         self.bt_deleteHistory.clicked.connect(self.deleteHistory)
         self.bt_selNgones.clicked.connect(self.selNgones)
@@ -1237,6 +1251,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         if self.wg_moveSettings.isVisible() or self.wg_rotateSettings.isVisible() or self.wg_scaleSettings.isVisible() or self.wg_nullSettings.isVisible():
             if ctxType == "manipMove":
                 # if self.bt_toolSettings.isEnabled():
+                self.setIconTool("moveTool")
                 self.wg_rotateSettings.setVisible(False)
                 self.wg_scaleSettings.setVisible(False)
                 self.wg_nullSettings.setVisible(False)
@@ -1244,6 +1259,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
                 self.initMoveSettings()
                 self.bt_toolSettings.setText("Move Settings")
             if ctxType == "manipRotate":
+                self.setIconTool("rotateTool")
                 self.wg_moveSettings.setVisible(False)
                 self.wg_scaleSettings.setVisible(False)
                 self.wg_nullSettings.setVisible(False)
@@ -1251,6 +1267,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
                 self.initRotateSettings()
                 self.bt_toolSettings.setText("Rotate Settings")
             if ctxType == "manipScale":
+                self.setIconTool("scaleTool")
                 self.wg_moveSettings.setVisible(False)
                 self.wg_rotateSettings.setVisible(False)
                 self.wg_nullSettings.setVisible(False)
@@ -1258,6 +1275,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
                 self.initScaleSettings()
                 self.bt_toolSettings.setText("Scale Settings")
             if ctxType == "selectTool":
+                self.setIconTool("selectLassoTool")
                 self.wg_moveSettings.setVisible(False)
                 self.wg_rotateSettings.setVisible(False)
                 self.wg_scaleSettings.setVisible(False)
@@ -1346,6 +1364,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
             print ">> Object New Name : " + self.le_transformName.text()
         else:
             print ">> You need a selection"
+        self.actuSelection()
 
     def renameShape(self):  # USELESS !
         selectionList = mc.ls(selection=True, type='transform')
@@ -1354,6 +1373,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
             print ">> Shape New Name : " + self.le_shapeName.text()
         else:
             print ">> You need a selection"
+        self.actuSelection()
 
             # selection highlight: 												modelEditor -e -sel false modelPanel4
 
@@ -1667,6 +1687,57 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         # mc.FreezeTransformations()
         # makeIdentity -apply true -t 1 -r 1 -s 1 -n 0 -pn 1;
         self.actuSelection()  # actualiser les valeurs de transform
+
+    def unFreeze(self):
+        def cleanupUnfreeze(*args):
+            sel = pm.ls(sl=1)
+
+            nodes = pm.ls(args)
+            if not nodes:
+                nodes = sel
+            nodes = pm.ls(nodes, type='transform')
+            if not nodes:
+                raise RuntimeError()
+
+            for node in nodes:
+                _t = node.t.get()
+                _rp = node.rp.get()
+                _rpt = node.rpt.get()
+
+                _shape = None
+                shapes = node.getShapes()
+                if shapes:
+                    _shape = pm.createNode('transform', p=node)
+                    for _sh in shapes:
+                        _sh.setParent(_shape, r=1, s=1)
+                    _shape.setParent(w=1)
+
+                children = node.getChildren(type='transform')
+                for _ch in children:
+                    if not (node.t.isSettable() and node.r.isSettable() and node.s.isSettable()):
+                        pm.warning('cleanupUnfreeze: "%s" (child of "%s") have locked or connected transformations!' % (
+                            str(_ch), str(node)))
+                    _ch.setParent(w=1)
+
+                node.rp.set(0, 0, 0)
+                node.sp.set(0, 0, 0)
+                node.rpt.set(0, 0, 0)
+                node.spt.set(0, 0, 0)
+                node.t.set(_t + _rp + _rpt)
+
+                for _ch in children:
+                    _ch.setParent(node)
+
+                if _shape:
+                    _shape.setParent(node)
+                    pm.makeIdentity(_shape, a=1)
+                    for _sh in shapes:
+                        _sh.setParent(node, r=1, s=1)
+                    pm.delete(_shape)
+
+            pm.select(sel)
+
+        cleanupUnfreeze()
 
     def resetTranslation(self):
         '''

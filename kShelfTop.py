@@ -327,14 +327,14 @@ class kShelfBar():
                                                       annotation="Switch renderThumbnailUpdate",
                                                       command=self.kmSwitchBallPreview,
                                                       width=scaleIcon)
-
+        '''
         self.bt_kmUnfreeze = mc.iconTextButton(image1=self.target+"unfreeze.png",
                                                highlightImage=self.target + "unfreeze2.png",
                                                annotation="unFreeze",
                                                command=self.kmUnfreeze,
                                                width=scaleIcon)
-            
-        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=140, enable=0)
+        '''
+        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=180, enable=0)
 
         self.bt_preferences = mc.iconTextButton(image1=self.target + "settings32.png",
                                                 highlightImage=self.target + "settings32.png",
@@ -642,7 +642,7 @@ class kShelfBar():
         else :
             mc.renderThumbnailUpdate(True)
             print ">> Render Thumbnail ON"\
-
+    '''
     def kmUnfreeze(selfself):
         # unfreeze transform PYMEL
         import pymel.core as pm
@@ -696,6 +696,7 @@ class kShelfBar():
             pm.select(sel)
 
         cleanupUnfreeze()
+    '''
 
     '''  mikros      
     def kmBasicBrowser(self):
