@@ -17,7 +17,7 @@ from time import localtime, strftime
 class kShelfBar():
     def __init__(self):
         
-        scaleIcon = 28
+        scaleIcon = 30
         scaleSeparator = 18
 
         self.initPath()
@@ -295,7 +295,7 @@ class kShelfBar():
                                                annotation="Scattering",
                                                command=self.kitBuilder,
                                                width=scaleIcon)
-                                               '''
+        '''
 
         self.bt_frRenamer = mc.iconTextButton(image1=self.target + "text-32.png",
                                               highlightImage=self.target + "text-32.png",

@@ -183,8 +183,6 @@ class kModBar():
                                             command="pm.mel.MirrorPolygonGeometryOptions()",
                                             height=scaleIcon)
 
-        #mc.separator(style='none', height=scaleIcon)
-
         bt_separate = mc.iconTextButton(image1=self.target + "polySeparate.png",
                                         highlightImage=self.target + "polySeparate.png",
                                         label="Separate",
@@ -249,7 +247,7 @@ class kModBar():
                                                  height=scaleIcon)
 
         bt_duplicateEdge = mc.iconTextButton(image1=self.target + "splitEdge.png",
-                                             highlightImage=self.target + "splitEdgeC.png",
+                                             highlightImage=self.target + "splitEdge.png",
                                              label="DuplicateEdge",
                                              annotation="Duplicate edges",
                                              command="pm.modeling.polyDuplicateEdge(pm.ls(selection=True), of=0.5, aef=1.0)",
@@ -442,9 +440,6 @@ class kModBar():
                                            command="pm.mel.CreateCurveFromPoly()",
                                            height=scaleIcon)
 
-        # mc.setParent('..') pour le shelfTabLayout
-
-        #mc.separator( style='none', height=scaleIcon)
         mc.iconTextButton(image1=self.target + "separateHorizontal.png",
                           width=scaleIcon,
                           height=9,
