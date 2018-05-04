@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'E:\kTools\ui\kmaxUi.ui'
 #
-# Created: Thu Apr 19 16:14:34 2018
+# Created: Mon Apr 23 18:41:21 2018
 #      by: pyside-uic 0.2.14 running on PySide 1.2.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -41,7 +41,7 @@ class Ui_kmaxToolBar(object):
         self.horizontalLayout_19.addWidget(self.bt_commonLock)
         self.verticalLayout.addWidget(self.widget_12)
         self.wg_commonSelectionOptions = QtGui.QWidget(kmaxToolBar)
-        self.wg_commonSelectionOptions.setMinimumSize(QtCore.QSize(0, 50))
+        self.wg_commonSelectionOptions.setMinimumSize(QtCore.QSize(0, 152))
         self.wg_commonSelectionOptions.setObjectName("wg_commonSelectionOptions")
         self.verticalLayout_11 = QtGui.QVBoxLayout(self.wg_commonSelectionOptions)
         self.verticalLayout_11.setSpacing(0)
@@ -132,6 +132,8 @@ class Ui_kmaxToolBar(object):
         self.horizontalLayout_14.addWidget(self.widget_23)
         self.verticalLayout_4.addWidget(self.widget_20)
         self.widget_22 = QtGui.QWidget(self.widget_6)
+        self.widget_22.setMinimumSize(QtCore.QSize(0, 23))
+        self.widget_22.setMaximumSize(QtCore.QSize(16777215, 23))
         self.widget_22.setObjectName("widget_22")
         self.horizontalLayout_12 = QtGui.QHBoxLayout(self.widget_22)
         self.horizontalLayout_12.setSpacing(0)

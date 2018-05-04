@@ -88,10 +88,6 @@ class kColorizer():
         mc.setParent( '..' )
 
         mc.showWindow(self.myWindow)
-        
-        '''for btn in allButtons:
-            annotationBtn = self.setBtnAnnotation(str(btn[4]))
-            self.btnName = mc.iconTextButton(self.btnName, e=True, annotation=annotationBtn)'''
 
     def initPath(self):
         # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"

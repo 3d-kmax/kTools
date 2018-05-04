@@ -17,7 +17,7 @@ from time import localtime, strftime
 class kShelfBar():
     def __init__(self):
         
-        scaleIcon = 30
+        scaleIcon = 28
         scaleSeparator = 18
 
         self.initPath()
@@ -131,8 +131,8 @@ class kShelfBar():
                                             width=scaleSeparator,
                                             enable=0)
 
-        self.bt_new = mc.iconTextButton(image1=self.target + "new32.png",
-                                        highlightImage=self.target + "new32.png",
+        self.bt_new = mc.iconTextButton(image1=self.target + "tt_new.png",
+                                        highlightImage=self.target + "tt_new_b.png",
                                         annotation="Create a New Scene",
                                         command=self.kmNew,
                                         width=scaleIcon)
@@ -142,32 +142,32 @@ class kShelfBar():
                                             width=scaleSeparator,
                                             enable=0)
 
-        self.bt_open = mc.iconTextButton(image1=self.target + "open32.png",
-                                         highlightImage=self.target + "open32.png",
+        self.bt_open = mc.iconTextButton(image1=self.target + "tt_open_b.png",
+                                         highlightImage=self.target + "tt_open.png",
                                          annotation="Open a Scene",
                                          command=self.kmOpen,
                                          width=scaleIcon)
 
-        self.bt_save = mc.iconTextButton(image1=self.target + "save.png",
-                                         highlightImage=self.target + "save.png",
+        self.bt_save = mc.iconTextButton(image1=self.target + "tt_save2_b.png",
+                                         highlightImage=self.target + "tt_save2.png",
                                          annotation="Save the current Scene",
                                          command=self.kmSave,
                                          width=scaleIcon)
 
-        self.bt_saveAs = mc.iconTextButton(image1=self.target + "saveAs.png",
-                                           highlightImage=self.target + "saveAs.png",
+        self.bt_saveAs = mc.iconTextButton(image1=self.target + "tt_saveAs2_b.png",
+                                           highlightImage=self.target + "tt_saveAs2.png",
                                            annotation="Save the current scene under a new name or export all",
                                            command=self.kmSaveAs,
                                            width=scaleIcon)
 
-        self.bt_exportProps = mc.iconTextButton(image1=self.target + "exportSel.png",
+        self.bt_exportProps = mc.iconTextButton(image1=self.target + "exportSelb.png",
                                               highlightImage=self.target + "exportSel.png",
-                                              annotation="Export Selection...",
+                                              annotation="Export Prop",
                                               command=self.kmExportProps,
                                               width=scaleIcon)
 
-        self.bt_checkPublishable = mc.iconTextButton(image1=self.target + "common_qualityCheck.png",
-                                                 highlightImage=self.target + "common_qualityCheck.png",
+        self.bt_checkPublishable = mc.iconTextButton(image1=self.target + "tt_checkPublish_b.png",
+                                                 highlightImage=self.target + "tt_checkPublish.png",
                                                  annotation="Check Publishability",
                                                  command=self.kmCheckPublishable,
                                                  width=scaleIcon)
@@ -289,11 +289,13 @@ class kShelfBar():
                                              command=self.kmReplacer,
                                              width=scaleIcon)
 
+        '''
         self.bt_kitBuilder = mc.iconTextButton(image1=self.target + "scatter32.png",
                                                highlightImage=self.target + "scatter32b.png",
                                                annotation="Scattering",
                                                command=self.kitBuilder,
                                                width=scaleIcon)
+                                               '''
 
         self.bt_frRenamer = mc.iconTextButton(image1=self.target + "text-32.png",
                                               highlightImage=self.target + "text-32.png",
@@ -327,29 +329,30 @@ class kShelfBar():
                                                       annotation="Switch renderThumbnailUpdate",
                                                       command=self.kmSwitchBallPreview,
                                                       width=scaleIcon)
-        '''
-        self.bt_kmUnfreeze = mc.iconTextButton(image1=self.target+"unfreeze.png",
-                                               highlightImage=self.target + "unfreeze2.png",
-                                               annotation="unFreeze",
-                                               command=self.kmUnfreeze,
-                                               width=scaleIcon)
-        '''
-        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=180, enable=0)
 
-        self.bt_preferences = mc.iconTextButton(image1=self.target + "settings32.png",
-                                                highlightImage=self.target + "settings32.png",
+        self.bt_unlockAllAtt = mc.iconTextButton(image1=self.target+"unlock.png",
+                                                 highlightImage=self.target+"unlock.png",
+                                                 annotation="Unlock all attributs",
+                                                 command=self.kmUnlockAllAtt,
+                                                 width=scaleIcon)
+
+        ## SPACER
+        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=280, enable=0)
+
+        self.bt_preferences = mc.iconTextButton(image1=self.target + "settings.png",
+                                                highlightImage=self.target + "settings.png",
                                                 annotation="Preferences",
                                                 command=self.kmSetting,
                                                 width=scaleIcon)
 
-        self.bt_hotkeys = mc.iconTextButton(image1=self.target + "hotkey32.png",
-                                            highlightImage=self.target + "hotkey32.png",
+        self.bt_hotkeys = mc.iconTextButton(image1=self.target + "hotkey.png",
+                                            highlightImage=self.target + "hotkey.png",
                                             annotation="Hotkeys Editor",
                                             command=self.kmHotKey,
                                             width=scaleIcon)
 
-        self.bt_plugins = mc.iconTextButton(image1=self.target + "plug32.png",
-                                            highlightImage=self.target + "plug32.png",
+        self.bt_plugins = mc.iconTextButton(image1=self.target + "plugin.png",
+                                            highlightImage=self.target + "plugin.png",
                                             annotation="Plug-ins Manager",
                                             command=self.kmPlugIn,
                                             width=scaleIcon)
@@ -614,8 +617,10 @@ class kShelfBar():
         class_renamer.UI()
 
     def kmSetSmoothGroupTool(self):
-        import setSmoothGroupTool
-        reload(setSmoothGroupTool)
+        #import setSmoothGroupTool
+        #reload(setSmoothGroupTool)
+        import kSmoothSetTool
+        reload(kSmoothSetTool)
 
     def kmCleanTool(self):
         import kCleaner
@@ -635,13 +640,32 @@ class kShelfBar():
                     mc.modelEditor(modelPanelName, allObjects=1, e=1)
     
     def kmSwitchBallPreview(self):
-        renderBall = mc.renderThumbnailUpdate(q=True)
+        renderBall =  mc.renderThumbnailUpdate(q=True)
         if renderBall :
             mc.renderThumbnailUpdate(False)
             print ">> Render Thumbnail OFF"
         else :
             mc.renderThumbnailUpdate(True)
             print ">> Render Thumbnail ON"\
+
+    def kmUnlockAllAtt(self):
+        selectionList = mc.ls(selection=True, l=True)
+        if selectionList:
+            lock_l = mc.listRelatives(selectionList, ad=True, type='transform', f=True)
+            lock_l = sorted(lock_l, key=lambda s: s.count('|'), reverse=False)
+
+            transformAttr_l = ['.tx', '.ty', '.tz', '.rx', '.ry', '.rz', '.sx', '.sy', '.sz', '.shearXY', '.shearXZ',
+                           '.shearYZ', '.rotateAxisX', '.rotateAxisY', '.rotateAxisZ', '.visibility']
+            # transform_global_l = ['.translate', '.rotate', '.scale', '.shear']
+
+            for obj in lock_l:
+                obj_sn = obj.split('|')[-1:][0]
+                if mc.nodeType(obj) == 'transform' and ':' not in obj:
+                    if obj_sn.startswith('c_') != True:
+                        for attr in transformAttr_l:
+                            mc.setAttr(obj + attr, lock=False)
+                        print obj + " >> All Attributs unlock !"
+
     '''
     def kmUnfreeze(selfself):
         # unfreeze transform PYMEL

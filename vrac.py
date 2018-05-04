@@ -205,11 +205,27 @@ if selectionList:
             listBad.append(item)
             print ">> " + item + " : " + str(values)
         else:
-            print ">> " + item + " IS OK"
+            print ">> : " + item + " IS OK"
+            print ">> : ", values
 else:
     print ">> no selection"
 print(listBad)
 mc.select(listBad)
+
+## manipPivot
+valuePivotPos = mc.manipPivot(q=1, p=1)
+valuePivotOri = mc.manipPivot(q=1, o=1)
+print "pos = ", valuePivotPos, "ori = ", valuePivotOri
+
+selectionList = mc.ls(sl=1)
+if selectionList:
+    for item in selectionList:
+        mc.select()
+        mc.select(item)
+        pos = mc.xform(q=1, t=1, r=1)
+        rot = mc.xform(q=1, ro=1, r=1)
+        scl = mc.xform(q=1, s=1, r=1)
+        print item , " : ", "position : ", pos, " rotation : ", rot, " scale : ", scl
 
 ##
 selectionList = mc.ls(sl=True)
