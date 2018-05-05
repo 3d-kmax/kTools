@@ -7,6 +7,13 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+'''try:
+    from PySide import QtGui as QtWidgets
+    from PySide import QtCore
+except ImportError:
+    from PySide2 import QtWidgets
+    from PySide2 import QtCore'''
+
 from PySide import QtCore, QtGui
 
 class Ui_kmaxToolBar(object):

@@ -1,15 +1,34 @@
 # kMax Tool Bar
 # Maxime Terray : kMax
-# Remerciements a Sebastien Courtois et a Stephane Hoarau. Cyber Group Studios 
+# Remerciements a Sebastien Courtois et a Stephane Hoarau
 # 20/07/2014
-# Version 0.1
-# Panneau lateral pour Maya 2013
+# Version ###
+# Panneau lateral pour Maya
 # Regroupant le Tool Settings, le Channel Box, et l'Attribut Editor.
 
-import shiboken
+'''apiVers = mc.about(apiVersion=True)
+apiVersStr = str(apiVers)
+if apiVers[0:4] = "2015":
+    import shiboken
+if apiVers[0:4] = "2018":
+    import shiboken2
+print "Maya Version : ", apiVers[0:4]'''
+
+try:
+    from shiboken import wrapInstance
+except:
+    from shiboken2 import wrapInstance
+
 from PySide import QtCore, QtGui
+'''try:
+    from PySide import QtGui as QtWidgets
+    from PySide import QtCore
+except ImportError:
+    from PySide2 import QtWidgets
+    from PySide2 import QtCore'''
 
 Qt = QtCore.Qt
+
 
 import maya.OpenMayaUI as mui
 import maya.cmds as mc
@@ -18,29 +37,24 @@ import maya.mel as mel
 import os
 
 import kmaxUi
-
 reload(kmaxUi)
 
 import kMod
 import kShelfTop
 
-
-# mc.shelfTabLayout("MayaWindow|toolBar2|MainShelfLayout|formLayout14|ShelfLayout", selectTab="TTmod", e=True)
-
-
 def wrapinstance(ptr, base=None):
     """
-	Utility to convert a pointer to a Qt class instance (PySide/PyQt compatible)
+    Utility to convert a pointer to a Qt class instance (PySide/PyQt compatible)
 
-	:param ptr: Pointer to QObject in memory
-	:type ptr: long or Swig instance
-	
-	:param base: (Optional) Base class to wrap with (Defaults to QObject, which should handle anything)
-	:type base: QtGui.QWidget
-	
-	:return: QWidget or subclass instance
-	:rtype: QtGui.QWidget
-	"""
+    :param ptr: Pointer to QObject in memory
+    :type ptr: long or Swig instance
+
+    :param base: (Optional) Base class to wrap with (Defaults to QObject, which should handle anything)
+    :type base: QtGui.QWidget
+
+    :return: QWidget or subclass instance
+    :rtype: QtGui.QWidget
+    """
     if ptr is None:
         return None
     ptr = long(ptr)  # Ensure type
@@ -100,7 +114,8 @@ def catchJobException(func):
 # ici isAutoAddNewObjsEnabled & toggleIsolateObject
 
 
-class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
+class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
+#class KmaxWin(QtGui.Qwidget, kmaxUi.Ui_kmaxToolBar):
     '''
     Mon outil custom de ouf
 
@@ -113,7 +128,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
     def __init__(self, parent=None):
 
         # INITIALISATION :
-        # initialisation des variables et des etats des boutons de kmaxToolBar en fonction de celles de maya		
+        # initialisation des variables et des etats des boutons de kmaxToolBar en fonction de celles de maya
         super(KmaxWin, self).__init__(parent)
 
         self.initPath()
@@ -450,7 +465,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
         self.sb_discreteScaleValue.valueChanged.connect(self.setDiscreteScaleValue)
         self.bt_resetScale.clicked.connect(self.resetScale)
 
-    # DEFINITION DES FONCTIONS D'INITIALISATION :	
+    # DEFINITION DES FONCTIONS D'INITIALISATION :
 
     def initNearClip(self):
         nrClipPlane = mc.viewClipPlane("perspShape", q=True, nearClipPlane=True)
@@ -614,7 +629,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
                                                                                                                    "selection-background-color: " + self.selectColor + ";\n")
         self.bt_toolSettings.setDisabled(True)
 
-        # bt_softSelectionMenu	
+        # bt_softSelectionMenu
         self.bt_softSelectionMenu.setStyleSheet("background-color: " + self.titleColor + ";\n"
                                                                                          "color: " + self.selectColor + ";\n"
                                                                                                                         "font-weight: bold;"
@@ -655,7 +670,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
     def initDisplay(self):
         print ">> initDisplay"
         # bt_xrayMat
-        if mc.modelEditor("modelPanel4", q=True, xray=True):  # probleme a regler : "modelPanel4" !!!		
+        if mc.modelEditor("modelPanel4", q=True, xray=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_xrayMat.setChecked(True)
             self.bt_xrayMat.setStyleSheet("background-color: " + self.selectColor + ";\n"
                                             "selection-background-color: rgb(150, 150, 150);\n")
@@ -684,7 +699,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
             self.bt_defaultLight.setText("NO LT")
 
         # bt_wireframe
-        if mc.modelEditor("modelPanel4", q=True, wireframeOnShaded=True):  # probleme a regler : "modelPanel4" !!!		
+        if mc.modelEditor("modelPanel4", q=True, wireframeOnShaded=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_wireframe.setChecked(True)
             self.bt_wireframe.setStyleSheet("background-color: " + self.selectColor + ";\n"
                                             "selection-background-color: rgb(150, 150, 150);\n")
@@ -714,7 +729,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
                                                 "selection-background-color: " + self.selectColor + ";\n")
 
         # bt_twoSideLight
-        if mc.modelEditor("modelPanel4", q=True, twoSidedLighting=True):  # probleme a regler : "modelPanel4" !!!	
+        if mc.modelEditor("modelPanel4", q=True, twoSidedLighting=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_twoSideLight.setChecked(True)
             self.bt_twoSideLight.setStyleSheet("background-color: " + self.selectColor + ";\n"
                                             "selection-background-color: rgb(150, 150, 150);\n")
@@ -733,8 +748,8 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
             self.bt_toggleGrid.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
                                             "selection-background-color: " + self.selectColor + ";\n")
 
-        # bt_isolateSel	
-        if mc.isolateSelect("modelPanel4", q=True, state=True):  # probleme a regler : "modelPanel4" !!!	
+        # bt_isolateSel
+        if mc.isolateSelect("modelPanel4", q=True, state=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_isolateSel.setChecked(True)
             self.bt_isolateSel.setStyleSheet("background-color: " + self.selectColor + ";\n"
                                             "selection-background-color: rgb(150, 150, 150);\n")
@@ -743,7 +758,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
             self.bt_isolateSel.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
                                                 "selection-background-color: " + self.selectColor + ";\n")
 
-        # bt_autoAddIsolate												
+        # bt_autoAddIsolate
         if self.isAutoAddNewObjsEnabled():
             self.bt_autoAddIsolate.setChecked(True)
             self.bt_autoAddIsolate.setStyleSheet("background-color: " + self.selectColor + ";\n"
@@ -1232,7 +1247,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):
                 self.cb_history.addItem(selec)
 
     def openAttributEditor(self, text):
-        # modifier = self.cb_history.currentText()				# plus besoin grace a : activated[str]	
+        # modifier = self.cb_history.currentText()				# plus besoin grace a : activated[str]
         print ">> Index Activated : ", text
         pm.mel.showEditor(text)
 
@@ -2516,7 +2531,7 @@ def launchUi():
     sDockName = "kMaxToolDock"
     if mc.dockControl(sDockName, q=True, ex=True):
         qDock = controlToPySide(sDockName)
-        myUi = qDock.findChild(QtGui.QWidget, "kmaxToolBar")
+        myUi = qDock.findChild(QtGui.QWidget, "kmaxToolBar") #QtWidgets
         myUi.close()
         mc.deleteUI(sDockName)
 
