@@ -474,11 +474,11 @@ class kShelfBar():
     def kmNew(self):
         pm.mel.NewScene()
 
-    def kmInitScene(self):
+    '''def kmInitScene(self):
         from mayaShotgun import pathShotgun
         from mayaPipeline import assetPipe
         assetType = pathShotgun.fieldFromPath(mc.file(query=True, sceneName=True), 'sg_asset_type')
-        assetPipe.createAssetDialog(namespace=':', assetType=assetType)
+        assetPipe.createAssetDialog(namespace=':', assetType=assetType)'''
 
         #old
         #import kmrt.sceneInit
@@ -603,11 +603,11 @@ class kShelfBar():
         import kReplacer
         reload (kReplacer)
 
-    def kitBuilder(self):
+    '''def kitBuilder(self):
         import mayaTools.assetKitBuilder.main
         import mayaTools.assetKitBuilder.core
 
-        mayaTools.assetKitBuilder.main.load()
+        mayaTools.assetKitBuilder.main.load()'''
 
     def frRenamer(self):
         import renamer.renamer as renamer
@@ -719,7 +719,7 @@ class kShelfBar():
 
             pm.select(sel)
 
-        cleanupUnfreeze()
+        
     '''
 
     '''  mikros      
