@@ -17,7 +17,7 @@ from time import localtime, strftime
 class kShelfBar():
     def __init__(self):
         
-        scaleIcon = 30
+        scaleIcon = 28
         scaleSeparator = 18
 
         self.initPath()

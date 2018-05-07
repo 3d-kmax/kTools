@@ -9,26 +9,28 @@
 '''apiVers = mc.about(apiVersion=True)
 apiVersStr = str(apiVers)
 if apiVers[0:4] = "2015":
-    import shiboken
+    from shiboken import warpInstance
 if apiVers[0:4] = "2018":
-    import shiboken2
+    from shiboken2 import warpInstance
 print "Maya Version : ", apiVers[0:4]'''
 
+'''
 try:
     from shiboken import wrapInstance
 except:
     from shiboken2 import wrapInstance
 
-from PySide import QtCore, QtGui
-'''try:
+try:
     from PySide import QtGui as QtWidgets
     from PySide import QtCore
 except ImportError:
     from PySide2 import QtWidgets
-    from PySide2 import QtCore'''
+    from PySide2 import QtCore
+'''
 
+from PySide import QtCore, QtGui
+import shiboken
 Qt = QtCore.Qt
-
 
 import maya.OpenMayaUI as mui
 import maya.cmds as mc
@@ -108,13 +110,12 @@ def catchJobException(func):
             pm.displayError('< {0}.{1} > {2}.'.format(func.__module__, func.__name__, str(e)))
             return
         return ret
-
     return doIt
 
 # ici isAutoAddNewObjsEnabled & toggleIsolateObject
 
 
-class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
+class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
 #class KmaxWin(QtGui.Qwidget, kmaxUi.Ui_kmaxToolBar):
     '''
     Mon outil custom de ouf
@@ -254,8 +255,24 @@ class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
         '''
 
         self.iconTool = QtGui.QIcon()
-        self.iconTool.addPixmap(QtGui.QPixmap(self.target + "moveTool.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
+        self.iconTool.addPixmap(QtGui.QPixmap(self.target + "aselect.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
         self.bt_tool.setIcon(self.iconTool)
+
+        self.iconSelObject = QtGui.QIcon()
+        self.iconSelObject.addPixmap(QtGui.QPixmap(self.target + "objectnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_selObj.setIcon(self.iconSelObject)
+
+        self.iconSelVertex = QtGui.QIcon()
+        self.iconSelVertex.addPixmap(QtGui.QPixmap(self.target + "vertexnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_selVert.setIcon(self.iconSelVertex)
+
+        self.iconSelEdge = QtGui.QIcon()
+        self.iconSelEdge.addPixmap(QtGui.QPixmap(self.target + "edgesnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_selEdge.setIcon(self.iconSelEdge)
+
+        self.iconSelFace = QtGui.QIcon()
+        self.iconSelFace.addPixmap(QtGui.QPixmap(self.target + "facesnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_selFace.setIcon(self.iconSelFace)
 
         self.iconTransform = QtGui.QIcon()
         self.iconTransform.addPixmap(QtGui.QPixmap(self.target + "transform23.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
@@ -323,7 +340,7 @@ class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
         self.bt_selEdge.clicked.connect(self.selEdge)
         self.bt_selFace.clicked.connect(self.selFace)
         self.bt_selObj.clicked.connect(self.selObject)
-        self.bt_selMulti.clicked.connect(self.selMulti)
+        #self.bt_selMulti.clicked.connect(self.selMulti)
 
         self.le_select.returnPressed.connect(self.selectByName)
 
@@ -1146,9 +1163,9 @@ class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
     def selObject(self):
         mc.selectMode(object=True)
 
-    def selMulti(self):
+    '''def selMulti(self):
         mc.selectMode(component=True)
-        mc.selectType(meshComponents=True)
+        mc.selectType(meshComponents=True)'''
 
     def setNearClip(self):
         self.value = ["0.1", "1", "3"]
@@ -1290,7 +1307,7 @@ class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
                 self.initScaleSettings()
                 self.bt_toolSettings.setText("Scale Settings")
             if ctxType == "selectTool":
-                self.setIconTool("selectLassoTool")
+                self.setIconTool("aselect")
                 self.wg_moveSettings.setVisible(False)
                 self.wg_rotateSettings.setVisible(False)
                 self.wg_scaleSettings.setVisible(False)
@@ -1309,8 +1326,8 @@ class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
                                                                                       "selection-background-color: " + self.selectColor + ";\n")
             self.bt_selFace.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
                                                                                       "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                       "selection-background-color: " + self.selectColor + ";\n")
+            #self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
+            #                                                                           "selection-background-color: " + self.selectColor + ";\n")
             print ">> Mode Object"
 
         else:
@@ -1324,8 +1341,8 @@ class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
                                                                                           "selection-background-color: " + self.selectColor + ";\n")
                 self.bt_selFace.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
                                                                                           "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+                #self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
+                #                                                                           "selection-background-color: " + self.selectColor + ";\n")
                 print ">> Mode Vertex"
 
             if mc.selectType(q=True, edge=True):
@@ -1338,8 +1355,8 @@ class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
                                                                                           "selection-background-color: " + self.selectColor + ";\n")
                 self.bt_selFace.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
                                                                                           "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+                #self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
+                #                                                                           "selection-background-color: " + self.selectColor + ";\n")
                 print ">> Mode Edge"
 
             if mc.selectType(q=True, facet=True):
@@ -1352,10 +1369,11 @@ class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
                                                                                           "selection-background-color: " + self.selectColor + ";\n")
                 self.bt_selVert.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
                                                                                           "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+                #self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
+                #                                                                           "selection-background-color: " + self.selectColor + ";\n")
                 print ">> Mode Face"
 
+            '''
             if mc.selectType(q=True, meshComponents=True):
                 self.bt_selMulti.setChecked(True)
                 self.bt_selMulti.setStyleSheet("background-color: " + self.selectColor + ";\n"
@@ -1369,6 +1387,7 @@ class KmaxWin(QtWidgets.QWidget, kmaxUi.Ui_kmaxToolBar):
                 self.bt_selFace.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
                                                                                           "selection-background-color: " + self.selectColor + ";\n")
                 print ">> Mode Multi"
+                '''
 
                 # pour renommer l'object selectionne
 
