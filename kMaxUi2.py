@@ -42,7 +42,7 @@ mc.columnLayout()
 mc.rowLayout(numberOfColumns=2, columnWidth=[(1, 50), (2, 150)])
 #mc.rowColumnLayout(numberOfColumns=4, columnWidth=[(1, 66), (2, 66), (3, 66), (4, 66)])#, columnAlign4=["center","center","center","center"], columnAttach4=["both","both","both","both"], rowAttach=[(1, "both", 0), (1, "both", 0), (1, "both", 0), (1, "both", 0)])
 #mc.rowLayout(numberOfColumns=2, columnWidth=[(1, 66), (2, 198)])
-mc.iconTextStaticLabel( style='iconOnly', image=target+"/icons/moveTool.png", height=2*heightBtn)
+mc.iconTextStaticLabel( style='iconOnly', image=target+"/icons/aselect.png", height=2*heightBtn)
 
 mc.rowColumnLayout(numberOfColumns=3, columnWidth=[(1, 50), (2, 50), (3, 50)])
 mc.iconTextRadioCollection("Selection Type")
@@ -164,7 +164,7 @@ mc.iconTextButton(label='BG', style='iconAndTextCentered', font="tinyBoldLabelFo
 #mc.rowColumnLayout(numberOfColumns=5, columnWidth=[(1,66), (2,66), (3,66), (4,33), (5,33)])#, columnAlign5=["center","center","center","center","center"], columnAttach5=["both", "both", "both", "both", "both"], height=heightBtn)
 mc.iconTextCheckBox(label='ISO', style='iconOnly', font="tinyBoldLabelFont", image=target+"/icons/isolateSelected.png", highlightImage=target+"/icons/isolateSelected.png", selectionImage=target+"/btn/imageEnable.png", selectionHighlightImage=target+"/btn/imageHighlight.png", height=heightBtn, marginWidth=0, marginHeight=0)
 mc.iconTextButton(label='ACTU', style='iconOnly', font="tinyBoldLabelFont", image=target+"/icons/actualize.png", highlightImage=target+"/icons/actualize.png", selectionImage=target+"/btn/imageEnable.png", height=heightBtn, marginWidth=0, marginHeight=0)
-mc.iconTextCheckBox(label='AUTO', style='iconOnly', font="tinyBoldLabelFont", image=target+"/icons/autoRefresh.png", highlightImage=target+"/icons/autoRefresh.png", selectionImage=target+"/btn/imageEnable.png", selectionHighlightImage=target+"/btn/imageHighlight.png", height=heightBtn, marginWidth=0, marginHeight=0)
+mc.iconTextCheckBox(label='AUTO', style='iconOnly', font="tinyBoldLabelFont", image=target+"/icons/autoActualize.png", highlightImage=target+"/icons/autoActualize.png", selectionImage=target+"/btn/imageEnable.png", selectionHighlightImage=target+"/btn/imageHighlight.png", height=heightBtn, marginWidth=0, marginHeight=0)
 mc.iconTextButton(label='+', style='iconAndTextCentered', font="tinyBoldLabelFont", image=target+"/btn/imageActif.png", highlightImage=target+"/btn/imageHighlight.png", selectionImage=target+"/btn/imageEnable.png", height=heightBtn, marginWidth=0, marginHeight=0)
 mc.iconTextButton(label='-', style='iconAndTextCentered', font="tinyBoldLabelFont", image=target+"/btn/imageActif.png", highlightImage=target+"/btn/imageHighlight.png", selectionImage=target+"/btn/imageEnable.png", height=heightBtn, marginWidth=0, marginHeight=0)
 

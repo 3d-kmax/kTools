@@ -12,12 +12,11 @@ import os
 
 
 class kCleaner():
-
     def __init__(self):
         self.initPath()
         self.cleanerUI()
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def cleanerUI(self):
 
         '''path_list = os.path.realpath(__file__).split('/')[:-1]
@@ -27,41 +26,43 @@ class kCleaner():
             target += item + '/'
             '''
 
-        allButtons =    [("delNameSpace32.png", self.nameSpace_removeAll,"Remove all nameSpace in current scene"),
-                        ("delUnusedNode32.png", self.unknowNodes_remove, "Remove unknow noReferenced nodes"),
-                        ("del_curve32.png", self.unused_animCurve_remove, "Remove unused noReferenced animCurves"),
-                        ("deleteHyperView32.png", self.unused_hyperView_remove, "Remove unused hyperView, hyperLayout"),
-                        ("del_fosterParent32.png", self.fosterParent_remove, "Remove all fosterParent in scene"),
-                        ("delGhostMesh32.png", self.ghostMesh_remove, "Remove all mesh intermediate shape connected to nothing"),
-                        ("delTurtle32.png", self.turtleNode_remove, "Remove 4 turtle nodes in scene"),
-                        ("delUnusedNode32.png", self.delUnknowNodes, "Delete unknow nodes on hyperShade"),
-                        ("selNgones32.png", self.kmExeNgones, "Isolate objects with ngones, and create a Set")]
-                     #("separateHor","no"),("cleaner32", self.cleanAll)
+        allButtons = [("delNameSpace32.png", self.nameSpace_removeAll, "Remove all nameSpace in current scene"),
+                      ("delUnusedNode32.png", self.unknowNodes_remove, "Remove unknow noReferenced nodes"),
+                      ("del_curve32.png", self.unused_animCurve_remove, "Remove unused noReferenced animCurves"),
+                      ("deleteHyperView32.png", self.unused_hyperView_remove, "Remove unused hyperView, hyperLayout"),
+                      ("del_fosterParent32.png", self.fosterParent_remove, "Remove all fosterParent in scene"),
+                      ("delGhostMesh32.png", self.ghostMesh_remove,"Remove all mesh intermediate shape connected to nothing"),
+                      ("delTurtle32.png", self.turtleNode_remove, "Remove 4 turtle nodes in scene"),
+                      ("delUnusedNode32.png", self.delUnknowNodes, "Delete unknow nodes on hyperShade"),
+                      ("selNgones32.png", self.kmExeNgones, "Isolate objects with ngones, and create a Set")]
+        # ("separateHor","no"),("cleaner32", self.cleanAll)
 
         self.nbBtn = len(allButtons)
         self.widthWin = self.nbBtn * 32 + 50
-        #print ">> Size : ", self.widthWin
-        
+        # print ">> Size : ", self.widthWin
+
         windowName = "kCleaner"
 
         if mc.window(windowName, q=True, exists=True):
             mc.deleteUI(windowName)
 
-        self.myWindow = mc.window(windowName, sizeable=False, toolbox=True, titleBar=True, minimizeButton=False, maximizeButton=False)
-        mc.window(self.myWindow, width=self.widthWin -2, height=40, edit=True)
-        
-        mc.rowLayout(numberOfColumns = self.nbBtn+2)
-        #mc.frameLayout(labelVisible=0, borderVisible=0)
-        #mc.shelfLayout(windowName, style="iconOnly", cellWidthHeight=[32, 32], height=38, width=self.widthWin)
+        self.myWindow = mc.window(windowName, sizeable=False, toolbox=True, titleBar=True, minimizeButton=False,
+                                  maximizeButton=False)
+        mc.window(self.myWindow, width=self.widthWin - 2, height=40, edit=True)
+
+        mc.rowLayout(numberOfColumns=self.nbBtn + 2)
+        # mc.frameLayout(labelVisible=0, borderVisible=0)
+        # mc.shelfLayout(windowName, style="iconOnly", cellWidthHeight=[32, 32], height=38, width=self.widthWin)
 
         for btn in allButtons:
             mc.iconTextButton(image=self.target + btn[0], command=btn[1], annotation=btn[2])
 
-        mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png", width=9, enable=0)
+        mc.iconTextButton(image1=self.target + "separateHor.png", disabledImage=self.target + "separateHor.png",
+                          width=9, enable=0)
         mc.iconTextButton(image1=self.target + "cleanAll32.png", command=self.cleanAll, annotation="Clean All")
 
         mc.showWindow(self.myWindow)
-        
+
     def initPath(self):
         # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
         path_brut = os.path.realpath(__file__)
@@ -78,7 +79,7 @@ class kCleaner():
             self.target += item + '/'
         print ">> :", self.target
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def nameSpace_removeAll(self):
         '''
         Remove all nameSpace in current scene
@@ -115,7 +116,7 @@ class kCleaner():
 
         print logMsg
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def unknowNodes_remove(self):
         '''
         Remove unknow noReferenced nodes
@@ -140,12 +141,12 @@ class kCleaner():
 
         print logMsg
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def delUnknowNodes(self):
         pm.mel.hyperShadePanelMenuCommand("hyperShadePanel1", "deleteUnusedNodes")
         print 'Unknow nodes deleted'
-        
-    #----------------------------------------------------------------------
+
+    # ----------------------------------------------------------------------
     def unused_animCurve_remove(self):
         '''
         Remove unused noReferenced animCurves
@@ -170,7 +171,7 @@ class kCleaner():
 
         print logMsg
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def unused_hyperView_remove(self):
         '''
         Remove unused hyperView, hyperLayout
@@ -194,7 +195,7 @@ class kCleaner():
 
         print logMsg
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def useless_scriptNode_remove(self):
         '''
         Remove useless scriptNodes
@@ -221,7 +222,7 @@ class kCleaner():
 
         print logMsg
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def fosterParent_remove(self):
         '''
         Remove all fosterParent in scene
@@ -240,7 +241,7 @@ class kCleaner():
 
         print logMsg
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def ghostMesh_remove(self):
         '''
         Remove all mesh intermediate shape connected to nothing
@@ -255,7 +256,7 @@ class kCleaner():
         ghostShape = list()
         for item in allShape:
             link = mc.listConnections(item)
-            #link= mc.listConnections( item ) or list() //
+            # link= mc.listConnections( item ) or list() //
             if not link:
                 ghostShape.append(item)
 
@@ -267,29 +268,30 @@ class kCleaner():
 
         print logMsg
 
-    #----------------------------------------------------------------------
+    # ----------------------------------------------------------------------
     def turtleNode_remove(self):
         '''
         Remove 4 turtle node
         '''
-        
-        #mc.pluginInfo( query=True, listPlugins=True)
+
+        # mc.pluginInfo( query=True, listPlugins=True)
         if mc.pluginInfo("Turtle", loaded=True, q=True):
             pm.mel.ilrClearScene()
-            pm.mel.unloadPluginWithCheck( "D:/64/Autodesk/Maya2015/bin/plug-ins/Turtle.mll" )
+            pm.mel.unloadPluginWithCheck("D:/64/Autodesk/Maya2015/bin/plug-ins/Turtle.mll")
         else:
-            selectionList = mc.ls(type=['ilrBakeLayer','ilrOptionsNode','ilrBakeLayerManager','ilrUIOptionsNode'])
+            selectionList = mc.ls(type=['ilrBakeLayer', 'ilrOptionsNode', 'ilrBakeLayerManager', 'ilrUIOptionsNode'])
             if selectionList:
                 for item in selectionList:
-                    mc.lockNode( item, lock=False )
-                    mc.delete( item )
+                    mc.lockNode(item, lock=False)
+                    mc.delete(item)
                 print len(selectionList), " Turtle nodes DELETED"
             else:
                 print "no Turtle Node"
 
     # ----------------------------------------------------------------------
     def kmExeNgones(self):
-        mel.eval('polyCleanupArgList 3 { "0","2","1","0","1","0","0","0","0","1e-005","0","1e-005","0","1e-005","0","-1","0" };')
+        mel.eval(
+            'polyCleanupArgList 3 { "0","2","1","0","1","0","0","0","0","1e-005","0","1e-005","0","1e-005","0","-1","0" };')
         mel.eval('toggleSelMode;')
         # km.toggleIsolateObject()
         allModelPanel = mc.getPanel(type='modelPanel')
@@ -308,8 +310,8 @@ class kCleaner():
                     pm.mel.enableIsolateSelect(modelPanelName, 0)
                     print ">> Isolate : OFF."
         mc.sets(name="ObjWithNGones")
-            
-    #----------------------------------------------------------------------
+
+    # ----------------------------------------------------------------------
     def cleanAll(self):
         self.unknowNodes_remove()
         self.nameSpace_removeAll()
@@ -319,6 +321,7 @@ class kCleaner():
         self.ghostMesh_remove()
         self.turtleNode_remove()
         self.kmExeNgones()
-        #self.delUnknowNodes()
+        # self.delUnknowNodes()
+
 
 kCleaner()

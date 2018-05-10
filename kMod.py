@@ -19,23 +19,9 @@ class kModBar():
         scaleSeparator = 12
         #scaleColumn = scaleIcon+2
 
-        #self.target =  "/homes/mte/maya/2016/scripts/kTools/icons/"
+        self.initPath()
 
-        path_brut = os.path.realpath(__file__)
-        print ">> path brut : ", path_brut
-        path_norm = os.path.normpath(path_brut)  # os.path.normcase()
-        print ">> path norm : ", path_norm
-        path_clean = path_norm.replace("\\", "/")
-        print ">> path clean : ", path_clean
-        path_list = path_clean.split('/')[:-1]
-        print ">> path split : ", path_list
-        path_list.extend(['icons'])
-        self.target = ''
-        for item in path_list:
-            self.target += item + '/'
-        print ">> :", self.target
-
-        self.nPlane = 1
+        #self.nPlane = 1
 
         window_name = "kWindow"
         dockName = "dockMod"
@@ -199,8 +185,8 @@ class kModBar():
 
         # bt_mergeEdge = mc.iconTextButton(image1="polyMergeEdge.png", label="MergeEdge", annotation="Merge the two selected border edges, if topologically possible", command="pm.mel.MergeEdgeTool()")
 
-        bt_mergeVertexTool = mc.iconTextButton(image1="polyMergeVertex.png",
-                                               highlightImage="polyMergeVertex.png",
+        bt_mergeVertexTool = mc.iconTextButton(image1=self.target + "polyMergeVertex.png",
+                                               highlightImage=self.target + "polyMergeVertex.png",
                                                label="MergeVertexTool",
                                                annotation="Interactively select and merge vertices",
                                                command="pm.mel.MergeVertexTool()",
@@ -457,6 +443,22 @@ class kModBar():
         allowedAreas = ['left', 'right']                         
         myTool = mc.toolBar(toolName, area='left', content=my_window, allowedArea=allowedAreas)
 
+    def initPath(self):
+        # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+        path_brut = os.path.realpath(__file__)
+        print ">> path brut : ", path_brut
+        path_norm = os.path.normpath(path_brut)  # os.path.normcase()
+        print ">> path norm : ", path_norm
+        path_clean = path_norm.replace("\\", "/")
+        print ">> path clean : ", path_clean
+        path_list = path_clean.split('/')[:-1]
+        print ">> path split : ", path_list
+        path_list.extend(['icons'])
+        self.target = ''
+        for item in path_list:
+            self.target += item + '/'
+        print ">> :", self.target
+
     def kmPlane(self):
         mc.polyPlane(w=10, h=10, sx=2, sy=2, ax=[0, 1, 0], cuv=2, ch=1)
 
@@ -523,7 +525,7 @@ class kModBar():
         else:
             print ">> No selection"
 
-    def kmSetToFace(selfself):
+    def kmSetToFace(self):
         selectionList = mc.ls(selection=True, type='transform')
         if selectionList:
             for obj in selectionList:

@@ -148,11 +148,12 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.setupUi(self)
         self.setAttribute(Qt.WA_DeleteOnClose, True)
 
-        # self.selectColor = "rgb(50, 110, 180)"		# BLEU good : "rgb(50, 100, 150)"
+        #self.selectColor = "rgb(50, 110, 180)"		# BLEU good : "rgb(50, 100, 150)"
         self.selectColor = "rgb(103, 141, 178)"  # Maya BLEU
         self.unSelectColor = "rgb(100, 100, 100)"  # GRIS FONCE
         self.textColor = "rgb(150, 150, 150)"  # GRIS CLAIR
-        self.titleColor = "rgb(42, 42, 42)"
+        self.backGroundColor = "rgb(68, 68, 68)" # GRIS MAYA
+        self.titleColor = "rgb(42, 42, 42)" # GRIS SOMBRE UNSELECT
 
         self.initLink()
         self.initScriptJobs()
@@ -174,7 +175,6 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.initSoftSelec()
         self.initSoftValue()
         self.softPresetA()
-        self.softVolume()
 
         self.initSymModelling()
         self.initSymTolerance()
@@ -241,19 +241,27 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                     print ">> Isolate : OFF."
 
     def initIcon(self):
-        # user = "m.terray"
-        # mayaVersion = "2014-x64"
-        # target = "C:/Users/"+user+"/Documents/maya/"+mayaVersion+"/prefs/icons/"
 
-        '''
-        path_list = os.path.realpath(__file__).split('/')[:-1]
-        path_list.extend(['icons'])
-        target = ''
-        for item in path_list:
-            target += item + '/'
-        print target
-        '''
+        # icons interface
+        self.iconLockOn = QtGui.QIcon()
+        self.iconLockOn.addPixmap(QtGui.QPixmap(self.target + "lockOn.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        bt_locks = (self.bt_commonLock, self.bt_displayLock, self.bt_transformLock, self.bt_toolLock, self.bt_softLock)
+        for lock in bt_locks:
+            lock.setIcon(self.iconLockOn)
 
+        self.iconLockOff = QtGui.QIcon()
+        self.iconLockOff.addPixmap(QtGui.QPixmap(self.target + "lockOff.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+
+
+        '''allButtons = [("iconTool", "aselect.png", "bt_tool", "Annotation"),
+                      ("iconSelObject", "objectnex.png", "bt_selVert", "Annotation")]
+        for btn in allButtons:
+            self.btn[0] = QtGui.QIcon()
+            self.btn[0].addPixmap(QtGui.QPixmap(self.target + btn[1]), QtGui.QIcon.Normal,QtGui.QIcon.Off)
+            self.btn[2].setIcon(self.btn[0])
+            self.btn[2](annotation=btn[3])'''
+
+        # icons common selection options
         self.iconTool = QtGui.QIcon()
         self.iconTool.addPixmap(QtGui.QPixmap(self.target + "aselect.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
         self.bt_tool.setIcon(self.iconTool)
@@ -274,31 +282,85 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.iconSelFace.addPixmap(QtGui.QPixmap(self.target + "facesnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_selFace.setIcon(self.iconSelFace)
 
+        self.iconSelUv = QtGui.QIcon()
+        self.iconSelUv.addPixmap(QtGui.QPixmap(self.target + "uvnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_selUv.setIcon(self.iconSelUv)
+
         self.iconTransform = QtGui.QIcon()
         self.iconTransform.addPixmap(QtGui.QPixmap(self.target + "transform23.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
         self.btn_transformName.setIcon(self.iconTransform)
+        #self.btn_transformName.setDisabled(True)
 
         self.iconShape = QtGui.QIcon()
         self.iconShape.addPixmap(QtGui.QPixmap(self.target + "shape.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
         self.btn_shapeName.setIcon(self.iconShape)
+        #self.btn_shapeName.setDisabled(True)
 
         self.iconHistory = QtGui.QIcon()
         self.iconHistory.addPixmap(QtGui.QPixmap(self.target + "constructionHistory.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_history.setIcon(self.iconHistory)
+        #self.btn_history.setDisabled(True)
 
         self.iconSelec = QtGui.QIcon()
         self.iconSelec.addPixmap(QtGui.QPixmap(self.target + "quickRename.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btn_select.setIcon(self.iconSelec)
+        #self.btn_select.setDisabled(True)
 
-        self.iconLockOn = QtGui.QIcon()
-        self.iconLockOn.addPixmap(QtGui.QPixmap(self.target + "lock_closed_b.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        bt_locks = (self.bt_commonLock, self.bt_displayLock, self.bt_transformLock, self.bt_toolLock, self.bt_softLock)
-        for lock in bt_locks:
-            lock.setIcon(self.iconLockOn)
+        # icons display menu
+        self.iconHUD = QtGui.QIcon()
+        self.iconHUD.addPixmap(QtGui.QPixmap(self.target + "hud.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_hudInfos.setIcon(self.iconHUD)
 
-        self.iconLockOff = QtGui.QIcon()
-        self.iconLockOff.addPixmap(QtGui.QPixmap(self.target + "lock_open_b.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.iconGrid = QtGui.QIcon()
+        self.iconGrid.addPixmap(QtGui.QPixmap(self.target + "grid.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off) #gridDisplay
+        self.bt_toggleGrid.setIcon(self.iconGrid)
 
+        self.iconConstrHistory = QtGui.QIcon()
+        self.iconConstrHistory.addPixmap(QtGui.QPixmap(self.target + "constructionHistory.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_noHistory.setIcon(self.iconConstrHistory)
+
+        self.iconXray = QtGui.QIcon()
+        self.iconXray.addPixmap(QtGui.QPixmap(self.target + "xray.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_xrayMat.setIcon(self.iconXray)
+
+        self.iconDefaultMat = QtGui.QIcon()
+        self.iconDefaultMat.addPixmap(QtGui.QPixmap(self.target + "useDefaultMaterial.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_defaultMat.setIcon(self.iconDefaultMat)
+
+        self.iconWireframe = QtGui.QIcon()
+        self.iconWireframe.addPixmap(QtGui.QPixmap(self.target + "wireframeOnShaded.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_wireframe.setIcon(self.iconWireframe)
+
+        self.iconHighlight = QtGui.QIcon()
+        self.iconHighlight.addPixmap(QtGui.QPixmap(self.target + "highlightSelect.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_selHighlight.setIcon(self.iconHighlight)
+
+        self.iconMeshBorder = QtGui.QIcon()
+        self.iconMeshBorder.addPixmap(QtGui.QPixmap(self.target + "meshBorder.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_toggleBorderEdge.setIcon(self.iconMeshBorder)
+
+        self.iconIsolate = QtGui.QIcon()
+        self.iconIsolate.addPixmap(QtGui.QPixmap(self.target + "isolateSelected.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_isolateSel.setIcon(self.iconIsolate)
+
+        self.iconActualize = QtGui.QIcon()
+        self.iconActualize.addPixmap(QtGui.QPixmap(self.target + "actualize.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_isolateActu.setIcon(self.iconActualize)
+
+        self.iconAutoActualize = QtGui.QIcon()
+        self.iconAutoActualize.addPixmap(QtGui.QPixmap(self.target + "autoActualize.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_autoAddIsolate.setIcon(self.iconAutoActualize)
+
+        # icons transform menu
+        self.iconDeleteHistory = QtGui.QIcon()
+        self.iconDeleteHistory.addPixmap(QtGui.QPixmap(self.target + "deleteHistory.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_deleteHistory.setIcon(self.iconDeleteHistory)
+
+        self.iconCenterPivot = QtGui.QIcon()
+        self.iconCenterPivot.addPixmap(QtGui.QPixmap(self.target + "centerPivot.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_centerPivot.setIcon(self.iconCenterPivot)
+
+        # icons soft selection
         self.presetSoftA = QtGui.QIcon()
         # self.presetSoftA.setIconSize(QtCore.QSize(32, 32))
         self.presetSoftA.addPixmap(QtGui.QPixmap(self.target + "softPresetA3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
@@ -313,10 +375,15 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.presetSoftC.addPixmap(QtGui.QPixmap(self.target + "softPresetC3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_softPresetC.setIcon(self.presetSoftC)
 
+        self.iconTest = QtGui.QIcon()
+        self.iconTest.addPixmap(QtGui.QPixmap(self.target + "initScene.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_test.setIcon(self.iconTest)
+
     def setIconTool(self, toolType):
         self.iconTool = QtGui.QIcon()
         self.iconTool.addPixmap(QtGui.QPixmap(self.target + toolType + ".png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_tool.setIcon(self.iconTool)
+        #self.bt_tool.setDisabled(True)
 
     # LIENS entre boutons et fonctions/methodes
     def initLink(self):
@@ -341,6 +408,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.bt_selFace.clicked.connect(self.selFace)
         self.bt_selObj.clicked.connect(self.selObject)
         #self.bt_selMulti.clicked.connect(self.selMulti)
+        self.bt_selUv.clicked.connect(self.selUv)
 
         self.le_select.returnPressed.connect(self.selectByName)
 
@@ -358,6 +426,8 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
 
         self.bt_nearClip.clicked.connect(self.setNearClip)
         self.bt_farClip.clicked.connect(self.setFarClip)
+        self.bt_test.clicked.connect(self.tryTest)
+        self.bt_toggleBorderEdge.clicked.connect(self.tglBorderEdges)
 
         self.bt_xrayMat.clicked.connect(self.useXrayMat)
         self.bt_defaultMat.clicked.connect(self.useDefaultMat)
@@ -367,7 +437,6 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.bt_selHighlight.clicked.connect(self.selHighlight)
         self.bt_backFaceCulling.clicked.connect(self.backFaceCulling)
         self.bt_twoSideLight.clicked.connect(self.twoSideLight)
-        self.bt_toggleBorderEdge.clicked.connect(self.tglBorderEdges)
 
         self.bt_isolateSel.clicked.connect(self.isolateSelection)
         self.bt_isolateActu.clicked.connect(self.actuIso)
@@ -410,7 +479,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         # self.bt_matchPivot.clicked.connect(self.matchPivot)
 
         # soft selection tool
-        self.bt_softSelection.toggled.connect(self.softSelection)
+        self.bt_softSelection.clicked.connect(self.softSelection)
         self.le_softValue.returnPressed.connect(self.softValue)
         self.bt_softVolume.clicked.connect(self.softVolume)
         self.bt_softGlobal.clicked.connect(self.softGlobal)
@@ -422,7 +491,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.bt_resetSoft.clicked.connect(self.softReset)
 
         # symmetric	tool
-        self.bt_symMod.toggled.connect(self.symmetricModelling)
+        self.bt_symMod.clicked.connect(self.symmetricModelling)
         self.le_symTolerance.returnPressed.connect(self.symTolerance)
         self.bt_symSwitch.clicked.connect(self.symSwitch)
         self.bt_symX.clicked.connect(self.symX)
@@ -517,28 +586,23 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.HUDState = 1
 
     def initSelectStyle(self):
-        self.bt_selectionStyle.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                       "selection-background-color: rgb(150, 150, 150);\n")
+        self.buttonOn(self.bt_selectionStyle)
         if mc.selectPref(q=True, paintSelect=True):
             self.bt_selectionStyle.setText("Drag")
             if mc.selectPref(q=True, paintSelectWithDepth=True):
                 self.bt_camSwitch.setChecked(True)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
+                self.buttonOn(self.bt_camSwitch)
             else:
                 self.bt_camSwitch.setChecked(False)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_camSwitch)
         else:
             self.bt_selectionStyle.setText("Marquee")
             if mc.selectPref(q=True, useDepth=True):
                 self.bt_camSwitch.setChecked(True)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
+                self.buttonOn(self.bt_camSwitch)
             else:
                 self.bt_camSwitch.setChecked(False)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_camSwitch)
 
     def initVisibility(self):
         selectionList = mc.ls(selection=True, type='transform')
@@ -547,11 +611,9 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             stateVIS = mc.getAttr(selectionList[-1] + ".visibility")
             self.bt_visibility.setChecked(stateVIS)
             if stateVIS:
-                self.bt_visibility.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                           "selection-background-color: rgb(150, 150, 150);\n")
+                self.buttonOn(self.bt_visibility)
             else:
-                self.bt_visibility.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                             "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_visibility)
 
     def initVisPivot(self):
         selectionList = mc.ls(selection=True, type='transform')
@@ -560,11 +622,9 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             stateVisPivot = mc.getAttr(selectionList[-1] + ".displayRotatePivot")
             self.bt_visPivot.setChecked(stateVisPivot)
             if stateVisPivot:
-                self.bt_visPivot.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                         "selection-background-color: rgb(150, 150, 150);\n")
+                self.buttonOn(self.bt_visPivot)
             else:
-                self.bt_visPivot.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_visPivot)
 
     def initDoubleSide(self):
         # selectionList = mc.ls( selection=True, type='mesh' )
@@ -583,11 +643,9 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                     stateDF = mc.getAttr(selectionList[-1]+".doubleSided")
                     self.bt_doubleSide.setChecked(stateDF)
                     if stateDF:
-                        self.bt_doubleSide.setStyleSheet("background-color: "+self.selectColor+";\n"
-                                                                "selection-background-color: rgb(150, 150, 150);\n")
+                        self.buttonOn(self.bt_doubleSide)
                     else:
-                        self.bt_doubleSide.setStyleSheet("background-color: "+self.unSelectColor+";\n"
-                                                            "selection-background-color: "+self.selectColor+";\n")
+                        self.buttonOff(self.bt_doubleSide)
             else:
                 self.bt_doubleSide.setChecked(False)
         else:
@@ -598,192 +656,127 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         if stateBorder:  # mc.polyOptions(displayBorder=True, newPolymesh=True, q=True):
             print ">> Border visible"
             self.bt_toggleBorderEdge.setChecked(True)
-            self.bt_toggleBorderEdge.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                             "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_toggleBorderEdge)
         else:
             print ">> Border not visible"
             self.bt_toggleBorderEdge.setChecked(False)
-            self.bt_toggleBorderEdge.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                               "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_toggleBorderEdge)
 
     def initNoHistory(self):
         stateHistory = mc.constructionHistory(q=True, tgl=True)
         if stateHistory:
             self.bt_noHistory.setChecked(True)
-            self.bt_noHistory.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                      "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_noHistory)
         else:
             self.bt_noHistory.setChecked(False)
-            self.bt_noHistory.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                        "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_noHistory)
 
     def initInterface(self):
-        # bt_commonSelectionOptions
-        self.bt_commonSelectionOptions.setStyleSheet("background-color: " + self.titleColor + ";\n"
-                                                                                              "color: " + self.selectColor + ";\n"  # "border-color: "+self.selectColor+";\n"  # "border-width: 2px;"  # "border-style: solid;"  # "border-color: blue;"  # "border-radius: 11px;"  # "text-align: left;"
-                                                                                                                             "font-weight: bold;"
-                                                                                                                             "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_commonSelectionOptions.setDisabled(True)
+        self.commonLockState = 1
+        self.displayLockState = 1
+        self.transformLockState = 1
+        self.toolLockState = 1
+        self.softLockState = 1
+        titlesMenu = (self.bt_commonSelectionOptions, self.bt_displayMenu, self.bt_transformMenu,
+                      self.bt_toolSettings, self.bt_softSelectionMenu)
+        for item in titlesMenu:
+            item.setStyleSheet("background-color: " + self.backGroundColor + ";\n"
+                                    "color: " + self.titleColor + ";\n"  # "border-color: "+self.selectColor+";\n"  # "border-width: 2px;"  # "border-style: solid;"  # "border-color: blue;"  # "border-radius: 11px;"  # "text-align: left;"
+                                    "font-weight: bold;"
+                                    "selection-background-color: " + self.selectColor + ";\n")
+            item.setDisabled(True)
 
-        # bt_displayMenu
-        self.bt_displayMenu.setStyleSheet("background-color: " + self.titleColor + ";\n"
-                                                                                   "color: " + self.selectColor + ";\n"
-                                                                                                                  "font-weight: bold;"
-                                                                                                                  "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_displayMenu.setDisabled(True)
-
-        # bt_transformMenu
-        self.bt_transformMenu.setStyleSheet("background-color: " + self.titleColor + ";\n"
-                                                                                     "color: " + self.selectColor + ";\n"
-                                                                                                                    "font-weight: bold;"
-                                                                                                                    "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_transformMenu.setDisabled(True)
-
-        # bt_toolSettings
-        self.bt_toolSettings.setStyleSheet("background-color: " + self.titleColor + ";\n"
-                                                                                    "color: " + self.selectColor + ";\n"
-                                                                                                                   "font-weight: bold;"
-                                                                                                                   "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_toolSettings.setDisabled(True)
-
-        # bt_softSelectionMenu
-        self.bt_softSelectionMenu.setStyleSheet("background-color: " + self.titleColor + ";\n"
-                                                                                         "color: " + self.selectColor + ";\n"
-                                                                                                                        "font-weight: bold;"
-                                                                                                                        "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softSelectionMenu.setDisabled(True)
-
-        # lock
-        self.bt_commonLock.setChecked(True)
-        self.bt_commonLock.setStyleSheet("background-color: " + self.titleColor + ";\n"
-                                                                                  "color: " + self.selectColor + ";\n"
-                                                                                                                 "font-weight: bold;"
-                                                                                                                 "selection-background-color: " + self.selectColor + ";\n")
-
-        self.bt_displayLock.setChecked(True)
-        self.bt_displayLock.setStyleSheet("background-color: " + self.titleColor + ";\n"
-                                                                                   "color: " + self.selectColor + ";\n"
-                                                                                                                  "font-weight: bold;"
-                                                                                                                  "selection-background-color: " + self.selectColor + ";\n")
-
-        self.bt_transformLock.setChecked(True)
-        self.bt_transformLock.setStyleSheet("background-color: " + self.titleColor + ";\n"
-                                                                                     "color: " + self.selectColor + ";\n"
-                                                                                                                    "font-weight: bold;"
-                                                                                                                    "selection-background-color: " + self.selectColor + ";\n")
-
-        self.bt_toolLock.setChecked(True)
-        self.bt_toolLock.setStyleSheet("background-color: " + self.titleColor + ";\n"
-                                                                                "color: " + self.selectColor + ";\n"
-                                                                                                               "font-weight: bold;"
-                                                                                                               "selection-background-color: " + self.selectColor + ";\n")
-
-        self.bt_softLock.setChecked(True)
-        self.bt_softLock.setStyleSheet("background-color: " + self.titleColor + ";\n"
-                                                                                "color: " + self.selectColor + ";\n"
-                                                                                                               "font-weight: bold;"
-                                                                                                               "selection-background-color: " + self.selectColor + ";\n")
+        lockMenu = (self.bt_commonLock, self.bt_displayLock, self.bt_transformLock, self.bt_toolLock, self.bt_softLock)
+        for item in lockMenu:
+            item.setStyleSheet("background-color: " + self.backGroundColor + ";\n"
+                                    "color: " + self.selectColor + ";\n"
+                                    "font-weight: bold;"
+                                    "selection-background-color: " + self.selectColor + ";\n")
+            item.setChecked(True)
 
     def initDisplay(self):
         print ">> initDisplay"
         # bt_xrayMat
         if mc.modelEditor("modelPanel4", q=True, xray=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_xrayMat.setChecked(True)
-            self.bt_xrayMat.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_xrayMat)
         else:
             self.bt_xrayMat.setChecked(False)
-            self.bt_xrayMat.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_xrayMat)
 
         # bt_defaultMat
         if mc.modelEditor("modelPanel4", q=True, useDefaultMaterial=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_defaultMat.setChecked(True)
-            self.bt_defaultMat.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_defaultMat)
         else:
             self.bt_defaultMat.setChecked(False)
-            self.bt_defaultMat.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_defaultMat)
 
         # bt_defaultLight
-        self.bt_defaultLight.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
-        if mc.modelEditor("modelPanel4", q=True,
-                          displayLights=True) == "default":  # probleme a regler : "modelPanel4" !!!
+        #mc.modelEditor(panelFocus, q=True, displayLights=True)
+        #if mc.modelEditor(panelFocus, q=True, displayLights=True) == "default":
+        if mc.modelEditor("modelPanel4", q=True, displayLights=True) == "default":
             self.bt_defaultLight.setText("DF LT")
+            self.buttonOn(self.bt_defaultLight)
         if mc.modelEditor("modelPanel4", q=True, displayLights=True) == "none":
             self.bt_defaultLight.setText("NO LT")
+            self.buttonOff(self.bt_defaultLight)
 
         # bt_wireframe
         if mc.modelEditor("modelPanel4", q=True, wireframeOnShaded=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_wireframe.setChecked(True)
-            self.bt_wireframe.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_wireframe)
         else:
             self.bt_wireframe.setChecked(False)
-            self.bt_wireframe.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_wireframe)
 
         # bt_selHighlight
         if mc.modelEditor("modelPanel4", q=True, selectionHiliteDisplay=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_selHighlight.setChecked(True)
-            self.bt_selHighlight.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_selHighlight)
         else:
             self.bt_selHighlight.setChecked(False)
-            self.bt_selHighlight.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_selHighlight)
 
         # bt_backFaceCulling
         if mc.modelEditor("modelPanel4", q=True, backfaceCulling=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_backFaceCulling.setChecked(True)
-            self.bt_backFaceCulling.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_backFaceCulling)
         else:
             self.bt_backFaceCulling.setChecked(False)
-            self.bt_backFaceCulling.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_backFaceCulling)
 
         # bt_twoSideLight
         if mc.modelEditor("modelPanel4", q=True, twoSidedLighting=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_twoSideLight.setChecked(True)
-            self.bt_twoSideLight.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_twoSideLight)
         else:
             self.bt_twoSideLight.setChecked(False)
-            self.bt_twoSideLight.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_twoSideLight)
 
         # bt_toggleGrid
         if mc.grid(toggle=True, q=True):
             self.bt_toggleGrid.setChecked(True)
-            self.bt_toggleGrid.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_toggleGrid)
         else:
             self.bt_toggleGrid.setChecked(False)
-            self.bt_toggleGrid.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_toggleGrid)
 
         # bt_isolateSel
         if mc.isolateSelect("modelPanel4", q=True, state=True):  # probleme a regler : "modelPanel4" !!!
             self.bt_isolateSel.setChecked(True)
-            self.bt_isolateSel.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_isolateSel)
         else:
             self.bt_isolateSel.setChecked(False)
-            self.bt_isolateSel.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_isolateSel)
 
         # bt_autoAddIsolate
         if self.isAutoAddNewObjsEnabled():
             self.bt_autoAddIsolate.setChecked(True)
-            self.bt_autoAddIsolate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_autoAddIsolate)
         else:
             self.bt_autoAddIsolate.setChecked(False)
-            self.bt_autoAddIsolate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_autoAddIsolate)
 
     def initDiscrete(self):
         self.bt_discreteMove.setChecked(mc.manipMoveContext("Move", q=True, snap=True))
@@ -796,10 +789,40 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.sb_discreteScaleValue.setValue(mc.manipScaleContext("Scale", q=True, snapValue=True))
 
     def initSoftSelec(self):
-        if mc.softSelect(q=True, softSelectEnabled=True):
+        if mc.softSelect(softSelectEnabled=True, q=True):
+            print ">>>>> normalement OK : ", mc.softSelect(softSelectEnabled=1, q=True)
             self.bt_softSelection.setChecked(True)
-            self.bt_softSelection.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_softSelection)
+            if mc.softSelect(softSelectFalloff=1, q=True) == 0:
+                self.buttonOn(self.bt_softVolume)
+                self.buttonOff(self.bt_softSurface)
+                self.buttonOff(self.bt_softGlobal)
+                self.buttonOff(self.bt_softObject)
+            if mc.softSelect(softSelectFalloff=1, q=True) == 1:
+                self.buttonOff(self.bt_softVolume)
+                self.buttonOn(self.bt_softSurface)
+                self.buttonOff(self.bt_softGlobal)
+                self.buttonOff(self.bt_softObject)
+            if mc.softSelect(softSelectFalloff=1, q=True) == 2:
+                self.buttonOff(self.bt_softVolume)
+                self.buttonOff(self.bt_softSurface)
+                self.buttonOn(self.bt_softGlobal)
+                self.buttonOff(self.bt_softObject)
+            if mc.softSelect(softSelectFalloff=1, q=True) == 3:
+                self.buttonOff(self.bt_softVolume)
+                self.buttonOff(self.bt_softSurface)
+                self.buttonOff(self.bt_softGlobal)
+                self.buttonOn(self.bt_softObject)
+            print "softselect is on"
+        else:
+            print ">>>>> normalement PAS OK : ", mc.softSelect(softSelectEnabled=1, q=True)
+            self.bt_softSelection.setChecked(False)
+            self.buttonOff(self.bt_softSelection)
+            self.buttonOff(self.bt_softVolume)
+            self.buttonOff(self.bt_softSurface)
+            self.buttonOff(self.bt_softGlobal)
+            self.buttonOff(self.bt_softObject)
+            print "softselect is off"
 
     def initSoftValue(self):
         softValue = mc.softSelect(q=True, softSelectDistance=True)
@@ -808,10 +831,8 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
     def initSymModelling(self):
         if mc.symmetricModelling(q=True, symmetry=True):
             self.bt_symMod.setChecked(True)
-            self.bt_symMod.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                   "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_symSwitch.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                      "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_symMod)
+            self.buttonOn(self.bt_symSwitch)
         self.bt_symSwitch.setText(str(mc.symmetricModelling(q=True, about=True)).capitalize())
 
     def initSymTolerance(self):
@@ -828,74 +849,46 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         state = mc.manipMoveContext("Move", q=True, mode=True)
         if state == 0:
             self.bt_objectMove.setChecked(True)
-            self.bt_objectMove.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                       "selection-background-color: rgb(150, 150, 150);\n")
-
-            self.bt_worldMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                        "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_localMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                        "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_normalMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_objectMove)
+            self.buttonOff(self.bt_localMove)
+            self.buttonOff(self.bt_worldMove)
+            self.buttonOff(self.bt_normalMove)
         if state == 1:
+            self.buttonOff(self.bt_objectMove)
             self.bt_localMove.setChecked(True)
-            self.bt_localMove.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                      "selection-background-color: rgb(150, 150, 150);\n")
-
-            self.bt_worldMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                        "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_objectMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_normalMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_localMove)
+            self.buttonOff(self.bt_worldMove)
+            self.buttonOff(self.bt_normalMove)
         if state == 2:
+            self.buttonOff(self.bt_objectMove)
+            self.buttonOff(self.bt_localMove)
             self.bt_worldMove.setChecked(True)
-            self.bt_worldMove.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                      "selection-background-color: rgb(150, 150, 150);\n")
-
-            self.bt_objectMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_localMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                        "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_normalMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_worldMove)
+            self.buttonOff(self.bt_normalMove)
         if state == 3:
+            self.buttonOff(self.bt_objectMove)
+            self.buttonOff(self.bt_localMove)
+            self.buttonOff(self.bt_worldMove)
             self.bt_normalMove.setChecked(True)
-            self.bt_normalMove.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                       "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_worldMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                        "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_localMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                        "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_objectMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_normalMove)
 
     def initRotateSettings(self):
         stateA = mc.manipRotateContext("Rotate", q=True, mode=True)
         if stateA == 0:
             self.bt_localRotate.setChecked(True)
-            self.bt_localRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                        "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_worldRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_gimbalRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_localRotate)
+            self.buttonOff(self.bt_worldRotate)
+            self.buttonOff(self.bt_gimbalRotate)
         if stateA == 1:
+            self.buttonOff(self.bt_localRotate)
             self.bt_worldRotate.setChecked(True)
-            self.bt_worldRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                        "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_localRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_gimbalRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_worldRotate)
+            self.buttonOff(self.bt_gimbalRotate)
         if stateA == 2:
+            self.buttonOff(self.bt_localRotate)
+            self.buttonOff(self.bt_worldRotate)
             self.bt_gimbalRotate.setChecked(True)
-            self.bt_gimbalRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                         "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_worldRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_localRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_gimbalRotate)
 
         stateB = mc.manipRotateContext("Rotate", q=True, useManipPivot=True)
         stateC = mc.manipRotateContext("Rotate", q=True, useObjectPivot=True)
@@ -903,71 +896,46 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
 
         if stateD == (0, 0):
             self.bt_defaultPivotRotate.setChecked(True)
-            self.bt_defaultPivotRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                               "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_objectPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_manipPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                               "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_defaultPivotRotate)
+            self.buttonOff(self.bt_objectPivotRotate)
+            self.buttonOff(self.bt_manipPivotRotate)
         if stateD == (0, 1):
+            self.buttonOff(self.bt_defaultPivotRotate)
             self.bt_objectPivotRotate.setChecked(True)
-            self.bt_objectPivotRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                              "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_defaultPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                 "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_manipPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                               "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_objectPivotRotate)
+            self.buttonOff(self.bt_manipPivotRotate)
         if stateD == (1, 0):
+            self.buttonOff(self.bt_defaultPivotRotate)
+            self.buttonOff(self.bt_objectPivotRotate)
             self.bt_manipPivotRotate.setChecked(True)
-            self.bt_manipPivotRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                             "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_defaultPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                 "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_objectPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_manipPivotRotate)
 
     def initScaleSettings(self):
         stateA = mc.manipScaleContext("Scale", q=True, mode=True)
         if stateA == 0:
             self.bt_objectScale.setChecked(True)
-            self.bt_objectScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                        "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_worldScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_localScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_normalScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_objectScale)
+            self.buttonOff(self.bt_localScale)
+            self.buttonOff(self.bt_worldScale)
+            self.buttonOff(self.bt_normalScale)
         if stateA == 1:
+            self.buttonOff(self.bt_objectScale)
             self.bt_localScale.setChecked(True)
-            self.bt_localScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                       "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_worldScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_objectScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_normalScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_localScale)
+            self.buttonOff(self.bt_worldScale)
+            self.buttonOff(self.bt_normalScale)
         if stateA == 2:
+            self.buttonOff(self.bt_objectScale)
+            self.buttonOff(self.bt_localScale)
             self.bt_worldScale.setChecked(True)
-            self.bt_worldScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                       "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_objectScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_localScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_normalScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_worldScale)
+            self.buttonOff(self.bt_normalScale)
         if stateA == 3:
+            self.buttonOff(self.bt_objectScale)
+            self.buttonOff(self.bt_localScale)
+            self.buttonOff(self.bt_worldScale)
             self.bt_normalScale.setChecked(True)
-            self.bt_normalScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                        "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_worldScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_localScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_objectScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_normalScale)
 
         stateB = mc.manipScaleContext("Scale", q=True, useManipPivot=True)
         stateC = mc.manipScaleContext("Scale", q=True, useObjectPivot=True)
@@ -975,35 +943,24 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
 
         if stateD == (0, 0):
             self.bt_defaultPivotScale.setChecked(True)
-            self.bt_defaultPivotScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                              "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_objectPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                               "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_manipPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                              "selection-background-color: " + self.selectColor + ";\n")
-
+            self.buttonOn(self.bt_defaultPivotScale)
+            self.buttonOff(self.bt_objectPivotScale)
+            self.buttonOff(self.bt_manipPivotScale)
         if stateD == (0, 1):
+            self.buttonOff(self.bt_defaultPivotScale)
             self.bt_objectPivotScale.setChecked(True)
-            self.bt_objectPivotScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                             "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_defaultPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_manipPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                              "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_objectPivotScale)
+            self.buttonOff(self.bt_manipPivotScale)
 
         if stateD == (1, 0):
+            self.buttonOff(self.bt_defaultPivotScale)
+            self.buttonOff(self.bt_objectPivotScale)
             self.bt_manipPivotScale.setChecked(True)
-            self.bt_manipPivotScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                            "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_objectPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                               "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_defaultPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOn(self.bt_manipPivotScale)
 
     def initToggleTweak(self):
         mc.STRSTweakModeOff()
-        self.bt_tweak.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_tweak)
         self.toggleTweak = 0
 
     def initChannelBox(self):
@@ -1055,12 +1012,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             self.wg_commonSelectionOptions.setVisible(True)
 
     def commonLock(self):
-        if self.bt_commonLock.isChecked():
-            self.bt_commonSelectionOptions.setDisabled(True)
-            self.bt_commonLock.setIcon(self.iconLockOn)
-        else:
+        if self.commonLockState:
             self.bt_commonSelectionOptions.setDisabled(False)
             self.bt_commonLock.setIcon(self.iconLockOff)
+            self.commonLockState = 0
+        else:
+            self.bt_commonSelectionOptions.setDisabled(True)
+            self.bt_commonLock.setIcon(self.iconLockOn)
+            self.commonLockState = 1
 
     def dispMenu(self):
         state = self.wg_displayMenu.isVisible()
@@ -1070,12 +1029,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             self.wg_displayMenu.setVisible(True)
 
     def displayLock(self):
-        if self.bt_displayLock.isChecked():
-            self.bt_displayMenu.setDisabled(True)
-            self.bt_displayLock.setIcon(self.iconLockOn)
-        else:
+        if self.displayLockState:
             self.bt_displayMenu.setDisabled(False)
             self.bt_displayLock.setIcon(self.iconLockOff)
+            self.displayLockState = 0
+        else:
+            self.bt_displayMenu.setDisabled(True)
+            self.bt_displayLock.setIcon(self.iconLockOn)
+            self.displayLockState = 1
 
     def transMenu(self):
         state = self.wg_transformMenu.isVisible()
@@ -1085,12 +1046,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             self.wg_transformMenu.setVisible(True)
 
     def transformLock(self):
-        if self.bt_transformLock.isChecked():
-            self.bt_transformMenu.setDisabled(True)
-            self.bt_transformLock.setIcon(self.iconLockOn)
-        else:
+        if self.transformLockState:
             self.bt_transformMenu.setDisabled(False)
             self.bt_transformLock.setIcon(self.iconLockOff)
+            self.transformLockState = 0
+        else:
+            self.bt_transformMenu.setDisabled(True)
+            self.bt_transformLock.setIcon(self.iconLockOn)
+            self.transformLockState = 1
 
     def toolsSettings(self):
         ctx = mc.currentCtx()
@@ -1121,12 +1084,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                 self.wg_nullSettings.setVisible(True)
 
     def toolLock(self):
-        if self.bt_toolLock.isChecked():
-            self.bt_toolSettings.setDisabled(True)
-            self.bt_toolLock.setIcon(self.iconLockOn)
-        else:
+        if self.toolLockState:
             self.bt_toolSettings.setDisabled(False)
             self.bt_toolLock.setIcon(self.iconLockOff)
+            self.toolLockState = 0
+        else:
+            self.bt_toolSettings.setDisabled(True)
+            self.bt_toolLock.setIcon(self.iconLockOn)
+            self.toolLockState = 1
 
     def softSymSelectionMenu(self):
         state = self.wg_softSymSettings.isVisible()
@@ -1136,12 +1101,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             self.wg_softSymSettings.setVisible(True)
 
     def softLock(self):
-        if self.bt_softLock.isChecked():
-            self.bt_softSelectionMenu.setDisabled(True)
-            self.bt_softLock.setIcon(self.iconLockOn)
-        else:
+        if self.softLockState:
             self.bt_softSelectionMenu.setDisabled(False)
             self.bt_softLock.setIcon(self.iconLockOff)
+            self.softLockState = 0
+        else:
+            self.bt_softSelectionMenu.setDisabled(True)
+            self.bt_softLock.setIcon(self.iconLockOn)
+            self.softLockState = 1
 
     # # COMMON SELECTION OPTIONS
 
@@ -1163,9 +1130,13 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
     def selObject(self):
         mc.selectMode(object=True)
 
-    '''def selMulti(self):
+    def selMulti(self):
         mc.selectMode(component=True)
-        mc.selectType(meshComponents=True)'''
+        mc.selectType(meshComponents=True)
+
+    def selUv(self):
+        mc.selectMode(component=True)
+        mc.selectType(polymeshUV=True)
 
     def setNearClip(self):
         self.value = ["0.1", "1", "3"]
@@ -1196,46 +1167,38 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             print ">> Selection mode is MARQUEE."
             if mc.selectPref(q=True, useDepth=True):
                 self.bt_camSwitch.setChecked(True)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
+                self.buttonOn(self.bt_camSwitch)
             else:
                 self.bt_camSwitch.setChecked(False)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_camSwitch)
         else:
             mc.selectPref(paintSelect=1)
             self.bt_selectionStyle.setText("Drag")
             print ">> Selection mode is DRAG."
             if mc.selectPref(q=True, paintSelectWithDepth=True):
                 self.bt_camSwitch.setChecked(True)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
+                self.buttonOn(self.bt_camSwitch)
             else:
                 self.bt_camSwitch.setChecked(False)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_camSwitch)
 
     def camSwitch(self):
         if mc.selectPref(q=True, paintSelect=True):
             if mc.selectPref(q=True, paintSelectWithDepth=True):
                 mc.selectPref(paintSelectWithDepth=0)
                 self.bt_camSwitch.setChecked(False)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_camSwitch)
             else:
                 mc.selectPref(paintSelectWithDepth=1)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
+                self.buttonOn(self.bt_camSwitch)
         else:
             if mc.selectPref(q=True, useDepth=True):
                 mc.selectPref(useDepth=0)
                 self.bt_camSwitch.setChecked(False)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_camSwitch)
             else:
                 mc.selectPref(useDepth=1)
-                self.bt_camSwitch.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
+                self.buttonOn(self.bt_camSwitch)
 
     # # DISPLAY MENU
 
@@ -1315,82 +1278,96 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                 self.bt_toolSettings.setText("Tool Settings")
 
     def actuTypeSelection(self):
-        print ">> Le type de selection a change !!"
         if mc.selectMode(q=True, object=True):
             self.bt_selObj.setChecked(True)
-            self.bt_selObj.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                   "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_selVert.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_selEdge.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_selFace.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-            #self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-            #                                                                           "selection-background-color: " + self.selectColor + ";\n")
-            print ">> Mode Object"
+            self.buttonOn(self.bt_selObj)
+            self.buttonOff(self.bt_selVert)
+            self.buttonOff(self.bt_selEdge)
+            self.buttonOff(self.bt_selFace)
+            self.buttonOff(self.bt_selUv)
+            print ">> Select Type : Object"
 
         else:
             if mc.selectType(q=True, vertex=True):
                 self.bt_selVert.setChecked(True)
-                self.bt_selVert.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                        "selection-background-color: rgb(150, 150, 150);\n")
-                self.bt_selObj.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selEdge.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selFace.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-                #self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                #                                                                           "selection-background-color: " + self.selectColor + ";\n")
-                print ">> Mode Vertex"
+                self.buttonOff(self.bt_selObj)
+                self.buttonOn(self.bt_selVert)
+                self.buttonOff(self.bt_selEdge)
+                self.buttonOff(self.bt_selFace)
+                self.buttonOff(self.bt_selUv)
+                print ">> Select Type : Vertex"
 
             if mc.selectType(q=True, edge=True):
                 self.bt_selEdge.setChecked(True)
-                self.bt_selEdge.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                        "selection-background-color: rgb(150, 150, 150);\n")
-                self.bt_selObj.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selVert.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selFace.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-                #self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                #                                                                           "selection-background-color: " + self.selectColor + ";\n")
-                print ">> Mode Edge"
+                self.buttonOff(self.bt_selObj)
+                self.buttonOff(self.bt_selVert)
+                self.buttonOn(self.bt_selEdge)
+                self.buttonOff(self.bt_selFace)
+                self.buttonOff(self.bt_selUv)
+                print ">> Select Type : Edge"
 
             if mc.selectType(q=True, facet=True):
                 self.bt_selFace.setChecked(True)
-                self.bt_selFace.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                        "selection-background-color: rgb(150, 150, 150);\n")
-                self.bt_selObj.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selEdge.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selVert.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-                #self.bt_selMulti.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                #                                                                           "selection-background-color: " + self.selectColor + ";\n")
-                print ">> Mode Face"
+                self.buttonOff(self.bt_selObj)
+                self.buttonOff(self.bt_selVert)
+                self.buttonOff(self.bt_selEdge)
+                self.buttonOn(self.bt_selFace)
+                self.buttonOff(self.bt_selUv)
+                print ">> Select Type : Face"
 
-            '''
+            ''' un bouton multi :
             if mc.selectType(q=True, meshComponents=True):
                 self.bt_selMulti.setChecked(True)
                 self.bt_selMulti.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                         "selection-background-color: rgb(150, 150, 150);\n")
+                                                        "selection-background-color: rgb(150, 150, 150);\n")
                 self.bt_selObj.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                         "selection-background-color: " + self.selectColor + ";\n")
+                                                        "selection-background-color: " + self.selectColor + ";\n")
                 self.bt_selEdge.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
+                                                        "selection-background-color: " + self.selectColor + ";\n")
                 self.bt_selVert.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
+                                                        "selection-background-color: " + self.selectColor + ";\n")
                 self.bt_selFace.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
-                print ">> Mode Multi"
+                                                        "selection-background-color: " + self.selectColor + ";\n")
+                self.bt_selUv.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
+                                                        "selection-background-color: " + self.selectColor + ";\n")
+                print ">> Select Type : Multi"
                 '''
 
-                # pour renommer l'object selectionne
+            if mc.selectType(q=True, meshComponents=True):
+                self.bt_selVert.setChecked(True)
+                self.bt_selEdge.setChecked(True)
+                self.bt_selFace.setChecked(True)
+                self.buttonOff(self.bt_selObj)
+                self.buttonOn(self.bt_selVert)
+                self.buttonOn(self.bt_selEdge)
+                self.buttonOn(self.bt_selFace)
+                self.buttonOff(self.bt_selUv)
+                print ">> Select Type : Multi"
 
+            if mc.selectType(q=True, polymeshUV=True):
+                self.bt_selUv.setChecked(True)
+                self.buttonOff(self.bt_selObj)
+                self.buttonOff(self.bt_selVert)
+                self.buttonOff(self.bt_selEdge)
+                self.buttonOff(self.bt_selFace)
+                self.buttonOn(self.bt_selUv)
+                print ">> Select Type : UV"
+
+    def tryTest(self):
+        if self.bt_test.isChecked():
+            self.buttonOn(self.bt_test)
+        else:
+            self.buttonOff(self.bt_test)
+
+    def buttonOn(self, buttonName):
+        buttonName.setStyleSheet("background-color: " + self.selectColor + ";\n"
+                                                        "selection-background-color: rgb(150, 150, 150);\n")
+
+    def buttonOff(self, buttonName):
+        buttonName.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
+                                                        "selection-background-color: " + self.selectColor + ";\n")
+
+    # pour renommer l'object selectionne
     def renameTransform(self):
         selectionList = mc.ls(selection=True, type='transform')
         if selectionList:
@@ -1409,8 +1386,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             print ">> You need a selection"
         self.actuSelection()
 
-            # selection highlight: 												modelEditor -e -sel false modelPanel4
-
+    # selection highlight: 												modelEditor -e -sel false modelPanel4
     def selHighlight(self):
         self.allModelPanel = mc.getPanel(type='modelPanel')
         if self.allModelPanel:
@@ -1418,17 +1394,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                 state = mc.modelEditor(modelPanelName, q=True, selectionHiliteDisplay=True)
                 if state:
                     mc.modelEditor(modelPanelName, e=True, selectionHiliteDisplay=False)
-                    self.bt_selHighlight.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                   "selection-background-color: " + self.selectColor + ";\n")
+                    self.buttonOff(self.bt_selHighlight)
                     print ">> HighLight Selection is OFF."
                 else:
                     mc.modelEditor(modelPanelName, e=True, selectionHiliteDisplay=True)
-                    self.bt_selHighlight.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                                 "selection-background-color: rgb(150, 150, 150);\n")
+                    self.buttonOn(self.bt_selHighlight)
                     print ">> HighLight Selection is ON."
 
-                    # toggle no/default light  :
-
+    # toggle no/default light  :
     def useDefaultLight(self):
         self.allModelPanel = mc.getPanel(type='modelPanel')
         if self.allModelPanel:
@@ -1443,8 +1416,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                     self.bt_defaultLight.setText("DF LT")
                     print ">> Default Light mode."
 
-                    # setChecker
-
+    # setChecker
     def setChecker(self):
         # selectionList = mc.ls( selection=True, type='transform' )
         # mc.shadingNode("file", asTexture=True)
@@ -1458,17 +1430,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                 state = mc.modelEditor(modelPanelName, q=True, twoSidedLighting=True)
                 if state:
                     mc.modelEditor(modelPanelName, e=True, twoSidedLighting=False)
-                    self.bt_twoSideLight.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                        "selection-background-color: " + self.selectColor + ";\n")
+                    self.buttonOff(self.bt_twoSideLight)
                     print ">> Two sided Lighted is OFF."
                 else:
                     mc.modelEditor(modelPanelName, e=True, twoSidedLighting=True)
-                    self.bt_twoSideLight.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                        "selection-background-color: rgb(150, 150, 150);\n")
+                    self.buttonOn(self.bt_twoSideLight)
                     print ">> Two sided Lighted is ON."
 
-                    # toggle border edge visibility
-
+    # toggle border edge visibility
     def tglBorderEdges(self):
         '''
         Toggle poly edge border visibility
@@ -1477,40 +1446,34 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         '''if not selectionList:
             print ">> No Selection"
             return'''
-
         # state = mc.getAttr(selectionList[0] + '.displayBorders')
         stateBorder = mc.polyOptions(displayBorder=True, newPolymesh=True, query=True)[0]
         if not stateBorder:
             for obj in selectionList:
                 mc.setAttr(obj + '.displayBorders', True)
-            self.bt_toggleBorderEdge.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_toggleBorderEdge)
             mc.polyOptions(displayBorder=True, newPolymesh=True)
             print ">> Border Edge is Visible"
         else:
             for obj in selectionList:
                 mc.setAttr(obj + '.displayBorders', False)
-            self.bt_toggleBorderEdge.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_toggleBorderEdge)
             mc.polyOptions(displayBorder=False, newPolymesh=True)
             print ">> Border Edge is NOT Visible"
 
     def backFaceCulling(self):
         # ToggleBackfaceCulling
-
         self.allModelPanel = mc.getPanel(type='modelPanel')
         if self.allModelPanel:
             for modelPanelName in self.allModelPanel:
                 state = mc.modelEditor(modelPanelName, q=True, backfaceCulling=True)
                 if state:
                     mc.modelEditor(modelPanelName, e=True, backfaceCulling=False)
-                    self.bt_backFaceCulling.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                            "selection-background-color: " + self.selectColor + ";\n")
+                    self.buttonOff(self.bt_backFaceCulling)
                     print ">> BackFaceCulling is OFF."
                 else:
                     mc.modelEditor(modelPanelName, e=True, backfaceCulling=True)
-                    self.bt_backFaceCulling.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
+                    self.buttonOn(self.bt_backFaceCulling)
                     print ">> BackFaceCulling is ON."
 
     def toggleGrid(self):
@@ -1518,24 +1481,16 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         state = mc.grid(toggle=True, q=True)
         if state:
             mc.grid(toggle=0)
-            self.bt_toggleGrid.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_toggleGrid)
             print ">> Grid ON."
-        # self.bt_toggleGrid.setText("Grid Off")
-
         else:
             mc.grid(toggle=1)
-            self.bt_toggleGrid.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_toggleGrid)
             print ">> Grid OFF."
             # self.bt_toggleGrid.setText("Grid On")
 
     def setBackgroundColor(self):
         mc.displayRGBColor('background', 0.27, 0.27, 0.27)
-        self.bt_backgroundColor.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
-        # self.bt_backgroundColor.setStyleSheet(self.textColor = "rgb(150, 150, 150)"
-        # self.bt_backgroundColor.setDisabled(True)
         print ">> Background Color SET TO GREY."
 
     def HUDswitch(self):
@@ -1558,9 +1513,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                               visible=True)
             mc.headsUpDisplay('HUDfaces', label='Faces :', ba='right', da='right', dw=50, s=4, b=8, preset="polyFaces",
                               visible=True)
-            self.bt_hudInfos.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                            "selection-background-color: rgb(150, 150, 150);\n")
-            # self.bt_hudInfos.setChecked(True)
+            self.buttonOn(self.bt_hudInfos)
             self.HUDState = 1
             print ">> HUD is ON."
         else:
@@ -1568,13 +1521,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             mc.headsUpDisplay('HUDvertex', rem=True)
             mc.headsUpDisplay('HUDedges', rem=True)
             mc.headsUpDisplay('HUDfaces', rem=True)
-            self.bt_hudInfos.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_hudInfos)
             self.HUDState = 0
             print ">> HUD is OFF."
 
-            # x ray 	: setXrayOption true modelPanel4;
-
+    # x ray 	: setXrayOption true modelPanel4;
     def useXrayMat(self):
         self.allModelPanel = mc.getPanel(type='modelPanel')
         if self.allModelPanel:
@@ -1582,33 +1533,29 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                 state = mc.modelEditor(modelPanelName, q=True, xray=True)
                 if state:
                     mc.modelEditor(modelPanelName, e=True, xray=False)
-                    self.bt_xrayMat.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                              "selection-background-color: " + self.selectColor + ";\n")
+                    self.buttonOff(self.bt_xrayMat)
                     print ">> Xray is OFF."
                 else:
                     mc.modelEditor(modelPanelName, e=True, xray=True)
-                    self.bt_xrayMat.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                            "selection-background-color: rgb(150, 150, 150);\n")
+                    self.buttonOn(self.bt_xrayMat)
                     print "Xray is ON."
 
-    def wireOnShaded(self):  # setWireframeOnShadedOption true modelPanel4;
+    # setWireframeOnShadedOption true modelPanel4;
+    def wireOnShaded(self):
         self.allModelPanel = mc.getPanel(type='modelPanel')
         if self.allModelPanel:
             for modelPanelName in self.allModelPanel:
                 state = mc.modelEditor(modelPanelName, q=True, wireframeOnShaded=True)
                 if state:
                     mc.modelEditor(modelPanelName, e=True, wireframeOnShaded=False)
-                    self.bt_wireframe.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                "selection-background-color: " + self.selectColor + ";\n")
+                    self.buttonOff(self.bt_wireframe)
                     print ">> Wireframe on shaded is OFF."
                 else:
                     mc.modelEditor(modelPanelName, e=True, wireframeOnShaded=True)
-                    self.bt_wireframe.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                              "selection-background-color: rgb(150, 150, 150);\n")
+                    self.buttonOn(self.bt_wireframe)
                     print ">> Wireframe on shaded is ON."
 
-                    # useDefault material: modelEditor -e -udm true modelPanel4;		modelEditor -e -udm true modelPanel4;
-
+    # useDefault material: modelEditor -e -udm true modelPanel4;		modelEditor -e -udm true modelPanel4;
     def useDefaultMat(self):
         self.allModelPanel = mc.getPanel(type='modelPanel')
         if self.allModelPanel:
@@ -1616,13 +1563,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                 state = mc.modelEditor(modelPanelName, q=True, useDefaultMaterial=True)
                 if state:
                     mc.modelEditor(modelPanelName, e=True, useDefaultMaterial=False)
-                    self.bt_defaultMat.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                 "selection-background-color: " + self.selectColor + ";\n")
+                    self.buttonOff(self.bt_defaultMat)
                     print ">> Use default material on all object : OFF."
                 else:
                     mc.modelEditor(modelPanelName, e=True, useDefaultMaterial=True)
-                    self.bt_defaultMat.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                               "selection-background-color: rgb(150, 150, 150);\n")
+                    self.buttonOn(self.bt_defaultMat)
                     print ">> Use default material on all object : ON."
 
     # isolate selection : enableIsolateSelect modelPanel4 true; 		isolateSelect -state 1 modelPanel4;
@@ -1631,26 +1576,23 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         if self.allModelPanel:
             for modelPanelName in self.allModelPanel:
                 state = mc.isolateSelect(modelPanelName, query=True, state=True)
-                if state == 0:
+                if state:
+                    pm.mel.enableIsolateSelect(modelPanelName, 0)
+                    self.buttonOff(self.bt_isolateSel)
+                    print ">> Isolate : OFF."
+                else:
                     if mc.selectMode(q=True, object=True):
                         pm.mel.enableIsolateSelect(modelPanelName, 1)
                     else:
                         mc.selectMode(object=True)
                         pm.mel.enableIsolateSelect(modelPanelName, 1)
                         mc.selectMode(component=True)
-                    self.bt_isolateSel.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                               "selection-background-color: rgb(150, 150, 150);\n")
+                        self.buttonOn(self.bt_isolateSel)
                     print ">> Isolate : ON."
-                else:
-                    pm.mel.enableIsolateSelect(modelPanelName, 0)
-                    self.bt_isolateSel.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                 "selection-background-color: " + self.selectColor + ";\n")
-                    print ">> Isolate : OFF."
 
     def actuIso(self):
         self.isolateSelection()
         self.isolateSelection()
-        print "toto"
 
     # autoadd to isolate : isoSelectAutoAddNewObjs modelPanel4 true;
     def autoAddIsolate(self):
@@ -1659,27 +1601,23 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         # bAutoAdd = setIsolateSelectAutoAdd()
         bAutoAdd = self.isAutoAddNewObjsEnabled()
         if self.focusPanel:
-            if not bAutoAdd:
-                pm.mel.isoSelectAutoAddNewObjs(self.focusPanel, True)
-                self.bt_autoAddIsolate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                               "selection-background-color: rgb(150, 150, 150);\n")
-                print ">> Auto add to isolate : ON."
-            else:
+            if bAutoAdd:
                 pm.mel.isoSelectAutoAddNewObjs(self.focusPanel, False)
-                self.bt_autoAddIsolate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                                 "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_autoAddIsolate)
                 print ">> Auto add to isolate : OFF."
+            else:
+                pm.mel.isoSelectAutoAddNewObjs(self.focusPanel, True)
+                self.buttonOn(self.bt_autoAddIsolate)
+                print ">> Auto add to isolate : ON."
 
-                # add to isolate : addSelectedToEditor modelPanel4; isolateSelect -addSelected modelPanel4;
-
+    # add to isolate : addSelectedToEditor modelPanel4; isolateSelect -addSelected modelPanel4;
     def addToIsolate(self):
         self.allModelPanel = mc.getPanel(type='modelPanel')
         for modelPanelName in self.allModelPanel:
             mc.isolateSelect(modelPanelName, addSelected=True)
             print ">> Selection is append to Isolate."
 
-            # remove to isolate : removeSelectedFromEditor modelPanel4; 	isolateSelect -removeSelected modelPanel4;
-
+    # remove to isolate : removeSelectedFromEditor modelPanel4; 	isolateSelect -removeSelected modelPanel4;
     def removeToIsolate(self):
         self.allModelPanel = mc.getPanel(type='modelPanel')
         for modelPanelName in self.allModelPanel:
@@ -1819,12 +1757,10 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             state = mc.getAttr(selectionList[-1] + ".visibility")
             if state:
                 mc.setAttr(selectionList[-1] + ".visibility", 0)
-                self.bt_visibility.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                             "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_visibility)
             else:
                 mc.setAttr(selectionList[-1] + ".visibility", 1)
-                self.bt_visibility.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                           "selection-background-color: rgb(150, 150, 150);\n")
+                self.buttonOn(self.bt_visibility)
         else:
             '''if self.bt_visibility.setChecked(True):
                 self.bt_visibility.setChecked(False)
@@ -1839,17 +1775,15 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         if stateScalePivot:
             mc.setAttr(selectionList[-1] + ".displayScalePivot", 0)
             mc.setAttr(selectionList[-1] + ".displayRotatePivot", 0)
-            self.bt_visPivot.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                       "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_visPivot)
         else:
             mc.setAttr(selectionList[-1] + ".displayScalePivot", 1)
             mc.setAttr(selectionList[-1] + ".displayRotatePivot", 1)
-            self.bt_visPivot.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                     "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_visPivot)
 
     def doubleSide(self):
         # selectionList = mc.ls( selection=True, type='mesh' )
-        print ">> bouton doubleside OFF"
+        print ">> button doubleside is DISABLE !"
         '''startSelection = mc.ls(selection=True)#, type="transform")
         selShapes = mc.listRelatives(startSelection, shapes=True)
         selLocShapes = mc.ls(type='locator')
@@ -1913,13 +1847,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         history = mc.constructionHistory(q=True, tgl=True)
         if history:
             mc.constructionHistory(tgl=False)
-            self.bt_noHistory.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                        "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_noHistory)
             print ">> Without Construction History !!!"
         else:
             mc.constructionHistory(tgl=True)
-            self.bt_noHistory.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                      "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_noHistory)
             print ">> With Construction History"
 
     def alignX(self):
@@ -1947,20 +1879,17 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             if self.makeLiveState:
                 mc.makeLive(none=True)
                 self.makeLiveState = 0
-                self.bt_makeLive.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+                self.buttonOff(self.bt_makeLive)
                 print ">>", selectionList[-1], "is DEAD"
             else:
                 mc.makeLive(selectionList[-1])
                 self.makeLiveState = 1
-                self.bt_makeLive.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                         "selection-background-color: rgb(150, 150, 150);\n")
+                self.buttonOn(self.bt_makeLive)
                 print ">>", selectionList[-1], "is aLIVE"
         else:
             mc.makeLive(none=True)
             self.makeLiveState = 0
-            self.bt_makeLive.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                       "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_makeLive)
             print ">> No selection // All is DEAD"
 
     ## MATCH TRANSFORM :
@@ -2005,115 +1934,86 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
 
     ##SOFT and SYMMETRIC SELECTION PAN :
 
-    def softSelection(self, state):
-        self.initSoftValue()
-        if state:
-            mc.softSelect(softSelectEnabled=1)
-            self.bt_softSelection.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
-            print ">> Soft Selection is ON."
-        else:
+    # "softSelect -e -softSelectEnabled true"
+    def softSelection(self):
+        #self.initSoftSelec()
+        #self.initSoftValue()
+        if mc.softSelect(softSelectEnabled=1, q=1):
             mc.softSelect(softSelectEnabled=0)
-            self.bt_softSelection.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_softSelection)
+            self.buttonOff(self.bt_softVolume)
+            self.buttonOff(self.bt_softSurface)
+            self.buttonOff(self.bt_softGlobal)
+            self.buttonOff(self.bt_softObject)
             print ">> Soft Selection is OFF."
-            # "softSelect -e -softSelectEnabled true"
+        else:
+            mc.softSelect(softSelectEnabled=1)
+            self.buttonOn(self.bt_softSelection)
+            self.initSoftSelec()
+            self.initSoftValue()
+            print ">> Soft Selection is ON."
 
     def softValue(self):
         value = self.le_softValue.text()
         mc.softSelect(softSelectDistance=float(value))
 
+    # mc.setSoftSelectFalloffMode("Volume")
     def softVolume(self):
         mc.softSelect(softSelectFalloff=0)
-        self.bt_softVolume.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                   "selection-background-color: rgb(150, 150, 150);\n")
-
-        self.bt_softSurface.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softGlobal.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softObject.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOn(self.bt_softVolume)
+        self.buttonOff(self.bt_softSurface)
+        self.buttonOff(self.bt_softGlobal)
+        self.buttonOff(self.bt_softObject)
         print ">> Soft selection is on VOLUME."
 
-    # mc.setSoftSelectFalloffMode("Volume")
-    # "setSoftSelectFalloffMode( Volume)"
-
+    # mc.setSoftSelectFalloffMode("Surface")
     def softSurface(self):
         mc.softSelect(softSelectFalloff=1)
-        self.bt_softSurface.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                    "selection-background-color: rgb(150, 150, 150);\n")
-
-        self.bt_softVolume.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softGlobal.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softObject.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_softVolume)
+        self.buttonOn(self.bt_softSurface)
+        self.buttonOff(self.bt_softGlobal)
+        self.buttonOff(self.bt_softObject)
         print ">> Soft selection is on SURFACE."
 
-    # mc.setSoftSelectFalloffMode("Surface")
-
+    # mc.setSoftSelectFalloffMode("Global")
     def softGlobal(self):
         mc.softSelect(softSelectFalloff=2)
-        self.bt_softGlobal.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                   "selection-background-color: rgb(150, 150, 150);\n")
-
-        self.bt_softVolume.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softSurface.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softObject.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_softVolume)
+        self.buttonOff(self.bt_softSurface)
+        self.buttonOn(self.bt_softGlobal)
+        self.buttonOff(self.bt_softObject)
         print ">> Soft selection is on GLOBAL."
 
-    # mc.setSoftSelectFalloffMode("Global")
-
+    # mc.setSoftSelectFalloffMode("Object")
     def softObject(self):
         mc.softSelect(softSelectFalloff=3)
-        self.bt_softObject.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                   "selection-background-color: rgb(150, 150, 150);\n")
-
-        self.bt_softVolume.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softSurface.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softGlobal.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_softVolume)
+        self.buttonOff(self.bt_softSurface)
+        self.buttonOff(self.bt_softGlobal)
+        self.buttonOn(self.bt_softObject)
         print ">> Soft selection is on OBJECT."
-
-    # mc.setSoftSelectFalloffMode("Object")
 
     def softPresetA(self):
         mc.softSelect(softSelectCurve=str("1,0,3,0.9,0.3,3,0,1,1"))
-        self.bt_softPresetA.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                    "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_softPresetB.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softPresetC.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOn(self.bt_softPresetA)
+        self.buttonOff(self.bt_softPresetB)
+        self.buttonOff(self.bt_softPresetC)
         print ">> Soft Selection PresetA."
 
     # softSelect -e -softSelectCurve "1,0.5,2,0,1,2,1,0,2";
 
     def softPresetB(self):
         mc.softSelect(softSelectCurve=str("1,0,1,0,1,1"))
-        self.bt_softPresetB.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                    "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_softPresetA.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softPresetC.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_softPresetA)
+        self.buttonOn(self.bt_softPresetB)
+        self.buttonOff(self.bt_softPresetC)
         print ">> Soft Selection PresetB."
 
     def softPresetC(self):
         mc.softSelect(softSelectCurve=str("1,0,1,0.4,0.15,3,0,1,1"))
-        self.bt_softPresetC.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                    "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_softPresetA.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_softPresetB.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_softPresetA)
+        self.buttonOff(self.bt_softPresetB)
+        self.buttonOn(self.bt_softPresetC)
         print ">> Soft Selection PresetC."
 
     def softReset(self):
@@ -2122,22 +2022,18 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.le_softValue.setText(str(mc.softSelect(q=True, softSelectDistance=True)))
         print ">> Soft Selection is RESET"
 
-    def symmetricModelling(self, state):
-        self.initSymTolerance()
-        if state:
-            mc.symmetricModelling(symmetry=1)
-            self.bt_symMod.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                   "selection-background-color: rgb(150, 150, 150);\n")
-            self.bt_symSwitch.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                      "selection-background-color: rgb(150, 150, 150);\n")
-            print ">> Symmetric moddeling is ON."
-        else:
+    def symmetricModelling(self):
+        #self.initSymTolerance()
+        if mc.symmetricModelling(symmetry=1, q=True):
             mc.symmetricModelling(symmetry=0)
-            self.bt_symMod.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-            self.bt_symSwitch.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                        "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_symMod)
+            self.buttonOff(self.bt_symSwitch)
             print ">> Symmetric moddeling is OFF."
+        else:
+            mc.symmetricModelling(symmetry=1)
+            self.buttonOn(self.bt_symMod)
+            self.buttonOn(self.bt_symSwitch)
+            print ">> Symmetric moddeling is ON."
             # "symmetricModelling -e -symmetry"
 
     def symSwitch(self):
@@ -2158,32 +2054,23 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
     def symX(self):
         # symmetricModelling -e -axis "x"
         mc.symmetricModelling(axis="x")
-        self.bt_symX.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                             "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_symY.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                               "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_symZ.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                               "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOn(self.bt_symX)
+        self.buttonOff(self.bt_symY)
+        self.buttonOff(self.bt_symZ)
         print ">> Symmetric moddeling is on X."
 
     def symY(self):
         mc.symmetricModelling(axis="y")
-        self.bt_symY.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                             "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_symX.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                               "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_symZ.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                               "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_symX)
+        self.buttonOn(self.bt_symY)
+        self.buttonOff(self.bt_symZ)
         print ">> Symmetric moddeling is on Y."
 
     def symZ(self):
         mc.symmetricModelling(axis="z")
-        self.bt_symZ.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                             "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_symX.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                               "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_symY.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                               "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_symX)
+        self.buttonOff(self.bt_symY)
+        self.buttonOn(self.bt_symZ)
         print ">> Symmetric moddeling is on Z."
 
     def symTolerance(self):
@@ -2237,79 +2124,55 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
     def tweakMod(self):  # mc.STRSTweakModeToggle()
         if self.toggleTweak == 1:
             mc.STRSTweakModeToggle()
-            self.bt_tweak.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                    "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_tweak)
             self.toggleTweak = 0
             print ">> Tweak mod is OFF"
         else:
             mc.STRSTweakModeToggle()
-            self.bt_tweak.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                  "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_tweak)
             self.toggleTweak = 1
             print ">> Tweak mod is ON"
 
     def objectMove(self):  # manipMoveContext -e -mode 0 Move
         mc.manipMoveContext("Move", e=True, m=0)
-        self.bt_objectMove.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                   "selection-background-color: rgb(150, 150, 150);\n")
-
-        self.bt_worldMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                    "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_localMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                    "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_normalMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOn(self.bt_objectMove)
+        self.buttonOff(self.bt_worldMove)
+        self.buttonOff(self.bt_localMove)
+        self.buttonOff(self.bt_normalMove)
         print ">> Move axis is set to OBJECT"
 
     def localMove(self):
         mc.manipMoveContext("Move", e=True, m=1)
-        self.bt_localMove.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                  "selection-background-color: rgb(150, 150, 150);\n")
-
-        self.bt_worldMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                    "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_objectMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_normalMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_objectMove)
+        self.buttonOff(self.bt_worldMove)
+        self.buttonOn(self.bt_localMove)
+        self.buttonOff(self.bt_normalMove)
         print ">> Move axis is set to LOCAL"
 
     def worldMove(self):
         mc.manipMoveContext("Move", e=True, m=2)
-        self.bt_worldMove.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                  "selection-background-color: rgb(150, 150, 150);\n")
-
-        self.bt_objectMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_localMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                    "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_normalMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_objectMove)
+        self.buttonOn(self.bt_worldMove)
+        self.buttonOff(self.bt_localMove)
+        self.buttonOff(self.bt_normalMove)
         print ">> Move axis is set to WORLD"
 
     def normalMove(self):
         mc.manipMoveContext("Move", e=True, m=3)
-        self.bt_normalMove.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                   "selection-background-color: rgb(150, 150, 150);\n")
-
-        self.bt_worldMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                    "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_localMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                    "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_objectMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_objectMove)
+        self.buttonOff(self.bt_worldMove)
+        self.buttonOff(self.bt_localMove)
+        self.buttonOn(self.bt_normalMove)
         print ">> Move axis is set to VERTEX NORMALE"
 
     def discreteMove(self, state):
         if state:
             mc.manipMoveContext("Move", e=True, snap=True)
-            self.bt_discreteMove.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                         "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_discreteMove)
             print ">> Discrete Move is ON"
         else:
             mc.manipMoveContext("Move", e=True, snap=False)
-            self.bt_discreteMove.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_discreteMove)
             print ">> Discrete Move is OFF"
 
     def setMoveStep(self):
@@ -2318,10 +2181,12 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.sb_discreteMoveValue.setValue(int(btn.text()))
         for s in ("05", "45"):  # "10", "25", "45"):
             btnB = getattr(self, "bt_m" + s)
+            #self.buttonOff(btnB)
             btnB.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                           "selection-background-color: " + self.selectColor + ";\n")
+                                "selection-background-color: " + self.selectColor + ";\n")
+        #self.buttonOn(btnB)
         btn.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                    "selection-background-color: rgb(150, 150, 150);\n")
+                                "selection-background-color: rgb(150, 150, 150);\n")
 
     def setDiscreteMoveValue(self, value):
         mc.manipMoveContext("Move", e=True, snapValue=value)
@@ -2341,74 +2206,54 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
     def localRotate(self):
         # manipRotateContext -e -mode 0 Rotate
         mc.manipRotateContext("Rotate", e=True, m=0)
-        self.bt_localRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                    "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_worldRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_gimbalRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                       "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOn(self.bt_localRotate)
+        self.buttonOff(self.bt_worldRotate)
+        self.buttonOff(self.bt_gimbalRotate)
         print ">> Rotate axis is set to LOCAL"
 
     def worldRotate(self):
         mc.manipRotateContext("Rotate", e=True, m=1)
-        self.bt_worldRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                    "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_localRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_gimbalRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                       "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_localRotate)
+        self.buttonOn(self.bt_worldRotate)
+        self.buttonOff(self.bt_gimbalRotate)
         print ">> Rotate axis is set to WORLD"
 
     def gimbalRotate(self):
         mc.manipRotateContext("Rotate", e=True, m=2)
-        self.bt_gimbalRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                     "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_worldRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_localRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_localRotate)
+        self.buttonOff(self.bt_worldRotate)
+        self.buttonOn(self.bt_gimbalRotate)
         print ">> Rotate axis is set to GIMBAL"
 
     def defautPivotRotate(self):  # manipRotateContext -e -useManipPivot 0 -useObjectPivot 0 Rotate
         mc.manipRotateContext("Rotate", e=True, useManipPivot=0, useObjectPivot=0)
-        self.bt_defaultPivotRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                           "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_objectPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_manipPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOn(self.bt_defaultPivotRotate)
+        self.buttonOff(self.bt_objectPivotRotate)
+        self.buttonOff(self.bt_manipPivotRotate)
         print ">> Rotate pivot is set to DEFAULT"
 
     def objectPivotRotate(self):
         mc.manipRotateContext("Rotate", e=True, useManipPivot=0, useObjectPivot=1)
-        self.bt_objectPivotRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_defaultPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                             "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_manipPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_defaultPivotRotate)
+        self.buttonOn(self.bt_objectPivotRotate)
+        self.buttonOff(self.bt_manipPivotRotate)
         print ">> Rotate pivot is set to OBJECT"
 
     def manipPivotRotate(self):
         mc.manipRotateContext("Rotate", e=True, useManipPivot=1, useObjectPivot=0)
-        self.bt_manipPivotRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                         "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_defaultPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                             "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_objectPivotRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_defaultPivotRotate)
+        self.buttonOff(self.bt_objectPivotRotate)
+        self.buttonOn(self.bt_manipPivotRotate)
         print ">> Rotate pivot is set to MANIP"
 
     def discreteRotate(self, state):
         if state:
             mc.manipRotateContext("Rotate", e=True, snap=True)
-            self.bt_discreteRotate.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                           "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_discreteRotate)
             print ">> Discrete Rotate is ON"
         else:
             mc.manipRotateContext("Rotate", e=True, snap=False)
-            self.bt_discreteRotate.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                             "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_discreteRotate)
             print ">> Discrete Rotate is OFF"
 
     def setRotateStep(self):
@@ -2436,92 +2281,65 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
 
     def objectScale(self):  # manipScaleContext -e -mode 0 Scale
         mc.manipScaleContext("Scale", e=True, m=0)
-        self.bt_objectScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                    "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_worldScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_localScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_normalScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOn(self.bt_objectScale)
+        self.buttonOff(self.bt_worldScale)
+        self.buttonOff(self.bt_localScale)
+        self.buttonOff(self.bt_normalScale)
         print ">> Scale axis is set to OBJECT"
 
     def localScale(self):
         mc.manipScaleContext("Scale", e=True, m=1)
-        self.bt_localScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                   "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_worldScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_objectScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_normalScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_objectScale)
+        self.buttonOff(self.bt_worldScale)
+        self.buttonOn(self.bt_localScale)
+        self.buttonOff(self.bt_normalScale)
         print ">> Scale axis is set to LOCAL"
 
     def worldScale(self):
         mc.manipScaleContext("Scale", e=True, m=2)
-        self.bt_worldScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                   "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_objectScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_localScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_normalScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_objectScale)
+        self.buttonOn(self.bt_worldScale)
+        self.buttonOff(self.bt_localScale)
+        self.buttonOff(self.bt_normalScale)
         print ">> Scale axis is set to WORLD"
 
     def normalScale(self):
         mc.manipScaleContext("Scale", e=True, m=3)
-        self.bt_normalScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                    "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_worldScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_localScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                     "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_objectScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                      "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_objectScale)
+        self.buttonOff(self.bt_worldScale)
+        self.buttonOff(self.bt_localScale)
+        self.buttonOn(self.bt_normalScale)
         print ">> Scale axis is set to NORMAL"
 
     def defautPivotScale(self):
         mc.manipScaleContext("Scale", e=True, useManipPivot=0, useObjectPivot=0)
-        self.bt_defaultPivotScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_objectPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_manipPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_objectPivotScale)
+        self.buttonOn(self.bt_defaultPivotScale)
+        self.buttonOff(self.bt_manipPivotScale)
         print ">> Scale pivot is set to DEFAULT"
 
     def objectPivotScale(self):
         mc.manipScaleContext("Scale", e=True, useManipPivot=0, useObjectPivot=1)
-        self.bt_objectPivotScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                         "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_defaultPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_manipPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                          "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOn(self.bt_objectPivotScale)
+        self.buttonOff(self.bt_defaultPivotScale)
+        self.buttonOff(self.bt_manipPivotScale)
         print ">> Scale pivot is set to OBJECT"
 
     def manipPivotScale(self):
         mc.manipScaleContext("Scale", e=True, useManipPivot=1, useObjectPivot=0)
-        self.bt_manipPivotScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                        "selection-background-color: rgb(150, 150, 150);\n")
-        self.bt_objectPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                           "selection-background-color: " + self.selectColor + ";\n")
-        self.bt_defaultPivotScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
+        self.buttonOff(self.bt_objectPivotScale)
+        self.buttonOff(self.bt_defaultPivotScale)
+        self.buttonOn(self.bt_manipPivotScale)
         print ">> Scale pivot is set to MANIP"
 
     def discreteScale(self, state):
         if state:
             mc.manipScaleContext("Scale", e=True, snap=True)
-            self.bt_discreteScale.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                                          "selection-background-color: rgb(150, 150, 150);\n")
+            self.buttonOn(self.bt_discreteScale)
             print ">> Discrete Scale is ON"
         else:
             mc.manipScaleContext("Scale", e=True, snap=False)
-            self.bt_discreteScale.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                                            "selection-background-color: " + self.selectColor + ";\n")
+            self.buttonOff(self.bt_discreteScale)
             print ">> Discrete Scale is OFF"
 
     def setScaleStep(self):
@@ -2545,7 +2363,6 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.initScaleSettings()
         print ">> Scale Tool is RESET"
 
-
 def launchUi():
     sDockName = "kMaxToolDock"
     if mc.dockControl(sDockName, q=True, ex=True):
@@ -2566,7 +2383,7 @@ def launchUi():
                                 area='right',
                                 content=myWindow,
                                 allowedArea=['right', 'left'],
-                                width=270, sizeable=False)
+                                width=180, sizeable=False) #270
 
         qDock = controlToPySide(myDock)
         myUi = KmaxWin(qDock)
