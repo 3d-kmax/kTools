@@ -142,8 +142,8 @@ class kShelfBar():
                                             width=scaleSeparator,
                                             enable=0)
 
-        self.bt_open = mc.iconTextButton(image1=self.target + "tt_open_b.png",
-                                         highlightImage=self.target + "tt_open.png",
+        self.bt_open = mc.iconTextButton(image1=self.target + "teamtTo.png", #"tt_open_b.png",
+                                         highlightImage=self.target + "teamtTo.png", #"tt_open_b.png",
                                          annotation="Open a Scene",
                                          command=self.kmOpen,
                                          width=scaleIcon)
@@ -171,6 +171,17 @@ class kShelfBar():
                                                  annotation="Check Publishability",
                                                  command=self.kmCheckPublishable,
                                                  width=scaleIcon)
+
+        self.bt_buildPresScene = mc.iconTextButton(image1=self.target+"buildPres.png",
+                                                    highlightImage=self.target+"buildPres.png",
+                                                    annotation="build presentation scene",
+                                                    command=pm.mel.tak_buildPresentationScene,
+                                                    width = scaleIcon)
+        self.bt_launchPresScene = mc.iconTextButton(image1=self.target + "launchPres.png",
+                                                    highlightImage=self.target + "launchPres.png",
+                                                    annotation="launch presentation scene",
+                                                    command=pm.mel.tak_launchPresentationRender,
+                                                    width=scaleIcon)
 
         mc.iconTextButton(image1=self.target + "separateHor.png",
                                             disabledImage=self.target + "separateHor.png",
@@ -248,8 +259,8 @@ class kShelfBar():
                                                command=self.kmHyperShade,
                                                width=scaleIcon)
 
-        self.bt_textureEditor = mc.iconTextButton(image1=self.target + "uvEditor.png",
-                                                  highlightImage=self.target + "uvEditor.png",
+        self.bt_textureEditor = mc.iconTextButton(image1=self.target + "uvTextureEditor.png",
+                                                  highlightImage=self.target + "uvTextureEditor.png",
                                                   annotation="UV Texture Editor",
                                                   command=self.kmUVTextureEditor,
                                                   width=scaleIcon)
@@ -337,7 +348,7 @@ class kShelfBar():
                                                  width=scaleIcon)
 
         ## SPACER
-        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=280, enable=0)
+        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=220, enable=0)
 
         self.bt_preferences = mc.iconTextButton(image1=self.target + "settings.png",
                                                 highlightImage=self.target + "settings.png",

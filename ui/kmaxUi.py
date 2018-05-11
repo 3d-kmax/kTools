@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'E:\kTools\ui\kmaxUi.ui'
 #
-# Created: Thu May 10 17:59:06 2018
+# Created: Fri May 11 11:24:58 2018
 #      by: pyside-uic 0.2.14 running on PySide 1.2.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -500,7 +500,7 @@ class Ui_kmaxToolBar(object):
         self.verticalLayout_10.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
         self.wg_channelBox = QtGui.QWidget(self.wg_transformMenu)
-        self.wg_channelBox.setMinimumSize(QtCore.QSize(0, 192))
+        self.wg_channelBox.setMinimumSize(QtCore.QSize(0, 220))
         self.wg_channelBox.setObjectName("wg_channelBox")
         self.lt_channelBox = QtGui.QVBoxLayout(self.wg_channelBox)
         self.lt_channelBox.setSpacing(0)

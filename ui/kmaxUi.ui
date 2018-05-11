@@ -1652,7 +1652,7 @@
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>192</height>
+          <height>220</height>
          </size>
         </property>
         <layout class="QVBoxLayout" name="lt_channelBox">
