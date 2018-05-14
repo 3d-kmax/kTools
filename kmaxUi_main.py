@@ -360,19 +360,35 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.iconCenterPivot.addPixmap(QtGui.QPixmap(self.target + "centerPivot.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_centerPivot.setIcon(self.iconCenterPivot)
 
+        self.iconResetTransform = QtGui.QIcon()
+        self.iconResetTransform.addPixmap(QtGui.QPixmap(self.target + "resetTransform.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_resetAllTransform.setIcon(self.iconResetTransform)
+
+        self.iconMatchTransform = QtGui.QIcon()
+        self.iconMatchTransform.addPixmap(QtGui.QPixmap(self.target + "matchTransform.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_matchAll.setIcon(self.iconMatchTransform)
+
+        self.iconFreezeTransform = QtGui.QIcon()
+        self.iconFreezeTransform.addPixmap(QtGui.QPixmap(self.target + "freezeTransform.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_freezeAllTransform.setIcon(self.iconFreezeTransform)
+
+        self.iconUnFreeze = QtGui.QIcon()
+        self.iconUnFreeze.addPixmap(QtGui.QPixmap(self.target + "unFreeze.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bt_unFreeze.setIcon(self.iconUnFreeze)
+
         # icons soft selection
         self.presetSoftA = QtGui.QIcon()
         # self.presetSoftA.setIconSize(QtCore.QSize(32, 32))
-        self.presetSoftA.addPixmap(QtGui.QPixmap(self.target + "softPresetA3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.presetSoftA.addPixmap(QtGui.QPixmap(self.target + "softPresetA.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         # self.presetSoftA.addPixmap(QtGui.QPixmap(self.target+"softPresetA_w.png"), QtGui.QIcon.Normal, QtGui.QIcon.On) ##OK !
         self.bt_softPresetA.setIcon(self.presetSoftA)
 
         self.presetSoftB = QtGui.QIcon()
-        self.presetSoftB.addPixmap(QtGui.QPixmap(self.target + "softPresetB3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.presetSoftB.addPixmap(QtGui.QPixmap(self.target + "softPresetB.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_softPresetB.setIcon(self.presetSoftB)
 
         self.presetSoftC = QtGui.QIcon()
-        self.presetSoftC.addPixmap(QtGui.QPixmap(self.target + "softPresetC3220.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.presetSoftC.addPixmap(QtGui.QPixmap(self.target + "softPresetC.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.bt_softPresetC.setIcon(self.presetSoftC)
 
         self.iconTest = QtGui.QIcon()
