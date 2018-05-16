@@ -6,13 +6,15 @@
 # Panneau lateral pour Maya
 # Regroupant le Tool Settings, le Channel Box, et l'Attribut Editor.
 
-'''apiVers = mc.about(apiVersion=True)
+'''
+apiVers = mc.about(apiVersion=True)
 apiVersStr = str(apiVers)
 if apiVers[0:4] = "2015":
     from shiboken import warpInstance
 if apiVers[0:4] = "2018":
     from shiboken2 import warpInstance
-print "Maya Version : ", apiVers[0:4]'''
+print "Maya Version : ", apiVers[0:4]
+'''
 
 '''
 try:
