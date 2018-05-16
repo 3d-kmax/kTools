@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'E:\kTools\ui\kmaxUi.ui'
 #
-# Created: Mon May 14 19:28:43 2018
+# Created: Wed May 16 18:59:43 2018
 #      by: pyside-uic 0.2.14 running on PySide 1.2.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -72,14 +72,12 @@ class Ui_kmaxToolBar(object):
         self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_14.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_14.setObjectName("horizontalLayout_14")
-        self.bt_tool = QtGui.QPushButton(self.widget_20)
-        self.bt_tool.setMinimumSize(QtCore.QSize(30, 30))
-        self.bt_tool.setMaximumSize(QtCore.QSize(30, 30))
-        self.bt_tool.setText("")
-        self.bt_tool.setIconSize(QtCore.QSize(26, 26))
-        self.bt_tool.setFlat(True)
-        self.bt_tool.setObjectName("bt_tool")
-        self.horizontalLayout_14.addWidget(self.bt_tool)
+        self.lb_tool = QtGui.QLabel(self.widget_20)
+        self.lb_tool.setMinimumSize(QtCore.QSize(30, 30))
+        self.lb_tool.setMaximumSize(QtCore.QSize(30, 30))
+        self.lb_tool.setLineWidth(0)
+        self.lb_tool.setObjectName("lb_tool")
+        self.horizontalLayout_14.addWidget(self.lb_tool)
         self.widget_23 = QtGui.QWidget(self.widget_20)
         self.widget_23.setMinimumSize(QtCore.QSize(0, 30))
         self.widget_23.setMaximumSize(QtCore.QSize(16777215, 30))

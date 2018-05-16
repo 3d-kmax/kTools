@@ -30,6 +30,7 @@ except ImportError:
 
 from PySide import QtCore, QtGui
 import shiboken
+
 Qt = QtCore.Qt
 
 import maya.OpenMayaUI as mui
@@ -39,10 +40,12 @@ import maya.mel as mel
 import os
 
 import kmaxUi
+
 reload(kmaxUi)
 
 import kMod
 import kShelfTop
+
 
 def wrapinstance(ptr, base=None):
     """
@@ -110,13 +113,15 @@ def catchJobException(func):
             pm.displayError('< {0}.{1} > {2}.'.format(func.__module__, func.__name__, str(e)))
             return
         return ret
+
     return doIt
+
 
 # ici isAutoAddNewObjsEnabled & toggleIsolateObject
 
 
-class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
-#class KmaxWin(QtGui.Qwidget, kmaxUi.Ui_kmaxToolBar):
+class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
+    # class KmaxWin(QtGui.Qwidget, kmaxUi.Ui_kmaxToolBar):
     '''
     Mon outil custom de ouf
 
@@ -148,12 +153,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.setupUi(self)
         self.setAttribute(Qt.WA_DeleteOnClose, True)
 
-        #self.selectColor = "rgb(50, 110, 180)"		# BLEU good : "rgb(50, 100, 150)"
+        #self.selectColor = "rgb(200, 80, 200)"		# couleur custom !
         self.selectColor = "rgb(103, 141, 178)"  # Maya BLEU
+        self.titleColor2 = "rgb(42, 42, 42)"  # GRIS SOMBRE UNSELECT
+        self.backGroundColor2 = "rgb(68, 68, 68)"  # GRIS MAYA
+        self.backGroundColor = "rgb(78, 78, 78)"  # Fond barre deroulant
         self.unSelectColor = "rgb(100, 100, 100)"  # GRIS FONCE
-        self.textColor = "rgb(150, 150, 150)"  # GRIS CLAIR
-        self.backGroundColor = "rgb(68, 68, 68)" # GRIS MAYA
-        self.titleColor = "rgb(42, 42, 42)" # GRIS SOMBRE UNSELECT
+        self.textColor2 = "rgb(150, 150, 150)"  # GRIS CLAIR
+        self.titleColor = "rgb(180, 180, 180)" # Texte menu deroulant
 
         self.initLink()
         self.initScriptJobs()
@@ -210,35 +217,13 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         print ">> :", self.target
 
     def isAutoAddNewObjsEnabled(self):
-        #print ">> : ", self.target
-        #if "2015" in self.target:
+        # print ">> : ", self.target
+        # if "2015" in self.target:
         iJob = pm.mel.eval("$temp = $autoAddNewObjJobNum")  # 2015
-        #if "2016" in self.target :
-            #iJob = pm.mel.eval('$temp = $isolateSelectAutoAddScriptJob')  # 2016
+        # if "2016" in self.target :
+        # iJob = pm.mel.eval('$temp = $isolateSelectAutoAddScriptJob')  # 2016
         print "JOB ID >> :", iJob
         return mc.scriptJob(ex=iJob)
-
-    # isolate selection pour le raccourci clavier				enableIsolateSelect modelPanel4 true; 		isolateSelect -state 1 modelPanel4;
-    def toggleIsolateObject(self):
-        allModelPanel = mc.getPanel(type='modelPanel')
-        if allModelPanel:
-            for modelPanelName in allModelPanel:
-                state = mc.isolateSelect(modelPanelName, query=True, state=True)
-                if state == 0:
-                    if mc.selectMode(q=True, object=True):
-                        pm.mel.enableIsolateSelect(modelPanelName, 1)
-                    else:
-                        mc.selectMode(object=True)
-                        pm.mel.enableIsolateSelect(modelPanelName, 1)
-                        mc.selectMode(component=True)
-                    # self.bt_isolateSel.setStyleSheet("background-color: "+self.selectColor+";\n"
-                    # "selection-background-color: rgb(150, 150, 150);\n")
-                    print ">> Isolate : ON."
-                else:
-                    pm.mel.enableIsolateSelect(modelPanelName, 0)
-                    # self.bt_isolateSel.setStyleSheet("background-color: "+self.unSelectColor+";\n"
-                    # "selection-background-color: "+self.selectColor+";\n")
-                    print ">> Isolate : OFF."
 
     def initIcon(self):
 
@@ -252,154 +237,53 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.iconLockOff = QtGui.QIcon()
         self.iconLockOff.addPixmap(QtGui.QPixmap(self.target + "lockOff.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
+        pixmapTool = QtGui.QPixmap(self.target + "aselect28.png")
+        #pixmapToolScaled = QtGui.QPixmap.scaled(32)
+        #pixmapTool = pixmapTool.scaled(28, 28)#, QtGui.QPixmap.FastTransformation)
+        self.lb_tool.setPixmap(pixmapTool)#.scaled(32, 32, QtGui.QPixmap.IgnoreAspectRatio, QtGui.QPixmap.FastTransformation))
 
-        '''allButtons = [("iconTool", "aselect.png", "bt_tool", "Annotation"),
-                      ("iconSelObject", "objectnex.png", "bt_selVert", "Annotation")]
-        for btn in allButtons:
-            self.btn[0] = QtGui.QIcon()
-            self.btn[0].addPixmap(QtGui.QPixmap(self.target + btn[1]), QtGui.QIcon.Normal,QtGui.QIcon.Off)
-            self.btn[2].setIcon(self.btn[0])
-            self.btn[2](annotation=btn[3])'''
-
-        # icons common selection options
-        self.iconTool = QtGui.QIcon()
-        self.iconTool.addPixmap(QtGui.QPixmap(self.target + "aselect.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
-        self.bt_tool.setIcon(self.iconTool)
-
-        self.iconSelObject = QtGui.QIcon()
-        self.iconSelObject.addPixmap(QtGui.QPixmap(self.target + "objectnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_selObj.setIcon(self.iconSelObject)
-
-        self.iconSelVertex = QtGui.QIcon()
-        self.iconSelVertex.addPixmap(QtGui.QPixmap(self.target + "vertexnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_selVert.setIcon(self.iconSelVertex)
-
-        self.iconSelEdge = QtGui.QIcon()
-        self.iconSelEdge.addPixmap(QtGui.QPixmap(self.target + "edgesnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_selEdge.setIcon(self.iconSelEdge)
-
-        self.iconSelFace = QtGui.QIcon()
-        self.iconSelFace.addPixmap(QtGui.QPixmap(self.target + "facesnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_selFace.setIcon(self.iconSelFace)
-
-        self.iconSelUv = QtGui.QIcon()
-        self.iconSelUv.addPixmap(QtGui.QPixmap(self.target + "uvnex.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_selUv.setIcon(self.iconSelUv)
-
-        self.iconTransform = QtGui.QIcon()
-        self.iconTransform.addPixmap(QtGui.QPixmap(self.target + "transform23.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
-        self.btn_transformName.setIcon(self.iconTransform)
-        #self.btn_transformName.setDisabled(True)
-
-        self.iconShape = QtGui.QIcon()
-        self.iconShape.addPixmap(QtGui.QPixmap(self.target + "shape.png"), QtGui.QIcon.Normal,QtGui.QIcon.Off)
-        self.btn_shapeName.setIcon(self.iconShape)
-        #self.btn_shapeName.setDisabled(True)
-
-        self.iconHistory = QtGui.QIcon()
-        self.iconHistory.addPixmap(QtGui.QPixmap(self.target + "constructionHistory.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_history.setIcon(self.iconHistory)
-        #self.btn_history.setDisabled(True)
-
-        self.iconSelec = QtGui.QIcon()
-        self.iconSelec.addPixmap(QtGui.QPixmap(self.target + "quickRename.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btn_select.setIcon(self.iconSelec)
-        #self.btn_select.setDisabled(True)
-
-        # icons display menu
-        self.iconHUD = QtGui.QIcon()
-        self.iconHUD.addPixmap(QtGui.QPixmap(self.target + "hud.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_hudInfos.setIcon(self.iconHUD)
-
-        self.iconGrid = QtGui.QIcon()
-        self.iconGrid.addPixmap(QtGui.QPixmap(self.target + "grid.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off) #gridDisplay
-        self.bt_toggleGrid.setIcon(self.iconGrid)
-
-        self.iconConstrHistory = QtGui.QIcon()
-        self.iconConstrHistory.addPixmap(QtGui.QPixmap(self.target + "constructionHistory.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_noHistory.setIcon(self.iconConstrHistory)
-
-        self.iconXray = QtGui.QIcon()
-        self.iconXray.addPixmap(QtGui.QPixmap(self.target + "xray.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_xrayMat.setIcon(self.iconXray)
-
-        self.iconDefaultMat = QtGui.QIcon()
-        self.iconDefaultMat.addPixmap(QtGui.QPixmap(self.target + "useDefaultMaterial.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_defaultMat.setIcon(self.iconDefaultMat)
-
-        self.iconWireframe = QtGui.QIcon()
-        self.iconWireframe.addPixmap(QtGui.QPixmap(self.target + "wireframeOnShaded.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_wireframe.setIcon(self.iconWireframe)
-
-        self.iconHighlight = QtGui.QIcon()
-        self.iconHighlight.addPixmap(QtGui.QPixmap(self.target + "highlightSelect.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_selHighlight.setIcon(self.iconHighlight)
-
-        self.iconMeshBorder = QtGui.QIcon()
-        self.iconMeshBorder.addPixmap(QtGui.QPixmap(self.target + "meshBorder.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_toggleBorderEdge.setIcon(self.iconMeshBorder)
-
-        self.iconIsolate = QtGui.QIcon()
-        self.iconIsolate.addPixmap(QtGui.QPixmap(self.target + "isolateSelected.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_isolateSel.setIcon(self.iconIsolate)
-
-        self.iconActualize = QtGui.QIcon()
-        self.iconActualize.addPixmap(QtGui.QPixmap(self.target + "actualize.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_isolateActu.setIcon(self.iconActualize)
-
-        self.iconAutoActualize = QtGui.QIcon()
-        self.iconAutoActualize.addPixmap(QtGui.QPixmap(self.target + "autoActualize.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_autoAddIsolate.setIcon(self.iconAutoActualize)
-
-        # icons transform menu
-        self.iconDeleteHistory = QtGui.QIcon()
-        self.iconDeleteHistory.addPixmap(QtGui.QPixmap(self.target + "deleteHistory.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_deleteHistory.setIcon(self.iconDeleteHistory)
-
-        self.iconCenterPivot = QtGui.QIcon()
-        self.iconCenterPivot.addPixmap(QtGui.QPixmap(self.target + "centerPivot.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_centerPivot.setIcon(self.iconCenterPivot)
-
-        self.iconResetTransform = QtGui.QIcon()
-        self.iconResetTransform.addPixmap(QtGui.QPixmap(self.target + "resetTransform.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_resetAllTransform.setIcon(self.iconResetTransform)
-
-        self.iconMatchTransform = QtGui.QIcon()
-        self.iconMatchTransform.addPixmap(QtGui.QPixmap(self.target + "matchTransform.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_matchAll.setIcon(self.iconMatchTransform)
-
-        self.iconFreezeTransform = QtGui.QIcon()
-        self.iconFreezeTransform.addPixmap(QtGui.QPixmap(self.target + "freezeTransform.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_freezeAllTransform.setIcon(self.iconFreezeTransform)
-
-        self.iconUnFreeze = QtGui.QIcon()
-        self.iconUnFreeze.addPixmap(QtGui.QPixmap(self.target + "unFreeze.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_unFreeze.setIcon(self.iconUnFreeze)
-
-        # icons soft selection
-        self.presetSoftA = QtGui.QIcon()
-        # self.presetSoftA.setIconSize(QtCore.QSize(32, 32))
-        self.presetSoftA.addPixmap(QtGui.QPixmap(self.target + "softPresetA.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        # self.presetSoftA.addPixmap(QtGui.QPixmap(self.target+"softPresetA_w.png"), QtGui.QIcon.Normal, QtGui.QIcon.On) ##OK !
-        self.bt_softPresetA.setIcon(self.presetSoftA)
-
-        self.presetSoftB = QtGui.QIcon()
-        self.presetSoftB.addPixmap(QtGui.QPixmap(self.target + "softPresetB.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_softPresetB.setIcon(self.presetSoftB)
-
-        self.presetSoftC = QtGui.QIcon()
-        self.presetSoftC.addPixmap(QtGui.QPixmap(self.target + "softPresetC.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_softPresetC.setIcon(self.presetSoftC)
-
-        self.iconTest = QtGui.QIcon()
-        self.iconTest.addPixmap(QtGui.QPixmap(self.target + "initScene.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_test.setIcon(self.iconTest)
+        buttonIconItems = [("iconSelObject", "objectnex.png", self.bt_selObj),
+                           ("iconSelVertex", "vertexnex.png", self.bt_selVert),
+                           ("iconSelEdge", "edgesnex.png", self.bt_selEdge),
+                           ("iconSelFace", "facesnex.png", self.bt_selFace),
+                           ("iconSelUv", "uvnex.png", self.bt_selUv),
+                           ("iconTransform", "transform23.png", self.btn_transformName),
+                           ("iconShape", "shape.png", self.btn_shapeName),
+                           ("iconHistory", "constructionHistory.png", self.btn_history),
+                           ("iconSelec", "quickRename.png", self.btn_select),
+                           ("iconHUD", "hud.png", self.bt_hudInfos),
+                           ("iconGrid", "grid.png", self.bt_toggleGrid),
+                           ("iconConstrHistory", "constructionHistory.png", self.bt_noHistory),
+                           ("iconXray", "xray.png", self.bt_xrayMat),
+                           ("iconDefaultMat", "useDefaultMaterial.png", self.bt_defaultMat),
+                           ("iconWireframe", "wireframeOnShaded.png", self.bt_wireframe),
+                           ("iconHighlight", "highlightSelect.png", self.bt_selHighlight),
+                           ("iconMeshBorder", "meshBorder.png", self.bt_toggleBorderEdge),
+                           ("iconIsolate", "isolateSelected.png", self.bt_isolateSel),
+                           ("iconActualize", "actualize.png", self.bt_isolateActu),
+                           ("iconAutoActualize", "autoActualize.png", self.bt_autoAddIsolate),
+                           ("iconDeleteHistory", "deleteHistory.png", self.bt_deleteHistory),
+                           ("iconCenterPivot", "centerPivot.png", self.bt_centerPivot),
+                           ("iconResetTransform", "resetTransform.png", self.bt_resetAllTransform),
+                           ("iconMatchTransform", "matchTransform.png", self.bt_matchAll),
+                           ("iconFreezeTransform", "freezeTransform.png", self.bt_freezeAllTransform),
+                           ("iconUnFreeze", "unFreeze.png", self.bt_unFreeze),
+                           ("presetSoftA", "softPresetA.png", self.bt_softPresetA),
+                           ("presetSoftB", "softPresetB.png", self.bt_softPresetB),
+                           ("presetSoftC", "softPresetC.png", self.bt_softPresetC),
+                           ("iconTest", "initScene.png", self.bt_test)
+                           # ("", "", self.),
+                           ]
+        for iconName, iconFilename, btn in buttonIconItems:
+            icon = QtGui.QIcon(name=iconName)
+            icon.addPixmap(QtGui.QPixmap(self.target + iconFilename), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+            btn.setIcon(icon)
 
     def setIconTool(self, toolType):
-        self.iconTool = QtGui.QIcon()
-        self.iconTool.addPixmap(QtGui.QPixmap(self.target + toolType + ".png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bt_tool.setIcon(self.iconTool)
-        #self.bt_tool.setDisabled(True)
+        pixmapTool = QtGui.QPixmap(self.target + toolType + "28.png")
+        #pixmapTool = pixmapTool.scaled(28, 28)
+        self.lb_tool.setPixmap(pixmapTool)
+        # self.bt_tool.setDisabled(True)
 
     # LIENS entre boutons et fonctions/methodes
     def initLink(self):
@@ -423,7 +307,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.bt_selEdge.clicked.connect(self.selEdge)
         self.bt_selFace.clicked.connect(self.selFace)
         self.bt_selObj.clicked.connect(self.selObject)
-        #self.bt_selMulti.clicked.connect(self.selMulti)
+        # self.bt_selMulti.clicked.connect(self.selMulti)
         self.bt_selUv.clicked.connect(self.selUv)
 
         self.le_select.returnPressed.connect(self.selectByName)
@@ -697,17 +581,17 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                       self.bt_toolSettings, self.bt_softSelectionMenu)
         for item in titlesMenu:
             item.setStyleSheet("background-color: " + self.backGroundColor + ";\n"
-                                    "color: " + self.titleColor + ";\n"  # "border-color: "+self.selectColor+";\n"  # "border-width: 2px;"  # "border-style: solid;"  # "border-color: blue;"  # "border-radius: 11px;"  # "text-align: left;"
-                                    "font-weight: bold;"
-                                    "selection-background-color: " + self.selectColor + ";\n")
+                                "color: " + self.titleColor + ";\n"  # "border-color: "+self.selectColor+";\n"  # "border-width: 2px;"  # "border-style: solid;"  # "border-color: blue;"  # "border-radius: 11px;"  # "text-align: left;"
+                                "font-weight: bold;"
+                                "selection-background-color: " + self.selectColor + ";\n")
             item.setDisabled(True)
 
         lockMenu = (self.bt_commonLock, self.bt_displayLock, self.bt_transformLock, self.bt_toolLock, self.bt_softLock)
         for item in lockMenu:
             item.setStyleSheet("background-color: " + self.backGroundColor + ";\n"
-                                    "color: " + self.selectColor + ";\n"
-                                    "font-weight: bold;"
-                                    "selection-background-color: " + self.selectColor + ";\n")
+                                "color: " + self.selectColor + ";\n"
+                                "font-weight: bold;"
+                                "selection-background-color: " + self.selectColor + ";\n")
             item.setChecked(True)
 
     def initDisplay(self):
@@ -729,8 +613,8 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
             self.buttonOff(self.bt_defaultMat)
 
         # bt_defaultLight
-        #mc.modelEditor(panelFocus, q=True, displayLights=True)
-        #if mc.modelEditor(panelFocus, q=True, displayLights=True) == "default":
+        # mc.modelEditor(panelFocus, q=True, displayLights=True)
+        # if mc.modelEditor(panelFocus, q=True, displayLights=True) == "default":
         if mc.modelEditor("modelPanel4", q=True, displayLights=True) == "default":
             self.bt_defaultLight.setText("DF LT")
             self.buttonOn(self.bt_defaultLight)
@@ -989,7 +873,12 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
                                    precision=3,
                                    w=self.wg_channelBox.width(),
                                    h=self.wg_channelBox.height(),
-                                   fixedAttrList = ("translateX","translateY","translateZ","rotateX","rotateY","rotateZ","scaleX","scaleY","scaleZ")
+                                   fixedAttrList=(
+                                   "translateX", "translateY", "translateZ", "rotateX", "rotateY", "rotateZ", "scaleX",
+                                   "scaleY", "scaleZ")  # ,'visibility'),
+                                   # enableBackground = False
+                                   # backgroundColor = [0.267, 0.267, 0.267],
+                                   # enableLabelSelection = True
                                    )
         qChbox = controlToPySide(sChboxName)
         self.lt_channelBox.addWidget(qChbox)
@@ -1377,11 +1266,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
 
     def buttonOn(self, buttonName):
         buttonName.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                        "selection-background-color: rgb(150, 150, 150);\n")
+                                                                           "selection-background-color: rgb(150, 150, 150);\n")
 
     def buttonOff(self, buttonName):
         buttonName.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                        "selection-background-color: " + self.selectColor + ";\n")
+                                                                             "selection-background-color: " + self.selectColor + ";\n")
 
     # pour renommer l'object selectionne
     def renameTransform(self):
@@ -1952,8 +1841,8 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
 
     # "softSelect -e -softSelectEnabled true"
     def softSelection(self):
-        #self.initSoftSelec()
-        #self.initSoftValue()
+        # self.initSoftSelec()
+        # self.initSoftValue()
         if mc.softSelect(softSelectEnabled=1, q=1):
             mc.softSelect(softSelectEnabled=0)
             self.buttonOff(self.bt_softSelection)
@@ -2039,7 +1928,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         print ">> Soft Selection is RESET"
 
     def symmetricModelling(self):
-        #self.initSymTolerance()
+        # self.initSymTolerance()
         if mc.symmetricModelling(symmetry=1, q=True):
             mc.symmetricModelling(symmetry=0)
             self.buttonOff(self.bt_symMod)
@@ -2197,12 +2086,12 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.sb_discreteMoveValue.setValue(int(btn.text()))
         for s in ("05", "45"):  # "10", "25", "45"):
             btnB = getattr(self, "bt_m" + s)
-            #self.buttonOff(btnB)
+            # self.buttonOff(btnB)
             btnB.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                "selection-background-color: " + self.selectColor + ";\n")
-        #self.buttonOn(btnB)
+                                                                           "selection-background-color: " + self.selectColor + ";\n")
+        # self.buttonOn(btnB)
         btn.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                "selection-background-color: rgb(150, 150, 150);\n")
+                                                                    "selection-background-color: rgb(150, 150, 150);\n")
 
     def setDiscreteMoveValue(self, value):
         mc.manipMoveContext("Move", e=True, snapValue=value)
@@ -2379,11 +2268,12 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar): #QtWidgets?
         self.initScaleSettings()
         print ">> Scale Tool is RESET"
 
+
 def launchUi():
     sDockName = "kMaxToolDock"
     if mc.dockControl(sDockName, q=True, ex=True):
         qDock = controlToPySide(sDockName)
-        myUi = qDock.findChild(QtGui.QWidget, "kmaxToolBar") #QtWidgets
+        myUi = qDock.findChild(QtGui.QWidget, "kmaxToolBar")  # QtWidgets
         myUi.close()
         mc.deleteUI(sDockName)
 
@@ -2399,7 +2289,7 @@ def launchUi():
                                 area='right',
                                 content=myWindow,
                                 allowedArea=['right', 'left'],
-                                width=180, sizeable=False) #270
+                                width=180, sizeable=False)  # 270
 
         qDock = controlToPySide(myDock)
         myUi = KmaxWin(qDock)
@@ -2410,3 +2300,21 @@ def launchUi():
 
     finally:
         mc.deleteUI(myWindow)
+
+# isolate selection pour le raccourci clavier				enableIsolateSelect modelPanel4 true; 		isolateSelect -state 1 modelPanel4;
+def toggleIsolateObject():
+    allModelPanel = mc.getPanel(type='modelPanel')
+    if allModelPanel:
+        for modelPanelName in allModelPanel:
+            state = mc.isolateSelect(modelPanelName, query=True, state=True)
+            if state == 0:
+                if mc.selectMode(q=True, object=True):
+                    pm.mel.enableIsolateSelect(modelPanelName, 1)
+                else:
+                    mc.selectMode(object=True)
+                    pm.mel.enableIsolateSelect(modelPanelName, 1)
+                    mc.selectMode(component=True)
+                print ">> Isolate : ON."
+            else:
+                pm.mel.enableIsolateSelect(modelPanelName, 0)
+                print ">> Isolate : OFF."
