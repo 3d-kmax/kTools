@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>180</width>
-    <height>1286</height>
+    <height>1275</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -18,7 +18,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>215</width>
+    <width>180</width>
     <height>1286</height>
    </size>
   </property>
@@ -4924,13 +4924,13 @@
               <property name="minimumSize">
                <size>
                 <width>45</width>
-                <height>0</height>
+                <height>23</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>45</width>
-                <height>16777215</height>
+                <height>23</height>
                </size>
               </property>
               <property name="toolTip">
@@ -4951,8 +4951,8 @@
              <widget class="QLineEdit" name="le_softValue">
               <property name="minimumSize">
                <size>
-                <width>45</width>
-                <height>0</height>
+                <width>0</width>
+                <height>20</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -4985,8 +4985,14 @@
                 <widget class="QPushButton" name="bt_softPresetA">
                  <property name="minimumSize">
                   <size>
-                   <width>0</width>
-                   <height>0</height>
+                   <width>23</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>23</width>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="toolTip">
@@ -5010,8 +5016,14 @@
                 <widget class="QPushButton" name="bt_softPresetB">
                  <property name="minimumSize">
                   <size>
-                   <width>0</width>
-                   <height>0</height>
+                   <width>23</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>23</width>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="toolTip">
@@ -5035,8 +5047,14 @@
                 <widget class="QPushButton" name="bt_softPresetC">
                  <property name="minimumSize">
                   <size>
-                   <width>0</width>
-                   <height>0</height>
+                   <width>23</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>23</width>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="toolTip">
@@ -5063,7 +5081,7 @@
              <widget class="QPushButton" name="bt_resetSoft">
               <property name="minimumSize">
                <size>
-                <width>23</width>
+                <width>15</width>
                 <height>23</height>
                </size>
               </property>
@@ -5218,7 +5236,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="widget_10" native="true">
+       <widget class="QWidget" name="fr_symmetry" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <property name="spacing">
           <number>0</number>
@@ -5240,13 +5258,13 @@
               <property name="minimumSize">
                <size>
                 <width>45</width>
-                <height>0</height>
+                <height>23</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>45</width>
-                <height>16777215</height>
+                <height>23</height>
                </size>
               </property>
               <property name="toolTip">
@@ -5293,7 +5311,13 @@
                  <property name="minimumSize">
                   <size>
                    <width>15</width>
-                   <height>0</height>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>23</width>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="toolTip">
@@ -5315,7 +5339,13 @@
                  <property name="minimumSize">
                   <size>
                    <width>15</width>
-                   <height>0</height>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>23</width>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="toolTip">
@@ -5337,7 +5367,13 @@
                  <property name="minimumSize">
                   <size>
                    <width>15</width>
-                   <height>0</height>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>23</width>
+                   <height>23</height>
                   </size>
                  </property>
                  <property name="toolTip">
@@ -5362,13 +5398,13 @@
               <property name="minimumSize">
                <size>
                 <width>45</width>
-                <height>0</height>
+                <height>23</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
                 <width>45</width>
-                <height>16777215</height>
+                <height>23</height>
                </size>
               </property>
               <property name="toolTip">
@@ -5383,13 +5419,13 @@
              <widget class="QPushButton" name="bt_resetSym">
               <property name="minimumSize">
                <size>
-                <width>23</width>
+                <width>15</width>
                 <height>23</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>23</width>
+                <width>15</width>
                 <height>23</height>
                </size>
               </property>
@@ -5430,7 +5466,7 @@
               <property name="maximumSize">
                <size>
                 <width>30</width>
-                <height>16777215</height>
+                <height>23</height>
                </size>
               </property>
               <property name="toolTip">
@@ -5452,7 +5488,7 @@
               <property name="maximumSize">
                <size>
                 <width>30</width>
-                <height>16777215</height>
+                <height>23</height>
                </size>
               </property>
               <property name="toolTip">
@@ -5474,7 +5510,7 @@
               <property name="maximumSize">
                <size>
                 <width>30</width>
-                <height>16777215</height>
+                <height>23</height>
                </size>
               </property>
               <property name="toolTip">
@@ -5496,7 +5532,7 @@
               <property name="maximumSize">
                <size>
                 <width>30</width>
-                <height>16777215</height>
+                <height>23</height>
                </size>
               </property>
               <property name="toolTip">
@@ -5518,7 +5554,7 @@
               <property name="maximumSize">
                <size>
                 <width>30</width>
-                <height>16777215</height>
+                <height>23</height>
                </size>
               </property>
               <property name="toolTip">
@@ -5540,7 +5576,7 @@
               <property name="maximumSize">
                <size>
                 <width>30</width>
-                <height>16777215</height>
+                <height>23</height>
                </size>
               </property>
               <property name="toolTip">
