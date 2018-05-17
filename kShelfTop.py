@@ -33,416 +33,119 @@ class kShelfBar():
 
         myWindow = mc.window(windowName)
 
+        allButtons = [("bt_kMaxToolBar", "kMaxTool32.png", "kMaxTool32b.png", "Launch kMaxTools", self.kMaxTool),
+                      ("bt_kMaxToolBar2", "kMaxTool32.png", "kMaxTool32b.png", "Launch kMaxTools", self.kMaxUi2),
+                      ("bt_separator_00", "separateHor.png", "separateHor.png", "", ""),
+                      ("bt_kMod", "kMaxMod32.png", "kMaxMod32.png", "Launch kMod Left bar", self.kMod),
+                      ("bt_kMaxShelfTop", "kMaxShelfTop32.png", "kMaxShelfTop32.png", "Launch kMaxShelfTop", self.kMaxShelfTop),
+                      ("bt_outlinerView", "outliner.png", "outliner.png", "Outliner/Persp", self.kmOutlinerView),
+                      ("bt_singlePerspView", "singlePerspLayout2016_32.png", "singlePerspLayout2016_32.png", "Single Perspective View", self.kmSinglePerspView),
+                      ("bt_fourView", "fourViewLayout2016_32.png", "fourViewLayout2016_32.png", "Four View", self.kmFourView),
+                      ("bt_separator_01", "separateHor.png", "separateHor.png", "", ""),
+                      ("bt_new", "tt_new.png", "tt_new_b.png", "Create a New Scene", self.kmNew),
+                      ("bt_separator_02", "separateHor.png", "separateHor.png",  "", ""),
+                      ("bt_open", "teamtTo.png", "teamtTo.png", "Open a Scene", self.kmOpen),
+                      ("bt_save", "tt_save2_b.png", "tt_save2.png", "Save the current Scene", self.kmSave),
+                      ("bt_saveAs", "tt_saveAs2_b.png", "tt_saveAs2.png", "Save the current scene under a new name or export all", self.kmSaveAs),
+                      ("bt_exportProps", "exportSelb.png", "exportSel.png", "Export Prop", self.kmExportProps),
+                      ("bt_checkPublishable", "tt_checkPublish_b.png", "tt_checkPublish.png", "Check Publishability", self.kmCheckPublishable),
+                      ("bt_buildPresScene", "buildPres.png", "buildPres.png", "build presentation scene", pm.mel.tak_buildPresentationScene),
+                      ("bt_launchPresScene", "launchPres.png", "launchPres.png", "launch presentation scene", pm.mel.tak_launchPresentationRender),
+                      ("bt_separator_03", "separateHor.png", "separateHor.png",  "", ""),
+                      ("bt_classicOpen", "open32.png", "open32.png", "Open a Scene", self.kmClassicOpenScene),
+                      ("bt_classicSave", "save.png", "save.png", "Save the current Scene", self.kmClassicSave),
+                      ("bt_savePlus", "save+.png", "save+.png", "Incrementale Save", self.kmSavePlus),
+                      ("bt_classicSaveAs", "saveAs.png", "saveAs.png", "Save the current scene under a new name or export all", self.kmClassicSaveAs),
+                      ("bt_import", "import.png", "import.png", "Import file", self.kmImport),
+                      ("bt_export", "export.png", "export.png", "Export entire scene into one file", self.kmExport),
+                      ("bt_exportSel", "exportSel.png", "exportSel.png", "Export Selection...", self.kmExportSel),
+                      ("bt_referenceEditor", "reference32.png", "reference32.png", "Reference Editor", self.kmReferenceEditor),
+                      ("bt_separator_04", "separateHor.png", "separateHor.png",  "", ""),
+                      ("bt_outliner", "outliner32.png", "outliner32.png", "Outliner", self.kmOutliner),
+                      ("bt_nodeEditor", "nodeEditor.png", "nodeEditor.png", "Node Editor", self.kmNodeEditor),
+                      ("bt_hyperShade", "hyperShade.png", "hyperShade.png", "Hypershade", self.kmHyperShade),
+                      ("bt_textureEditor", "uvTextureEditor.png", "uvTextureEditor.png", "UV Texture Editor", self.kmUVTextureEditor),
+                      ("bt_nameSpaceEditor", "nameSpace32.png", "nameSpace32b.png", "Namespace Editor", self.kmNameSpaceEditor),
+                      ("bt_relationshipEditor", "relation32.png", "relation32b.png", "Relation Ship Editor", self.kmRelationShipEditor),
+                      ("bt_separator_05", "separateHor.png", "separateHor.png",  "", ""),
+                      ("bt_colorPicker", "colorPicker32.png", "colorPicker32b.png", "Color Shader Picker", self.kmColorPicker),
+                      ("bt_randomizer", "kRandomizer32.png", "kRandomizer32.png", "Randomizer", self.kmRandomizer),
+                      ("bt_replacer", "kReplacer32.png", "kReplacer32.png", "kReplacer", self.kmReplacer),
+                      ("bt_frRenamer", "text-32.png", "text-32.png", "FrRenamer", self.frRenamer),
+                      ("bt_setSmooth", "smoothSetTool.png", "smoothSetTool.png", "Set smooth tool", self.kmSetSmoothGroupTool),
+                      ("bt_clean", "kCleaner.png", "kCleaner.png", "Cleaner tool", self.kmCleanTool),
+                      ("bt_separator_06", "separateHor.png", "separateHor.png",  "", ""),
+                      ("bt_switchDisplayPoly", "switchAllPoly32.png", "switchAllPoly32.png", "Switch display ALL/POLY", self.kmSwitchDisplayPoly),
+                      ("bt_switchBallPreview", "globe_2.png", "globe_2.png", "Switch renderThumbnailUpdate", self.kmSwitchBallPreview),
+                      ("bt_unlockAllAtt", "unlock.png", "unlock.png", "Unlock all attributs", self.kmUnlockAllAtt),
+                      ("bt_spacer", "empty.png", "empty.png", "", ""),
+                      ("bt_preferences", "settings.png", "settings.png", "Preferences", self.kmSetting),
+                      ("bt_hotkeys", "hotkey.png", "hotkey.png", "Hotkeys Editor", self.kmHotKey),
+                      ("bt_plugins", "plugin.png", "plugin.png", "Plug-ins Manager", self.kmPlugIn),
+                      ("bt_separator_07", "separateHor.png", "separateHor.png",  "", ""),
+                      ("bt_modelingToolKit", "modelToolKit.png", "modelToolKit.png", "Modeling Tool Kit", self.kmModelingToolKit),
+                      ("bt_attributeEditor", "attributes.png", "attributes.png", "Edit the attributes of the selected object", self.kmAttributeEditor),
+                      ("bt_toolSettings", "toolSettings.png", "toolSettings.png", "Edit settings for current tool",  self.kmToolSettings),
+                      ("bt_channelBoxLayerEditor", "channelLayers.png", "channelLayers.png", "Channel Box / Layer Editor", self.kmChannelBox),
+                      ("bt_separator_08", "separateHor.png", "separateHor.png", "", ""),
+                      ("bt_clock", "clock32.png", "clock32b.png", "Actualise clock", self.kmClock),
+                      ("bt_h01", "digit8.png", "digit8.png", "", ""),
+                      ("bt_h02", "digit8.png", "digit8.png", "", ""),
+                      ("bt_clockSeparator", "digitSeparator.png",  "digitSeparator.png", "", ""),
+                      ("bt_m01", "digit8.png", "digit8.png", "", ""),
+                      ("bt_m02", "digit8.png", "digit8.png", "", ""),
+                      ("bt_separator", "separateHor.png", "separateHor.png", "", ""),
+                      ("bt_reduce", "minimize32.png", "minimize32.png", "Minimize Maya", self.kmMinimizeMaya),
+                      ("bt_toggleInterfaceLines", "toggleLines32.png", "toggleLines32.png", "Toggle interface Lines", self.kmToggleInterfaceLines),
+                      ("bt_toggleToolBars", "toggleInterface32.png", "toggleInterface32.png", "Toggle interface Tools Bars", self.kmToggleToolBars),
+                      ("bt_close", "close32.png", "close32.png", "Quit Maya", self.kmCloseMaya)
+                      ]
+        '''
+        AUTRES :
+        ("bt_scriptView", "scriptEdPersp32.png", "scriptEdPersp32b.png", "Script/Persp", self.kmScriptView),
+        ("bt_textureView", "perspTexture32.png", "perspTexture32b.png", "Texture/Persp", self.kmTextureView),
+        MIKROS :
+        ("bt_basicBrowser", "common_basicBrowser.png", "common_basicBrowser.png", "Basic Browser", self.kmBasicBrowser),
+        ("bt_batcher", "common_batcher.png", "common_batcher.png", "Batcher", self.kmBatcher),
+        ("bt_qualityCheck", "common_qualityCheck.png", "common_qualityCheck.png", "Quality Check", self.kmQualityCheck),
+        ("bt_initScene", "initScene.png", "initScene.png", "Init Scene", self.kmInitScene),
+        ("bt_kitBuilder", "scatter32.png", "scatter32b.png", "Scattering", self.kitBuilder)
+        '''
+
         mc.rowColumnLayout(numberOfRows = 1, rowHeight=(1, scaleIcon))
 
-        self.bt_kMaxToolBar = mc.iconTextButton(image1=self.target + "kMaxTool32.png",
-                                                highlightImage=self.target + "kMaxTool32b.png",
-                                                annotation="Launch kMaxTools",
-                                                command=self.kMaxTool,
-                                                width=scaleIcon)
+        for  btnName, imgFileName, imgHltFileName, btnAnnotation, btnCommand in allButtons:
 
-        self.bt_kMaxToolBar2 = mc.iconTextButton(image1=self.target + "kMaxTool32.png",
-                                                 highlightImage=self.target + "kMaxTool32b.png",
-                                                 annotation="Launch kMaxTools",
-                                                 command=self.kMaxUi2,
-                                                 width=scaleIcon)
+            if btnName == "bt_h01":
+                self.bt_h01 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
+            if btnName == "bt_h02":
+                self.bt_h02 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
+            if btnName == "bt_m01":
+                self.bt_m01 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
+            if btnName == "bt_m02":
+                self.bt_m02 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
 
-        self.bt_sepHor1 = mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
-                                            width=scaleSeparator,
-                                            enable=0)
-
-        self.bt_kMod = mc.iconTextButton(image1=self.target + "kMaxMod32.png",
-                                         highlightImage=self.target + "kMaxMod32.png",
-                                         annotation="Launch kMod Left bar",
-                                         command=self.kMod,
-                                         width=scaleIcon)
-
-        self.bt_kMaxShelfTop = mc.iconTextButton(image1=self.target + "kMaxShelfTop32.png",
-                                                 highlightImage=self.target + "kMaxShelfTop32.png",
-                                                 annotation="Launch kMaxShelfTop",
-                                                 command=self.kMaxShelfTop,
-                                                 width=scaleIcon)
-
-        self.bt_outlinerView = mc.iconTextButton(image1=self.target + "outliner.png",
-                                                 highlightImage=self.target + "outliner.png",
-                                                 annotation="Outliner/Persp",
-                                                 command=self.kmOutlinerView,
-                                                 width=scaleIcon)
-
-        self.bt_singlePerspView = mc.iconTextButton(image1=self.target + "singlePerspLayout2016_32.png",
-                                                    highlightImage=self.target + "singlePerspLayout2016_32.png",
-                                                    annotation="Single Perspective View",
-                                                    command=self.kmSinglePerspView,
-                                                    width=scaleIcon)
-
-        self.bt_fourView = mc.iconTextButton(image1=self.target + "fourViewLayout2016_32.png",
-                                             highlightImage=self.target + "fourViewLayout2016_32.png",
-                                             annotation="Four View",
-                                             command=self.kmFourView,
-                                             width=scaleIcon)
-
-        '''
-        self.bt_sepHor2 = mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
-                                            width=scaleSeparator,
-                                            enable=0)
-
-        self.bt_scriptView = mc.iconTextButton(image1=self.target + "scriptEdPersp32.png",
-                                highlightImage=self.target + "scriptEdPersp32b.png",
-                                annotation="Script/Persp",
-                                command=self.kmScriptView,
-                                width=scaleIcon)
-
-        self.bt_textureView = mc.iconTextButton(image1=self.target + "perspTexture32.png",
-                                highlightImage=self.target + "perspTexture32b.png",
-                                annotation="Texture/Persp",
-                                command=self.kmTextureView,
-                                width=scaleIcon)
-
-        self.bt_basicBrowser = mc.iconTextButton(image1=self.target + "common_basicBrowser.png",
-                                                 highlightImage=self.target + "common_basicBrowser.png",
-                                                 annotation="Basic Browser",
-                                                 command=self.kmBasicBrowser,
-                                                 width=scaleIcon)
-
-        self.bt_batcher = mc.iconTextButton(image1=self.target + "common_batcher.png",
-                                            highlightImage=self.target + "common_batcher.png",
-                                            annotation="Batcher",
-                                            command=self.kmBatcher,
+            if imgFileName != "digit8.png" :
+                btnName = mc.iconTextButton(image1=self.target + imgFileName,
+                                            highlightImage=self.target + imgHltFileName,
+                                            annotation=btnAnnotation,
+                                            command=btnCommand,
                                             width=scaleIcon)
 
-        self.bt_qualityCheck = mc.iconTextButton(image1=self.target + "common_qualityCheck.png",
-                                                 highlightImage=self.target + "common_qualityCheck.png",
-                                                 annotation="Quality Check",
-                                                 command=self.kmQualityCheck,
-                                                 width=scaleIcon)
-        
-        self.bt_initScene = mc.iconTextButton(image1=self.target + "initScene.png",
-                                              highlightImage=self.target + "initScene.png",
-                                              annotation="Init Scene",
-                                              command=self.kmInitScene,
-                                              width=scaleIcon)
-        '''
-
-
-        mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
+            if imgFileName == "separateHor.png":
+                mc.iconTextButton(btnName, edit=True,
                                             width=scaleSeparator,
                                             enable=0)
 
-        self.bt_new = mc.iconTextButton(image1=self.target + "tt_new.png",
-                                        highlightImage=self.target + "tt_new_b.png",
-                                        annotation="Create a New Scene",
-                                        command=self.kmNew,
-                                        width=scaleIcon)
-
-        mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
-                                            width=scaleSeparator,
+            if imgFileName == "empty.png":
+                mc.iconTextButton(btnName, edit=True,
+                                            width=220,
                                             enable=0)
 
-        self.bt_open = mc.iconTextButton(image1=self.target + "teamtTo.png", #"tt_open_b.png",
-                                         highlightImage=self.target + "teamtTo.png", #"tt_open_b.png",
-                                         annotation="Open a Scene",
-                                         command=self.kmOpen,
-                                         width=scaleIcon)
-
-        self.bt_save = mc.iconTextButton(image1=self.target + "tt_save2_b.png",
-                                         highlightImage=self.target + "tt_save2.png",
-                                         annotation="Save the current Scene",
-                                         command=self.kmSave,
-                                         width=scaleIcon)
-
-        self.bt_saveAs = mc.iconTextButton(image1=self.target + "tt_saveAs2_b.png",
-                                           highlightImage=self.target + "tt_saveAs2.png",
-                                           annotation="Save the current scene under a new name or export all",
-                                           command=self.kmSaveAs,
-                                           width=scaleIcon)
-
-        self.bt_exportProps = mc.iconTextButton(image1=self.target + "exportSelb.png",
-                                              highlightImage=self.target + "exportSel.png",
-                                              annotation="Export Prop",
-                                              command=self.kmExportProps,
-                                              width=scaleIcon)
-
-        self.bt_checkPublishable = mc.iconTextButton(image1=self.target + "tt_checkPublish_b.png",
-                                                 highlightImage=self.target + "tt_checkPublish.png",
-                                                 annotation="Check Publishability",
-                                                 command=self.kmCheckPublishable,
-                                                 width=scaleIcon)
-
-        self.bt_buildPresScene = mc.iconTextButton(image1=self.target+"buildPres.png",
-                                                    highlightImage=self.target+"buildPres.png",
-                                                    annotation="build presentation scene",
-                                                    command=pm.mel.tak_buildPresentationScene,
-                                                    width = scaleIcon)
-        self.bt_launchPresScene = mc.iconTextButton(image1=self.target + "launchPres.png",
-                                                    highlightImage=self.target + "launchPres.png",
-                                                    annotation="launch presentation scene",
-                                                    command=pm.mel.tak_launchPresentationRender,
-                                                    width=scaleIcon)
-
-        mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
-                                            width=scaleSeparator,
+            if imgFileName == "digitSeparator.png":
+                mc.iconTextButton(btnName, edit=True,
+                                            width=10,
                                             enable=0)
-
-        self.bt_classicOpen = mc.iconTextButton(image1=self.target + "open32.png",
-                                         highlightImage=self.target + "open32.png",
-                                         annotation="Open a Scene",
-                                         command=self.kmClassicOpenScene,
-                                         width=scaleIcon)
-
-        self.bt_classicSave = mc.iconTextButton(image1=self.target + "save.png",
-                                         highlightImage=self.target + "save.png",
-                                         annotation="Save the current Scene",
-                                         command=self.kmClassicSave,
-                                         width=scaleIcon)
-
-        self.bt_savePlus = mc.iconTextButton(image1=self.target + "save+.png",
-                                             highlightImage=self.target + "save+.png",
-                                             annotation="Incrementale Save",
-                                             command=self.kmSavePlus,
-                                             width=scaleIcon)
-
-        self.bt_classicSaveAs = mc.iconTextButton(image1=self.target + "saveAs.png",
-                                           highlightImage=self.target + "saveAs.png",
-                                           annotation="Save the current scene under a new name or export all",
-                                           command=self.kmClassicSaveAs,
-                                           width=scaleIcon)
-
-        self.bt_import = mc.iconTextButton(image1=self.target + "import.png",
-                                           highlightImage=self.target + "import.png",
-                                           annotation="Import file",
-                                           command=self.kmImport,
-                                           width=scaleIcon)
-
-        self.bt_export = mc.iconTextButton(image1=self.target + "export.png",
-                                           highlightImage=self.target + "export.png",
-                                           annotation="Export entire scene into one file",
-                                           command=self.kmExport,
-                                           width=scaleIcon)
-
-        self.bt_exportSel = mc.iconTextButton(image1=self.target + "exportSel.png",
-                                              highlightImage=self.target + "exportSel.png",
-                                              annotation="Export Selection...",
-                                              command=self.kmExportSel,
-                                              width=scaleIcon)
-
-        self.bt_referenceEditor = mc.iconTextButton(image1=self.target + "reference32.png",
-                                                    highlightImage=self.target + "reference32.png",
-                                                    annotation="Reference Editor",
-                                                    command=self.kmReferenceEditor,
-                                                    width=scaleIcon)
-
-        mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
-                                            width=scaleSeparator,
-                                            enable=0)
-
-        self.bt_outliner = mc.iconTextButton(image1=self.target + "outliner32.png",
-                                             highlightImage=self.target + "outliner32.png",
-                                             annotation="Outliner",
-                                             command=self.kmOutliner,
-                                             width=scaleIcon)
-
-        self.bt_nodeEditor = mc.iconTextButton(image1=self.target + "nodeEditor.png",
-                                               highlightImage=self.target + "nodeEditor.png",
-                                               annotation="Node Editor",
-                                               command=self.kmNodeEditor,
-                                               width=scaleIcon)
-
-        self.bt_hyperShade = mc.iconTextButton(image1=self.target + "hyperShade.png",
-                                               highlightImage=self.target + "hyperShade.png",
-                                               annotation="Hypershade",
-                                               command=self.kmHyperShade,
-                                               width=scaleIcon)
-
-        self.bt_textureEditor = mc.iconTextButton(image1=self.target + "uvTextureEditor.png",
-                                                  highlightImage=self.target + "uvTextureEditor.png",
-                                                  annotation="UV Texture Editor",
-                                                  command=self.kmUVTextureEditor,
-                                                  width=scaleIcon)
-
-        self.bt_nameSpaceEditor = mc.iconTextButton(image1=self.target + "nameSpace32.png",
-                                                    highlightImage=self.target + "nameSpace32b.png",
-                                                    annotation="Namespace Editor",
-                                                    command=self.kmNameSpaceEditor,
-                                                    width=scaleIcon)
-
-        self.bt_relationshipEditor = mc.iconTextButton(image1=self.target + "relation32.png",
-                                                       highlightImage=self.target + "relation32b.png",
-                                                       annotation="Relation Ship Editor",
-                                                       command=self.kmRelationShipEditor,
-                                                       width=scaleIcon)
-
-        mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
-                                            width=scaleSeparator,
-                                            enable=0)
-
-        self.bt_colorPicker = mc.iconTextButton(image1=self.target + "colorPicker32.png",
-                                                highlightImage=self.target + "colorPicker32b.png",
-                                                annotation="Color Shader Picker",
-                                                command=self.kmColorPicker,
-                                                width=scaleIcon)
-                                        
-        self.bt_randomizer = mc.iconTextButton(image1=self.target + "kRandomizer32.png",
-                                               highlightImage=self.target + "kRandomizer32.png",
-                                               annotation="Randomizer",
-                                               command=self.kmRandomizer,
-                                               width=scaleIcon)
-       
-        self.bt_replacer = mc.iconTextButton(image1=self.target+"kReplacer32.png",
-                                             highlightImage=self.target+"kReplacer32.png",
-                                             annotation="kReplacer",
-                                             command=self.kmReplacer,
-                                             width=scaleIcon)
-
-        '''
-        self.bt_kitBuilder = mc.iconTextButton(image1=self.target + "scatter32.png",
-                                               highlightImage=self.target + "scatter32b.png",
-                                               annotation="Scattering",
-                                               command=self.kitBuilder,
-                                               width=scaleIcon)
-        '''
-
-        self.bt_frRenamer = mc.iconTextButton(image1=self.target + "text-32.png",
-                                              highlightImage=self.target + "text-32.png",
-                                              annotation="FrRenamer",
-                                              command=self.frRenamer,
-                                              width=scaleIcon)
-
-        self.bt_setSmooth = mc.iconTextButton(image1=self.target + "smoothSetTool.png",
-                                              highlightImage=self.target + "smoothSetTool.png",
-                                              command=self.kmSetSmoothGroupTool, width=scaleIcon)
-
-        self.bt_clean = mc.iconTextButton(image1=self.target + "kCleaner.png",
-                                          highlightImage=self.target + "kCleaner.png",
-                                          annotation="Cleaner tool",
-                                          command=self.kmCleanTool,
-                                          width=scaleIcon)
-
-        mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
-                                            width=scaleSeparator,
-                                            enable=0)
-                                    
-        self.bt_switchDisplayPoly = mc.iconTextButton(image1=self.target+"switchAllPoly32.png",
-                                                      highlightImage=self.target+"switchAllPoly32.png",
-                                                      annotation="Switch display ALL/POLY",
-                                                      command=self.kmSwitchDisplayPoly,
-                                                      width=scaleIcon)
-
-        self.bt_switchBallPreview = mc.iconTextButton(image1=self.target+"globe_2.png",
-                                                      highlightImage=self.target+"globe_2.png",
-                                                      annotation="Switch renderThumbnailUpdate",
-                                                      command=self.kmSwitchBallPreview,
-                                                      width=scaleIcon)
-
-        self.bt_unlockAllAtt = mc.iconTextButton(image1=self.target+"unlock.png",
-                                                 highlightImage=self.target+"unlock.png",
-                                                 annotation="Unlock all attributs",
-                                                 command=self.kmUnlockAllAtt,
-                                                 width=scaleIcon)
-
-        ## SPACER
-        self.bt_empty = mc.iconTextButton(image1=self.target + "empty.png", width=220, enable=0)
-
-        self.bt_preferences = mc.iconTextButton(image1=self.target + "settings.png",
-                                                highlightImage=self.target + "settings.png",
-                                                annotation="Preferences",
-                                                command=self.kmSetting,
-                                                width=scaleIcon)
-
-        self.bt_hotkeys = mc.iconTextButton(image1=self.target + "hotkey.png",
-                                            highlightImage=self.target + "hotkey.png",
-                                            annotation="Hotkeys Editor",
-                                            command=self.kmHotKey,
-                                            width=scaleIcon)
-
-        self.bt_plugins = mc.iconTextButton(image1=self.target + "plugin.png",
-                                            highlightImage=self.target + "plugin.png",
-                                            annotation="Plug-ins Manager",
-                                            command=self.kmPlugIn,
-                                            width=scaleIcon)
-
-        mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
-                                            width=scaleSeparator,
-                                            enable=0)
-
-        self.bt_modelingToolKit = mc.iconTextButton(image1=self.target + "modelToolKit.png",
-                                                    highlightImage=self.target + "modelToolKit.png",
-                                                    annotation="Modeling Tool Kit",
-                                                    command=self.kmModelingToolKit,
-                                                    width=scaleIcon)
-
-        self.bt_attributeEditor = mc.iconTextButton(image1=self.target + "attributes.png",
-                                                    highlightImage=self.target + "attributes.png",
-                                                    annotation="Edit the attributes of the selected object",
-                                                    command=self.kmAttributeEditor,
-                                                    width=scaleIcon)
-
-        self.bt_toolSettings = mc.iconTextButton(image1=self.target + "toolSettings.png",
-                                                 highlightImage=self.target + "toolSettings.png",
-                                                 annotation="Edit settings for current tool",
-                                                 command=self.kmToolSettings,
-                                                 width=scaleIcon)
-
-        self.bt_channelBoxLayerEditor = mc.iconTextButton(image1=self.target + "channelLayers.png",
-                                                          # selectionImage=self.target + "channel32b.png",
-                                                          highlightImage=self.target + "channelLayers.png",
-                                                          annotation="Channel Box / Layer Editor",
-                                                          command=self.kmChannelBox,
-                                                          width=scaleIcon)
-
-        mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
-                                            width=scaleSeparator,
-                                            enable=0)
-
-        self.bt_clock = mc.iconTextButton(image1=self.target + "clock32.png",
-                                          highlightImage=self.target + "clock32b.png",
-                                          annotation="Actualise clock",
-                                          command=self.kmClock,
-                                          width=scaleIcon)
-
-        self.bt_h01 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
-        self.bt_h02 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
-        self.bt_clockSeparator = mc.iconTextButton(image1=self.target + "digitSeparator.png", width=10, enable=0)
-        self.bt_m01 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
-        self.bt_m02 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
-
-        mc.iconTextButton(image1=self.target + "separateHor.png",
-                                            disabledImage=self.target + "separateHor.png",
-                                            width=scaleSeparator,
-                                            enable=0)
-
-        self.bt_reduce = mc.iconTextButton(image1=self.target + "minimize32.png",
-                                           highlightImage=self.target + "minimize32.png",
-                                           annotation="Minimize Maya",
-                                           command=self.kmMinimizeMaya,
-                                           width=scaleIcon)
-                                   
-        self.bt_toggleInterfaceLines = mc.iconTextButton(image1=self.target + "toggleLines32.png",
-                                                         highlightImage=self.target + "toggleLines32.png",
-                                                         annotation="Toggle interface Lines",
-                                                         command=self.kmToggleInterfaceLines,
-                                                         width=scaleIcon)
-
-        self.bt_toggleToolBars = mc.iconTextButton(image1=self.target + "toggleInterface32.png",
-                                                   highlightImage=self.target + "toggleInterface32.png",
-                                                   annotation="Toggle interface Tools Bars",
-                                                   command=self.kmToggleToolBars,
-                                                   width=scaleIcon)
-
-        self.bt_close = mc.iconTextButton(image1=self.target + "close32.png",
-                                          highlightImage=self.target + "close32.png",
-                                          annotation="Quit Maya",
-                                          command=self.kmCloseMaya,
-                                          width=scaleIcon)
 
         allowedAreas = ['top', 'bottom']
         myTool = mc.toolBar(toolName, area='top', content=myWindow, allowedArea=allowedAreas)
@@ -464,7 +167,6 @@ class kShelfBar():
             self.target += item + '/'
         print ">> :", self.target
 
-
     def kMaxTool(self):
         import kmaxUi_main
         reload(kmaxUi_main)
@@ -484,16 +186,6 @@ class kShelfBar():
 
     def kmNew(self):
         pm.mel.NewScene()
-
-    '''def kmInitScene(self):
-        from mayaShotgun import pathShotgun
-        from mayaPipeline import assetPipe
-        assetType = pathShotgun.fieldFromPath(mc.file(query=True, sceneName=True), 'sg_asset_type')
-        assetPipe.createAssetDialog(namespace=':', assetType=assetType)'''
-
-        #old
-        #import kmrt.sceneInit
-        #kmrt.sceneInit.sceneInit('setMod')
 
     def kmOpen(self):
         pm.mel.OpenScene()
@@ -614,12 +306,6 @@ class kShelfBar():
         import kReplacer
         reload (kReplacer)
 
-    '''def kitBuilder(self):
-        import mayaTools.assetKitBuilder.main
-        import mayaTools.assetKitBuilder.core
-
-        mayaTools.assetKitBuilder.main.load()'''
-
     def frRenamer(self):
         import renamer.renamer as renamer
         reload( renamer )
@@ -677,88 +363,6 @@ class kShelfBar():
                             mc.setAttr(obj + attr, lock=False)
                         print obj + " >> All Attributs unlock !"
 
-    '''
-    def kmUnfreeze(selfself):
-        # unfreeze transform PYMEL
-        import pymel.core as pm
-
-        def cleanupUnfreeze(*args):
-            sel = pm.ls(sl=1)
-
-            nodes = pm.ls(args)
-            if not nodes:
-                nodes = sel
-            nodes = pm.ls(nodes, type='transform')
-            if not nodes:
-                raise RuntimeError()
-
-            for node in nodes:
-                _t = node.t.get()
-                _rp = node.rp.get()
-                _rpt = node.rpt.get()
-
-                _shape = None
-                shapes = node.getShapes()
-                if shapes:
-                    _shape = pm.createNode('transform', p=node)
-                    for _sh in shapes:
-                        _sh.setParent(_shape, r=1, s=1)
-                    _shape.setParent(w=1)
-
-                children = node.getChildren(type='transform')
-                for _ch in children:
-                    if not (node.t.isSettable() and node.r.isSettable() and node.s.isSettable()):
-                        pm.warning('cleanupUnfreeze: "%s" (child of "%s") have locked or connected transformations!' % (
-                            str(_ch), str(node)))
-                    _ch.setParent(w=1)
-
-                node.rp.set(0, 0, 0)
-                node.sp.set(0, 0, 0)
-                node.rpt.set(0, 0, 0)
-                node.spt.set(0, 0, 0)
-                node.t.set(_t + _rp + _rpt)
-
-                for _ch in children:
-                    _ch.setParent(node)
-
-                if _shape:
-                    _shape.setParent(node)
-                    pm.makeIdentity(_shape, a=1)
-                    for _sh in shapes:
-                        _sh.setParent(node, r=1, s=1)
-                    pm.delete(_shape)
-
-            pm.select(sel)
-
-        
-    '''
-
-    '''  mikros      
-    def kmBasicBrowser(self):
-        from mayaOverrides import tk_command_utils
-        from mayaCore.ui import BusyCursor
-        with BusyCursor():
-            basic_browser_callback = tk_command_utils.get_tk_command('basicBrowser')
-            basic_browser_callback()
-    
-    def kmBatcher(self):
-        import batcher.templateBatcherGUI
-        reload(batcher.templateBatcherGUI)
-        try : 
-            batcherTemplate.close()
-        except :
-            pass
-        batcherTemplate = batcher.templateBatcherGUI.BatcherTemplate()
-        batcherTemplate.show()
-        batcherTemplate.autoSetCategoryAndTemplate()
-
-    def kmQualityCheck(sel):
-        # import qualityCheck
-        # qualityCheck.load()
-
-        from qualityCheck import gui2
-        gui2.launch()
-    '''
     def kmClassicOpenScene(self):
         pm.mel.OpenSceneClassic()
 
@@ -815,5 +419,102 @@ class kShelfBar():
     def kmCloseMaya(self):
         mc.quit()
 
-
 kShelfBar()
+
+'''
+    def kmUnfreeze(self):
+        # unfreeze transform PYMEL
+        import pymel.core as pm
+
+        def cleanupUnfreeze(*args):
+            sel = pm.ls(sl=1)
+
+            nodes = pm.ls(args)
+            if not nodes:
+                nodes = sel
+            nodes = pm.ls(nodes, type='transform')
+            if not nodes:
+                raise RuntimeError()
+
+            for node in nodes:
+                _t = node.t.get()
+                _rp = node.rp.get()
+                _rpt = node.rpt.get()
+
+                _shape = None
+                shapes = node.getShapes()
+                if shapes:
+                    _shape = pm.createNode('transform', p=node)
+                    for _sh in shapes:
+                        _sh.setParent(_shape, r=1, s=1)
+                    _shape.setParent(w=1)
+
+                children = node.getChildren(type='transform')
+                for _ch in children:
+                    if not (node.t.isSettable() and node.r.isSettable() and node.s.isSettable()):
+                        pm.warning('cleanupUnfreeze: "%s" (child of "%s") have locked or connected transformations!' % (
+                            str(_ch), str(node)))
+                    _ch.setParent(w=1)
+
+                node.rp.set(0, 0, 0)
+                node.sp.set(0, 0, 0)
+                node.rpt.set(0, 0, 0)
+                node.spt.set(0, 0, 0)
+                node.t.set(_t + _rp + _rpt)
+
+                for _ch in children:
+                    _ch.setParent(node)
+
+                if _shape:
+                    _shape.setParent(node)
+                    pm.makeIdentity(_shape, a=1)
+                    for _sh in shapes:
+                        _sh.setParent(node, r=1, s=1)
+                    pm.delete(_shape)
+
+            pm.select(sel)
+'''
+
+'''  
+MIKROS :      
+
+def kmBasicBrowser(self):
+    from mayaOverrides import tk_command_utils
+    from mayaCore.ui import BusyCursor
+    with BusyCursor():
+        basic_browser_callback = tk_command_utils.get_tk_command('basicBrowser')
+        basic_browser_callback()
+
+def kmBatcher(self):
+    import batcher.templateBatcherGUI
+    reload(batcher.templateBatcherGUI)
+    try : 
+        batcherTemplate.close()
+    except :
+        pass
+    batcherTemplate = batcher.templateBatcherGUI.BatcherTemplate()
+    batcherTemplate.show()
+    batcherTemplate.autoSetCategoryAndTemplate()
+
+def kmQualityCheck(self):
+    # import qualityCheck
+    # qualityCheck.load()
+
+    from qualityCheck import gui2
+    gui2.launch()
+
+def kmInitScene(self):
+    from mayaShotgun import pathShotgun
+    from mayaPipeline import assetPipe
+    assetType = pathShotgun.fieldFromPath(mc.file(query=True, sceneName=True), 'sg_asset_type')
+    assetPipe.createAssetDialog(namespace=':', assetType=assetType)
+    #old
+    #import kmrt.sceneInit
+    #kmrt.sceneInit.sceneInit('setMod')
+
+def kitBuilder(self):
+    import mayaTools.assetKitBuilder.main
+    import mayaTools.assetKitBuilder.core
+
+    mayaTools.assetKitBuilder.main.load()
+'''
