@@ -118,9 +118,7 @@ def catchJobException(func):
 
     return doIt
 
-
 # ici isAutoAddNewObjsEnabled & toggleIsolateObject
-
 
 class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
     # class KmaxWin(QtGui.Qwidget, kmaxUi.Ui_kmaxToolBar):

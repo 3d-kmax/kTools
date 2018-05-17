@@ -1,0 +1,69 @@
+optionVar
+ -sv "shelfFile1" "shelf_General"
+ -sv "shelfFile2" "shelf_Custom"
+ -sv "shelfFile3" "shelf_Polygons"
+ -sv "shelfFile4" "shelf_Surfaces"
+ -sv "shelfFile5" "shelf_Curves";
+ -sv "shelfFile6" "shelf_Deformation"
+ -sv "shelfFile7" "shelf_Animation"
+ -sv "shelfFile8" "shelf_Dynamics"
+ -sv "shelfFile9" "shelf_Rendering"
+ -sv "shelfFile10" "shelf_PaintEffects";
+optionVar
+ -sv "shelfFile11" "shelf_Toon";
+ -sv "shelfFile12" "shelf_Muscle"
+ -sv "shelfFile13" "shelf_Fluids"
+ -sv "shelfFile14" "shelf_Fur"
+ -sv "shelfFile15" "shelf_Hair"
+ -sv "shelfFile16" "shelf_NCloth"
+ -sv "shelfFile17" "shelf_RenderMan"
+ -sv "shelfFile18" "shelf_XGen"
+ -sv "shelfFile19" "shelf_Yeti"
+ -sv "shelfFile20" "shelf_soup"
+optionVar
+ -sv "shelfItemSize" "Small"
+ -sv "shelfItemStyle" "iconOnly"
+optionVar
+ -iv "shelfLoad1" 1
+ -iv "shelfLoad2" 1
+ -iv "shelfLoad3" 1
+ -iv "shelfLoad4" 1
+ -iv "shelfLoad5" 1
+ -iv "shelfLoad6" 1
+ -iv "shelfLoad7" 1
+ -iv "shelfLoad8" 1
+ -iv "shelfLoad9" 1
+ -iv "shelfLoad10" 1;
+optionVar
+ -iv "shelfLoad11" 1
+ -iv "shelfLoad12" 1
+ -iv "shelfLoad13" 1
+ -iv "shelfLoad14" 1
+ -iv "shelfLoad15" 1
+ -iv "shelfLoad16" 1
+ -iv "shelfLoad17" 1
+ -iv "shelfLoad18" 1
+ -iv "shelfLoad19" 1
+ -iv "shelfLoad20" 1;
+optionVar
+ -sv "shelfName1" "General"
+ -sv "shelfName2" "Custom"
+ -sv "shelfName3" "Polygons"
+ -sv "shelfName4" "Surfaces"
+ -sv "shelfName5" "Curves"
+ -sv "shelfName6" "Deformation"
+ -sv "shelfName7" "Animation"
+ -sv "shelfName8" "Dynamics"
+ -sv "shelfName9" "Rendering"
+ -sv "shelfName10" "PaintEffects";
+optionVar
+ -sv "shelfName11" "Toon"
+ -sv "shelfName12" "Muscle"
+ -sv "shelfName13" "Fluids"
+ -sv "shelfName14" "Fur"
+ -sv "shelfName15" "Hair";
+ -sv "shelfName16" "NCloth"
+ -sv "shelfName17" "RenderMan"
+ -sv "shelfName18" "XGen"
+ -sv "shelfName19" "Yeti"
+ -sv "shelfName20" "soup";
