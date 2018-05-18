@@ -322,7 +322,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         self.bt_hudInfos.clicked.connect(self.HUDswitch)
         self.bt_toggleGrid.clicked.connect(self.toggleGrid)
         self.bt_backgroundColor.clicked.connect(self.setBackgroundColor)
-        self.bt_setChecker.clicked.connect(self.setChecker)
+        #self.bt_setChecker.clicked.connect(self.setChecker)
 
         self.bt_nearClip.clicked.connect(self.setNearClip)
         self.bt_farClip.clicked.connect(self.setFarClip)

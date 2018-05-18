@@ -51,12 +51,11 @@ for item in selectionList:
         
 ## delete turtle nodes
 selectionList = mc.ls(type=['ilrBakeLayer','ilrOptionsNode','ilrBakeLayerManager','ilrUIOptionsNode'])
-for item in selectionList:
+selectionNodes = ("TurtleBakeLayerManager", "TurtleDefaultBakeLayer", "TurtleRenderOptions", "TurtleUIOptions")
+for item in selectionNodes:
     mc.lockNode( item, lock=False )
     mc.delete( item )
 print ">> " + str(len(selectionList)) + " Turtle nodes DELETED"
-
-mc.objectType("rmanBakeRenderChannelGlobals0")
 
 ## prepare scene for RIB
 
@@ -79,7 +78,6 @@ mc.group( proxyGrp, renderGrp, n=str(nameRoot))
 mc.delete(selectionRoot)
 
 # move uv for matte painting
-
 import maya.cmds as mc
 selection = mc.ls(sl=True)
 #print ">> : " + str(selection)
@@ -126,8 +124,7 @@ for objMacth in selectionList[:-1]:
     mc.xform(objMacth, p=True, scale=newScale)
 print ">> Match All"
 
-## clean / delete  renderman and MI attr 
-            
+## clean / delete  renderman and MI attr
 selectionList = mc.ls(sl=True)
 for item in selectionList:
     if mc.objExists(item + "Shape" + ".miSubdivApprox"):
@@ -140,7 +137,6 @@ for item in selectionList:
         
         
 ## unlock , set , relock a attr
-        
 selectionList = mc.ls(sl=True)
 
 for item in selectionList:

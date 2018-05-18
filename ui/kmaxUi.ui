@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>180</width>
-    <height>1275</height>
+    <height>1286</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -755,6 +755,18 @@
    </item>
    <item>
     <widget class="QWidget" name="wg_displayMenu" native="true">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>69</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>69</height>
+      </size>
+     </property>
      <layout class="QGridLayout" name="gridLayout_4">
       <property name="margin">
        <number>0</number>
@@ -762,293 +774,17 @@
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="8" column="2">
-       <widget class="QPushButton" name="bt_isolateActu">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Actualize Isolate</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="5">
-       <widget class="QPushButton" name="bt_autoAddIsolate">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Auto Add New Object</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="5">
-       <widget class="QPushButton" name="bt_defaultLight">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Toggle No / Default Light</string>
-        </property>
-        <property name="text">
-         <string>DF LT</string>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="2">
-       <widget class="QPushButton" name="bt_defaultMat">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Use Default Material</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QPushButton" name="bt_xrayMat">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>X Ray View</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="bt_farClip">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Set cam far plane</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>Far</string>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QPushButton" name="bt_displayVC">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Display Vertex Color</string>
-        </property>
-        <property name="text">
-         <string>VColor</string>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="bt_hudInfos">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Heads Up Display</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="bt_nearClip">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Set cam near plane</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="text">
-         <string>Near</string>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="2">
        <widget class="QPushButton" name="bt_toggleGrid">
         <property name="minimumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
@@ -1075,22 +811,22 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
-       <widget class="QPushButton" name="bt_selHighlight">
+      <item row="0" column="8">
+       <widget class="QPushButton" name="bt_test">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="minimumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
-        </property>
-        <property name="toolTip">
-         <string>Selection HighLight</string>
         </property>
         <property name="text">
          <string/>
@@ -1106,194 +842,17 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="2">
-       <widget class="QPushButton" name="bt_bakeVC">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Bake Vertex Color</string>
-        </property>
-        <property name="text">
-         <string>BAKE</string>
-        </property>
-        <property name="checkable">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="5">
-       <widget class="QPushButton" name="bt_removeVC">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Remove Vertex Color</string>
-        </property>
-        <property name="text">
-         <string>REM</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="5">
-       <widget class="QPushButton" name="bt_twoSideLight">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Two Side Lighting</string>
-        </property>
-        <property name="text">
-         <string>2SL</string>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="1">
-       <widget class="QPushButton" name="bt_isolateSel">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Isolate Selection</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="2">
-       <widget class="QPushButton" name="bt_backFaceCulling">
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>BackFaceCulling</string>
-        </property>
-        <property name="text">
-         <string>BFC</string>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QPushButton" name="bt_backgroundColor">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string>Set background to maya grey</string>
-        </property>
-        <property name="text">
-         <string>BGC</string>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="6">
+      <item row="2" column="6">
        <widget class="QPushButton" name="bt_wireframe">
         <property name="minimumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
@@ -1314,53 +873,28 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="6">
-       <widget class="QPushButton" name="bt_setChecker">
+      <item row="0" column="3">
+       <widget class="QPushButton" name="bt_backgroundColor">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="minimumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
         <property name="toolTip">
-         <string>Apply Checker</string>
+         <string>Set background to maya grey</string>
         </property>
         <property name="text">
-         <string>CHKR ;)</string>
-        </property>
-        <property name="autoExclusive">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="6">
-       <widget class="QPushButton" name="bt_ctrlD">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>CTR+D</string>
+         <string>BGC</string>
         </property>
         <property name="iconSize">
          <size>
@@ -1370,48 +904,17 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="5">
-       <widget class="QPushButton" name="bt_test">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>45</width>
-          <height>23</height>
-         </size>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="6">
+      <item row="0" column="7">
        <widget class="QPushButton" name="bt_toggleBorderEdge">
         <property name="minimumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
@@ -1439,13 +942,13 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>45</width>
+          <width>23</width>
           <height>23</height>
          </size>
         </property>
@@ -1466,7 +969,41 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="6">
+      <item row="0" column="1">
+       <widget class="QPushButton" name="bt_hudInfos">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Heads Up Display</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="6">
        <widget class="QWidget" name="widget_5" native="true">
         <property name="minimumSize">
          <size>
@@ -1547,6 +1084,456 @@
           </widget>
          </item>
         </layout>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="bt_isolateSel">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Isolate Selection</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="bt_selHighlight">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Selection HighLight</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QPushButton" name="bt_defaultMat">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Use Default Material</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="9">
+       <widget class="QPushButton" name="bt_16">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>.</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="7">
+       <widget class="QPushButton" name="bt_defaultLight">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Toggle No / Default Light</string>
+        </property>
+        <property name="text">
+         <string>DF LT</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="10">
+       <widget class="QPushButton" name="bt_17">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>.</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="QPushButton" name="bt_autoAddIsolate">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Auto Add New Object</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QPushButton" name="bt_isolateActu">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Actualize Isolate</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="10">
+       <widget class="QPushButton" name="bt_twoSideLight">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Two Side Lighting</string>
+        </property>
+        <property name="text">
+         <string>2SL</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="9">
+       <widget class="QPushButton" name="bt_backFaceCulling">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>BackFaceCulling</string>
+        </property>
+        <property name="text">
+         <string>BFC</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="9">
+       <widget class="QPushButton" name="bt_farClip">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Set cam far plane</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Far</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="10">
+       <widget class="QPushButton" name="bt_nearClip">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Set cam near plane</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>Near</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="8">
+       <widget class="QPushButton" name="bt_xrayMat">
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>X Ray View</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="bt_14">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>.</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="8">
+       <widget class="QPushButton" name="bt_15">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>23</width>
+          <height>23</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>.</string>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
        </widget>
       </item>
      </layout>
@@ -3280,11 +3267,8 @@
              <height>23</height>
             </size>
            </property>
-           <property name="toolTip">
-            <string>Face</string>
-           </property>
            <property name="text">
-            <string>Face</string>
+            <string>///</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -3311,11 +3295,8 @@
              <height>23</height>
             </size>
            </property>
-           <property name="toolTip">
-            <string>Point</string>
-           </property>
            <property name="text">
-            <string>Point</string>
+            <string>///</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -3370,11 +3351,8 @@
              <height>23</height>
             </size>
            </property>
-           <property name="toolTip">
-            <string>Edge</string>
-           </property>
            <property name="text">
-            <string>Edge</string>
+            <string>///</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -3885,11 +3863,8 @@
              <height>23</height>
             </size>
            </property>
-           <property name="toolTip">
-            <string>Face</string>
-           </property>
            <property name="text">
-            <string>Face</string>
+            <string>///</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -3916,11 +3891,8 @@
              <height>23</height>
             </size>
            </property>
-           <property name="toolTip">
-            <string>Edge</string>
-           </property>
            <property name="text">
-            <string>Edge</string>
+            <string>///</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -3975,11 +3947,8 @@
              <height>23</height>
             </size>
            </property>
-           <property name="toolTip">
-            <string>Point</string>
-           </property>
            <property name="text">
-            <string>Point</string>
+            <string>///</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -4488,11 +4457,8 @@
              <height>23</height>
             </size>
            </property>
-           <property name="toolTip">
-            <string>Point</string>
-           </property>
            <property name="text">
-            <string>Point</string>
+            <string>///</string>
            </property>
           </widget>
          </item>
@@ -4513,11 +4479,8 @@
              <height>23</height>
             </size>
            </property>
-           <property name="toolTip">
-            <string>Edge</string>
-           </property>
            <property name="text">
-            <string>Edge</string>
+            <string>///</string>
            </property>
           </widget>
          </item>
@@ -4538,11 +4501,8 @@
              <height>23</height>
             </size>
            </property>
-           <property name="toolTip">
-            <string>Face</string>
-           </property>
            <property name="text">
-            <string>Face</string>
+            <string>///</string>
            </property>
           </widget>
          </item>
