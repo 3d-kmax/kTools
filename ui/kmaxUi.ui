@@ -2747,7 +2747,7 @@
             <string>Point</string>
            </property>
            <property name="text">
-            <string>Point</string>
+            <string>///</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -2834,7 +2834,7 @@
             <string>Face</string>
            </property>
            <property name="text">
-            <string>Face</string>
+            <string>///</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -2865,7 +2865,7 @@
             <string>Edge</string>
            </property>
            <property name="text">
-            <string>Edge</string>
+            <string>///</string>
            </property>
            <property name="checkable">
             <bool>true</bool>

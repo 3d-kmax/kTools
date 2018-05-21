@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'E:\kTools\ui\kmaxUi.ui'
 #
-# Created: Fri May 18 18:27:24 2018
+# Created: Mon May 21 19:20:07 2018
 #      by: pyside-uic 0.2.14 running on PySide 1.2.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -1721,15 +1721,15 @@ class Ui_kmaxToolBar(object):
         self.bt_objectPivotMove.setToolTip(QtGui.QApplication.translate("kmaxToolBar", "Object", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_objectPivotMove.setText(QtGui.QApplication.translate("kmaxToolBar", "Object", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_pointMove.setToolTip(QtGui.QApplication.translate("kmaxToolBar", "Point", None, QtGui.QApplication.UnicodeUTF8))
-        self.bt_pointMove.setText(QtGui.QApplication.translate("kmaxToolBar", "Point", None, QtGui.QApplication.UnicodeUTF8))
+        self.bt_pointMove.setText(QtGui.QApplication.translate("kmaxToolBar", "///", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_localMove.setToolTip(QtGui.QApplication.translate("kmaxToolBar", "Local", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_localMove.setText(QtGui.QApplication.translate("kmaxToolBar", "Local", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_worldMove.setToolTip(QtGui.QApplication.translate("kmaxToolBar", "World", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_worldMove.setText(QtGui.QApplication.translate("kmaxToolBar", "World", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_faceMove.setToolTip(QtGui.QApplication.translate("kmaxToolBar", "Face", None, QtGui.QApplication.UnicodeUTF8))
-        self.bt_faceMove.setText(QtGui.QApplication.translate("kmaxToolBar", "Face", None, QtGui.QApplication.UnicodeUTF8))
+        self.bt_faceMove.setText(QtGui.QApplication.translate("kmaxToolBar", "///", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_edgeMove.setToolTip(QtGui.QApplication.translate("kmaxToolBar", "Edge", None, QtGui.QApplication.UnicodeUTF8))
-        self.bt_edgeMove.setText(QtGui.QApplication.translate("kmaxToolBar", "Edge", None, QtGui.QApplication.UnicodeUTF8))
+        self.bt_edgeMove.setText(QtGui.QApplication.translate("kmaxToolBar", "///", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_tweak.setToolTip(QtGui.QApplication.translate("kmaxToolBar", "Tweak", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_tweak.setText(QtGui.QApplication.translate("kmaxToolBar", "Tweak", None, QtGui.QApplication.UnicodeUTF8))
         self.bt_defaultPivotMove.setToolTip(QtGui.QApplication.translate("kmaxToolBar", "Default", None, QtGui.QApplication.UnicodeUTF8))
