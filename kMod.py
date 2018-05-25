@@ -85,7 +85,7 @@ class kModBar():
                       ("bt_separator_09", "separateHorizontal.png", "separateHorizontal.png", "Separator", "", "", ""),
                       ("bt_separator_10", "separateHorizontal.png", "separateHorizontal.png", "Separator", "", "", ""),
                       ("bt_softEdge30", "polyNormalSetAngle.png", "polyNormalSetAngle.png", "NormalAngle", "Set the soft/hard threshold angles for edge normals", self.kmSoftEdge30, ""),
-                      (" bt_setToFace", "polyNormalSetToFace.png", "polyNormalSetToFace.png", "Set to face", "Set to face", self.kmSetToFace, ""),
+                      ("bt_setToFace", "polyNormalSetToFace.png", "polyNormalSetToFace.png", "Set to face", "Set to face", self.kmSetToFace, ""),
                       ("bt_softEdge180", "polySoftEdge.png", "polySoftEdge.png", "SoftEdge", "Set the soft/hard threshold angles for edge normals", self.kmSoftEdge180, ""),
                       ("bt_kmSoftEdge0", "polyHardEdge.png", "polyHardEdge.png", "Set to face", "Set to face", self.kmSoftEdge0, ""),
                       ("bt_reverse", "polyNormal.png", "polyNormal.png", "ReverseNormal", "Reverse the normals of the selected faces", self.kmReverseNormal, "pm.mel.ReversePolygonNormalsOptions()",),

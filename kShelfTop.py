@@ -42,7 +42,15 @@ class kShelfBar():
                       ("bt_singlePerspView", "singlePerspLayout2016_32.png", "singlePerspLayout2016_32.png", "Single Perspective View", self.kmSinglePerspView),
                       ("bt_fourView", "fourViewLayout2016_32.png", "fourViewLayout2016_32.png", "Four View", self.kmFourView),
                       ("bt_separator_01", "separateHor.png", "separateHor.png", "", ""),
-                      ("bt_new", "tt_new.png", "tt_new_b.png", "Create a New Scene", self.kmNew),
+                      ("bt_new", "new.png", "new.png", "Create a New Scene", self.kmNew),
+                      ("bt_classicOpen", "open.png", "open.png", "Open a Scene", self.kmClassicOpenScene),
+                      ("bt_classicSave", "save.png", "save.png", "Save the current Scene", self.kmClassicSave),
+                      ("bt_savePlus", "save+.png", "save+.png", "Incrementale Save", self.kmSavePlus),
+                      ("bt_classicSaveAs", "saveAs.png", "saveAs.png", "Save the current scene under a new name or export all", self.kmClassicSaveAs),
+                      ("bt_import", "import.png", "import.png", "Import file", self.kmImport),
+                      ("bt_export", "export.png", "export.png", "Export entire scene into one file", self.kmExport),
+                      ("bt_exportSel", "exportSel.png", "exportSel.png", "Export Selection...", self.kmExportSel),
+                      ("bt_referenceEditor", "reference32.png", "reference32.png", "Reference Editor", self.kmReferenceEditor),
                       ("bt_separator_02", "separateHor.png", "separateHor.png",  "", ""),
                       ("bt_open", "teamtTo.png", "teamtTo.png", "Open a Scene", self.kmOpen),
                       ("bt_save", "tt_save2_b.png", "tt_save2.png", "Save the current Scene", self.kmSave),
@@ -51,21 +59,13 @@ class kShelfBar():
                       ("bt_checkPublishable", "tt_checkPublish_b.png", "tt_checkPublish.png", "Check Publishability", self.kmCheckPublishable),
                       ("bt_buildPresScene", "buildPres.png", "buildPres.png", "build presentation scene", pm.mel.tak_buildPresentationScene),
                       ("bt_launchPresScene", "launchPres.png", "launchPres.png", "launch presentation scene", pm.mel.tak_launchPresentationRender),
-                      ("bt_separator_03", "separateHor.png", "separateHor.png",  "", ""),
-                      ("bt_classicOpen", "open32.png", "open32.png", "Open a Scene", self.kmClassicOpenScene),
-                      ("bt_classicSave", "save.png", "save.png", "Save the current Scene", self.kmClassicSave),
-                      ("bt_savePlus", "save+.png", "save+.png", "Incrementale Save", self.kmSavePlus),
-                      ("bt_classicSaveAs", "saveAs.png", "saveAs.png", "Save the current scene under a new name or export all", self.kmClassicSaveAs),
-                      ("bt_import", "import.png", "import.png", "Import file", self.kmImport),
-                      ("bt_export", "export.png", "export.png", "Export entire scene into one file", self.kmExport),
-                      ("bt_exportSel", "exportSel.png", "exportSel.png", "Export Selection...", self.kmExportSel),
-                      ("bt_referenceEditor", "reference32.png", "reference32.png", "Reference Editor", self.kmReferenceEditor),
+                      #("bt_separator_03", "separateHor.png", "separateHor.png",  "", ""),
                       ("bt_separator_04", "separateHor.png", "separateHor.png",  "", ""),
                       ("bt_outliner", "outliner32.png", "outliner32.png", "Outliner", self.kmOutliner),
+                      ("bt_nameSpaceEditor", "nameSpaceEditor.png", "nameSpaceEditor.png", "Namespace Editor", self.kmNameSpaceEditor),
                       ("bt_nodeEditor", "nodeEditor.png", "nodeEditor.png", "Node Editor", self.kmNodeEditor),
                       ("bt_hyperShade", "hyperShade.png", "hyperShade.png", "Hypershade", self.kmHyperShade),
                       ("bt_textureEditor", "uvTextureEditor.png", "uvTextureEditor.png", "UV Texture Editor", self.kmUVTextureEditor),
-                      ("bt_nameSpaceEditor", "nameSpace32.png", "nameSpace32b.png", "Namespace Editor", self.kmNameSpaceEditor),
                       ("bt_relationshipEditor", "relation32.png", "relation32b.png", "Relation Ship Editor", self.kmRelationShipEditor),
                       ("bt_separator_05", "separateHor.png", "separateHor.png",  "", ""),
                       ("bt_colorPicker", "colorPicker32.png", "colorPicker32b.png", "Color Shader Picker", self.kmColorPicker),
@@ -78,6 +78,8 @@ class kShelfBar():
                       ("bt_switchDisplayPoly", "switchAllPoly32.png", "switchAllPoly32.png", "Switch display ALL/POLY", self.kmSwitchDisplayPoly),
                       ("bt_switchBallPreview", "globe_2.png", "globe_2.png", "Switch renderThumbnailUpdate", self.kmSwitchBallPreview),
                       ("bt_unlockAllAtt", "unlock.png", "unlock.png", "Unlock all attributs", self.kmUnlockAllAtt),
+                      ("bt_deleteUnAutorisedNodes", "delUnusedNode32.png", "delUnusedNode32.png", "Delete all unautorised nodes", self.delUnautorisedNodes),
+                      ("bt_cleanRmanRdrOptions", "cleanRmanRdrOpions.png", "cleanRmanRdrOpions.png", "clean renderman render options", self.cleanRdrmanRdrOptions),
                       ("bt_spacer", "empty.png", "empty.png", "", ""),
                       ("bt_preferences", "settings.png", "settings.png", "Preferences", self.kmSetting),
                       ("bt_hotkeys", "hotkey.png", "hotkey.png", "Hotkeys Editor", self.kmHotKey),
@@ -139,7 +141,7 @@ class kShelfBar():
 
             if imgFileName == "empty.png":
                 mc.iconTextButton(btnName, edit=True,
-                                            width=220,
+                                            width=190,
                                             enable=0)
 
             if imgFileName == "digitSeparator.png":
@@ -362,6 +364,40 @@ class kShelfBar():
                         for attr in transformAttr_l:
                             mc.setAttr(obj + attr, lock=False)
                         print obj + " >> All Attributs unlock !"
+
+    def delUnautorisedNodes(self):
+        mentalrayNodes = ("mentalrayItemsList", "mentalrayGlobals")
+        turtleNodes = ("TurtleBakeLayerManager", "TurtleDefaultBakeLayer", "TurtleRenderOptions", "TurtleUIOptions")
+        ilrNodes = ("ilrBakeLayer", "ilrOptionsNode", "ilrBakeLayerManager", "ilrUIOptionsNode")
+        otherNodes = ("poseInterpolatorManager", "shapeEditorManager", "ProductionRapidHair", "ProductionRapidFur",
+                      "Preview", "PreviewMotionblur", "poseInterpolatorManager", "ProductionRapidMotion",
+                      "PreviewFinalGather", "Draft", "poseInterpolatorManager2", "poseInterpolatorManager1",
+                      "ProductionMotionblur", "DraftMotionBlur", "PreviewGlobalIllum", "PreviewRapidMotion",
+                      "PreviewCaustics", "PreviewImrRayTracyOn", "shapeEditorManager1", "shapeEditorManager2",
+                      "miContourPreset", "PreviewImrRayTracyOff", "ProductionFineTrace", "Production",
+                      "DraftRapidMotion", "miDefaultOptions", "miDefaultFramebuffer",
+                      "hyperShadePrimaryNodeEditorSavedTabsInfo",)
+        allNodes = mentalrayNodes + turtleNodes + ilrNodes + otherNodes
+        plop = 0
+        for node in allNodes:
+            if mc.ls(node) != []:
+                mc.lockNode(node, lock=False)
+                mc.select(node)
+                mc.delete()
+                plop += 1
+                print ">> : ", node, "deleted !"
+            else:
+                print ">> : ", node, "not in this scene !"
+        print ">> : ", plop, " node(s) deleted ! "
+
+    def cleanRdrmanRdrOptions(self):
+        a = ""
+        mc.setAttr("defaultRenderGlobals.preMel", a, type="string")
+        mc.setAttr("defaultRenderGlobals.postMel", a, type="string")
+        mc.setAttr("defaultRenderGlobals.preRenderLayerMel", a, type="string")
+        mc.setAttr("defaultRenderGlobals.postRenderLayerMel", a, type="string")
+        mc.setAttr("defaultRenderGlobals.preRenderMel", a, type="string")
+        mc.setAttr("defaultRenderGlobals.postRenderMel", a, type="string")
 
     def kmClassicOpenScene(self):
         pm.mel.OpenSceneClassic()

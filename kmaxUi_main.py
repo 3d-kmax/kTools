@@ -14,9 +14,7 @@ if apiVers[0:4] = "2015":
 if apiVers[0:4] = "2018":
     from shiboken2 import warpInstance
 print "Maya Version : ", apiVers[0:4]
-'''
 
-'''
 try:
     from shiboken import wrapInstance
 except:
@@ -170,6 +168,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         self.initDoubleSide()
         self.initNoHistory()
         self.initToggleBorderEdge()
+        self.initToggleUvBorder()
 
         self.initInterface()
         self.initIcon()
@@ -237,50 +236,63 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         self.iconLockOff = QtGui.QIcon()
         self.iconLockOff.addPixmap(QtGui.QPixmap(self.target + "lockOff.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
 
-        pixmapTool = QtGui.QPixmap(self.target + "aselect28.png")
+        '''
+        pixmapTool = QtGui.QPixmap(self.target + "aselect.png")
         #pixmapToolScaled = QtGui.QPixmap.scaled(32)
         #pixmapTool = pixmapTool.scaled(28, 28)#, QtGui.QPixmap.FastTransformation)
         self.lb_tool.setPixmap(pixmapTool)#.scaled(32, 32, QtGui.QPixmap.IgnoreAspectRatio, QtGui.QPixmap.FastTransformation))
+        '''
 
-        buttonIconItems = [("iconSelObject", "objectnex.png", self.bt_selObj),
-                           ("iconSelVertex", "vertexnex.png", self.bt_selVert),
-                           ("iconSelEdge", "edgesnex.png", self.bt_selEdge),
-                           ("iconSelFace", "facesnex.png", self.bt_selFace),
-                           ("iconSelUv", "uvnex.png", self.bt_selUv),
-                           ("iconTransform", "transform23.png", self.btn_transformName),
-                           ("iconShape", "shape.png", self.btn_shapeName),
-                           ("iconHistory", "constructionHistory.png", self.btn_history),
-                           ("iconSelec", "quickRename.png", self.btn_select),
-                           ("iconHUD", "hud.png", self.bt_hudInfos),
-                           ("iconGrid", "grid.png", self.bt_toggleGrid),
-                           ("iconConstrHistory", "constructionHistory.png", self.bt_noHistory),
-                           ("iconXray", "xray.png", self.bt_xrayMat),
-                           ("iconDefaultMat", "useDefaultMaterial.png", self.bt_defaultMat),
-                           ("iconWireframe", "wireframeOnShaded.png", self.bt_wireframe),
-                           ("iconHighlight", "highlightSelect.png", self.bt_selHighlight),
-                           ("iconMeshBorder", "meshBorder.png", self.bt_toggleBorderEdge),
-                           ("iconIsolate", "isolateSelected.png", self.bt_isolateSel),
-                           ("iconActualize", "actualize.png", self.bt_isolateActu),
-                           ("iconAutoActualize", "autoActualize.png", self.bt_autoAddIsolate),
-                           ("iconDeleteHistory", "deleteHistory.png", self.bt_deleteHistory),
-                           ("iconCenterPivot", "centerPivot.png", self.bt_centerPivot),
-                           ("iconResetTransform", "resetTransform.png", self.bt_resetAllTransform),
-                           ("iconMatchTransform", "matchTransform.png", self.bt_matchAll),
-                           ("iconFreezeTransform", "freezeTransform.png", self.bt_freezeAllTransform),
-                           ("iconUnFreeze", "unFreeze.png", self.bt_unFreeze),
-                           ("presetSoftA", "softPresetA.png", self.bt_softPresetA),
-                           ("presetSoftB", "softPresetB.png", self.bt_softPresetB),
-                           ("presetSoftC", "softPresetC.png", self.bt_softPresetC),
-                           ("iconTest", "initScene.png", self.bt_test)
+        buttonIconItems = [("iconTool", "aselect.png", self.lb_tool, "label"),
+                           ("iconSelObject", "objectnex.png", self.bt_selObj, "bouton"),
+                           ("iconSelVertex", "vertexnex.png", self.bt_selVert, "bouton"),
+                           ("iconSelEdge", "edgesnex.png", self.bt_selEdge, "bouton"),
+                           ("iconSelFace", "facesnex.png", self.bt_selFace, "bouton"),
+                           ("iconSelUv", "uvnex.png", self.bt_selUv, "bouton"),
+                           ("iconTransform", "transform23.png", self.lb_transformName, "label"),
+                           #("iconShape", "shape.png", self.lb_shapeName, "label"),
+                           #("iconHistory", "constructionHistory.png", self.lb_historyy, "label"),
+                           #("iconSelec", "quickRename.png", self.lb_select, "label"),
+                           ("iconHUD", "hud.png", self.bt_hudInfos, "bouton"),
+                           ("iconGrid", "grid.png", self.bt_toggleGrid, "bouton"),
+                           ("iconBGColor", "bgColor.png", self.bt_backgroundColor, "bouton"),
+                           ("iconConstrHistory", "constructionHistory.png", self.bt_noHistory, "bouton"),
+                           ("iconXray", "xray.png", self.bt_xrayMat, "bouton"),
+                           ("iconDefaultMat", "useDefaultMaterial.png", self.bt_defaultMat, "bouton"),
+                           ("iconWireframe", "wireframeOnShaded.png", self.bt_wireframe, "bouton"),
+                           ("iconLight", "light.png", self.bt_defaultLight, "bouton"),
+                           ("iconHighlight", "highlightSelect.png", self.bt_selHighlight, "bouton"),
+                           ("iconMeshBorder", "meshBorder.png", self.bt_toggleBorderEdge, "bouton"),
+                           ("iconUvBorder", "uvBorders.png", self.bt_toggleUvBorder, "bouton"),
+                           ("iconIsolate", "isolateSelected.png", self.bt_isolateSel, "bouton"),
+                           ("iconActualize", "actualize.png", self.bt_isolateActu, "bouton"),
+                           ("iconAutoActualize", "autoActualize.png", self.bt_autoAddIsolate, "bouton"),
+                           ("iconOcclusion", "occlusion.png", self.bt_occlusion, "bouton"),
+                           ("iconAntiAliasing", "antiAliasing.png", self.bt_antiAliasing, "bouton"),
+                           ("iconDeleteHistory", "deleteHistory.png", self.bt_deleteHistory, "bouton"),
+                           ("iconCenterPivot", "centerPivot.png", self.bt_centerPivot, "bouton"),
+                           ("iconResetTransform", "resetTransform.png", self.bt_resetAllTransform, "bouton"),
+                           ("iconMatchTransform", "matchTransform.png", self.bt_matchAll, "bouton"),
+                           ("iconFreezeTransform", "freezeTransform.png", self.bt_freezeAllTransform, "bouton"),
+                           ("iconUnFreeze", "unFreeze.png", self.bt_unFreeze, "bouton"),
+                           ("presetSoftA", "softPresetA.png", self.bt_softPresetA, "bouton"),
+                           ("presetSoftB", "softPresetB.png", self.bt_softPresetB, "bouton"),
+                           ("presetSoftC", "softPresetC.png", self.bt_softPresetC, "bouton"),
                            # ("", "", self.),
                            ]
-        for iconName, iconFilename, btn in buttonIconItems:
-            icon = QtGui.QIcon(name=iconName)
-            icon.addPixmap(QtGui.QPixmap(self.target + iconFilename), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-            btn.setIcon(icon)
+        for iconName, iconFilename, btn, typeBtn in buttonIconItems:
+            if typeBtn == "bouton":
+                icon = QtGui.QIcon(name=iconName)
+                icon.addPixmap(QtGui.QPixmap(self.target + iconFilename), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+                btn.setIcon(icon)
+            '''
+            if typeBtn == "label":
+                pixmapName = QtGui.QPixmap(self.target + iconFilename)
+                btn.setPixmap(pixmapName)
+            '''
 
     def setIconTool(self, toolType):
-        pixmapTool = QtGui.QPixmap(self.target + toolType + "28.png")
+        pixmapTool = QtGui.QPixmap(self.target + toolType + ".png")
         #pixmapTool = pixmapTool.scaled(28, 28)
         self.lb_tool.setPixmap(pixmapTool)
         # self.bt_tool.setDisabled(True)
@@ -326,7 +338,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
 
         self.bt_nearClip.clicked.connect(self.setNearClip)
         self.bt_farClip.clicked.connect(self.setFarClip)
-        self.bt_test.clicked.connect(self.tryTest)
+        self.bt_toggleUvBorder.clicked.connect(self.tglUvBorder)
         self.bt_toggleBorderEdge.clicked.connect(self.tglBorderEdges)
 
         self.bt_xrayMat.clicked.connect(self.useXrayMat)
@@ -343,6 +355,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         self.bt_autoAddIsolate.clicked.connect(self.autoAddIsolate)
         self.bt_addToIsolate.clicked.connect(self.addToIsolate)
         self.bt_removeToIsolate.clicked.connect(self.removeToIsolate)
+
+        self.bt_antiAliasing.clicked.connect(self.displayAntiAliasing)
+        self.bt_occlusion.clicked.connect(self.displayOcclusion)
+        #self.bt_antiAliasing.clicked.connect(self.antiAliasing)
+
 
         # transform menu
         self.bt_resetTranslation.clicked.connect(self.resetTranslation)
@@ -363,9 +380,9 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         self.bt_noHistory.clicked.connect(self.noHistory)
         self.bt_centerPivot.clicked.connect(self.centerPivot)
 
-        self.bt_alignX.clicked.connect(self.alignX)
-        self.bt_alignY.clicked.connect(self.alignY)
-        self.bt_alignZ.clicked.connect(self.alignZ)
+        #self.bt_alignX.clicked.connect(self.alignX)
+        #self.bt_alignY.clicked.connect(self.alignY)
+        #self.bt_alignZ.clicked.connect(self.alignZ)
         self.bt_makeLive.clicked.connect(self.makeLiveMesh)
 
         self.bt_visibility.clicked.connect(self.visibility)
@@ -552,15 +569,16 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         self.bt_doubleSide.setChecked(False)'''
 
     def initToggleBorderEdge(self):
-        stateBorder = mc.polyOptions(displayBorder=True, newPolymesh=True, q=True)[0]
-        if stateBorder:  # mc.polyOptions(displayBorder=True, newPolymesh=True, q=True):
-            print ">> Border visible"
-            self.bt_toggleBorderEdge.setChecked(True)
-            self.buttonOn(self.bt_toggleBorderEdge)
-        else:
-            print ">> Border not visible"
-            self.bt_toggleBorderEdge.setChecked(False)
-            self.buttonOff(self.bt_toggleBorderEdge)
+        mc.polyOptions(gl=True, displayBorder=True)
+        self.bt_toggleBorderEdge.setChecked(True)
+        self.buttonOn(self.bt_toggleBorderEdge)
+        print ">> Border visible"
+
+    def initToggleUvBorder(self):
+        mc.polyOptions(gl=True, displayMapBorder=False)
+        self.bt_toggleUvBorder.setChecked(False)
+        self.buttonOff(self.bt_toggleUvBorder)
+        print ">> UV Border not visible"
 
     def initNoHistory(self):
         stateHistory = mc.constructionHistory(q=True, tgl=True)
@@ -616,10 +634,10 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         # mc.modelEditor(panelFocus, q=True, displayLights=True)
         # if mc.modelEditor(panelFocus, q=True, displayLights=True) == "default":
         if mc.modelEditor("modelPanel4", q=True, displayLights=True) == "default":
-            self.bt_defaultLight.setText("DF LT")
+            #self.bt_defaultLight.setText("DF LT")
             self.buttonOn(self.bt_defaultLight)
         if mc.modelEditor("modelPanel4", q=True, displayLights=True) == "none":
-            self.bt_defaultLight.setText("NO LT")
+            #self.bt_defaultLight.setText("NO LT")
             self.buttonOff(self.bt_defaultLight)
 
         # bt_wireframe
@@ -677,6 +695,22 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         else:
             self.bt_autoAddIsolate.setChecked(False)
             self.buttonOff(self.bt_autoAddIsolate)
+
+        #bt_antiAliasing
+        if mc.getAttr("hardwareRenderingGlobals.multiSampleEnable"):
+            self.bt_antiAliasing.setChecked(True)
+            self.buttonOn(self.bt_antiAliasing)
+        else:
+            self.bt_antiAliasing.setChecked(False)
+            self.buttonOff(self.bt_antiAliasing)
+
+        # bt_occlusion
+        if mc.getAttr("hardwareRenderingGlobals.ssaoEnable"):
+            self.bt_occlusion.setChecked(True)
+            self.buttonOn(self.bt_occlusion)
+        else:
+            self.bt_occlusion.setChecked(False)
+            self.buttonOff(self.bt_occlusion)
 
     def initDiscrete(self):
         self.bt_discreteMove.setChecked(mc.manipMoveContext("Move", q=True, snap=True))
@@ -1259,10 +1293,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                 print ">> Select Type : UV"
 
     def tryTest(self):
-        if self.bt_test.isChecked():
-            self.buttonOn(self.bt_test)
-        else:
-            self.buttonOff(self.bt_test)
+        print "test"
 
     def buttonOn(self, buttonName):
         buttonName.setStyleSheet("background-color: " + self.selectColor + ";\n"
@@ -1314,11 +1345,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                 state = mc.modelEditor(modelPanelName, q=True, displayLights=True)
                 if state == "default":
                     mc.modelEditor(modelPanelName, e=True, displayLights="none")
-                    self.bt_defaultLight.setText("NO LT")
+                    self.buttonOff(self.bt_defaultLight)
                     print ">> No Light mode."
                 else:
                     mc.modelEditor(modelPanelName, e=True, displayLights="default")
-                    self.bt_defaultLight.setText("DF LT")
+                    self.buttonOn(self.bt_defaultLight)
                     print ">> Default Light mode."
 
     # setChecker
@@ -1347,24 +1378,26 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         '''
         Toggle poly edge border visibility
         '''
-        selectionList = mc.ls(type='mesh')
-        '''if not selectionList:
-            print ">> No Selection"
-            return'''
-        # state = mc.getAttr(selectionList[0] + '.displayBorders')
-        stateBorder = mc.polyOptions(displayBorder=True, newPolymesh=True, query=True)[0]
-        if not stateBorder:
-            for obj in selectionList:
-                mc.setAttr(obj + '.displayBorders', True)
-            self.buttonOn(self.bt_toggleBorderEdge)
-            mc.polyOptions(displayBorder=True, newPolymesh=True)
-            print ">> Border Edge is Visible"
-        else:
-            for obj in selectionList:
-                mc.setAttr(obj + '.displayBorders', False)
+        stateBorder = mc.polyOptions(gl=True, displayBorder=True, query=True)[0]
+        if stateBorder:
             self.buttonOff(self.bt_toggleBorderEdge)
-            mc.polyOptions(displayBorder=False, newPolymesh=True)
+            mc.polyOptions(gl=True, displayBorder=False)
             print ">> Border Edge is NOT Visible"
+        else:
+            self.buttonOn(self.bt_toggleBorderEdge)
+            mc.polyOptions(gl=True, displayBorder=True)
+            print ">> Border Edge is Visible"
+
+    def tglUvBorder(self):
+        stateUvBorder = mc.polyOptions(gl=True, displayMapBorder=True, query=True)[0]
+        if stateUvBorder:
+            mc.polyOptions(gl=True, displayMapBorder=False)
+            self.buttonOff(self.bt_toggleUvBorder)
+            print ">> UV Border is NOT Visible"
+        else:
+            mc.polyOptions(gl=True, displayMapBorder=True)
+            self.buttonOn(self.bt_toggleUvBorder)
+            print ">> UV Border is Visible"
 
     def backFaceCulling(self):
         # ToggleBackfaceCulling
@@ -1528,6 +1561,24 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         for modelPanelName in self.allModelPanel:
             mc.isolateSelect(modelPanelName, removeSelected=True)
             print ">> Selection is remove to Isolate."
+
+    def displayAntiAliasing(self):
+        stateAntiAliasing = mc.getAttr("hardwareRenderingGlobals.multiSampleEnable")
+        if stateAntiAliasing:
+            mc.setAttr("hardwareRenderingGlobals.multiSampleEnable", 0)
+            self.buttonOff(self.bt_antiAliasing)
+        else:
+            mc.setAttr("hardwareRenderingGlobals.multiSampleEnable", 1)
+            self.buttonOn(self.bt_antiAliasing)
+
+    def displayOcclusion(self):
+        stateOcclusion = mc.getAttr("hardwareRenderingGlobals.ssaoEnable")
+        if stateOcclusion:
+            mc.setAttr("hardwareRenderingGlobals.ssaoEnable", 0)
+            self.buttonOff(self.bt_occlusion)
+        else:
+            mc.setAttr("hardwareRenderingGlobals.ssaoEnable", 1)
+            self.buttonOn(self.bt_occlusion)
 
     ## TRANSFORM MENU
 
@@ -1759,6 +1810,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
             self.buttonOn(self.bt_noHistory)
             print ">> With Construction History"
 
+    '''
     def alignX(self):
         selectionList = mc.ls(selection=True)
         if selectionList:
@@ -1776,6 +1828,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         if selectionList:
             mc.scale(0, selectionList, relative=True, objectCenterPivot=True, scaleZ=1)
         print ">> Selected components align on Z"
+    '''
 
     def makeLiveMesh(self):
         selectionList = mc.ls(selection=True, type='transform')
