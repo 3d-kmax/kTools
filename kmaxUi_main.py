@@ -40,7 +40,6 @@ import maya.mel as mel
 import os
 
 import kmaxUi
-
 reload(kmaxUi)
 
 import kMod
@@ -250,9 +249,9 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                            ("iconSelFace", "facesnex.png", self.bt_selFace, "bouton"),
                            ("iconSelUv", "uvnex.png", self.bt_selUv, "bouton"),
                            ("iconTransform", "transform23.png", self.lb_transformName, "label"),
-                           #("iconShape", "shape.png", self.lb_shapeName, "label"),
-                           #("iconHistory", "constructionHistory.png", self.lb_historyy, "label"),
-                           #("iconSelec", "quickRename.png", self.lb_select, "label"),
+                           ("iconShape", "shape.png", self.lb_shapeName, "label"),
+                           ("iconHistory", "constructionHistory.png", self.lb_history, "label"),
+                           ("iconSelec", "quickRename.png", self.lb_select, "label"),
                            ("iconHUD", "hud.png", self.bt_hudInfos, "bouton"),
                            ("iconGrid", "grid.png", self.bt_toggleGrid, "bouton"),
                            ("iconBGColor", "bgColor.png", self.bt_backgroundColor, "bouton"),
@@ -285,11 +284,10 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                 icon = QtGui.QIcon(name=iconName)
                 icon.addPixmap(QtGui.QPixmap(self.target + iconFilename), QtGui.QIcon.Normal, QtGui.QIcon.Off)
                 btn.setIcon(icon)
-            '''
+
             if typeBtn == "label":
                 pixmapName = QtGui.QPixmap(self.target + iconFilename)
                 btn.setPixmap(pixmapName)
-            '''
 
     def setIconTool(self, toolType):
         pixmapTool = QtGui.QPixmap(self.target + toolType + ".png")
