@@ -24,7 +24,7 @@ class kCleaner():
         target = ''
         for item in path_list:
             target += item + '/'
-            '''
+        '''
 
         allButtons = [("delNameSpace32.png", self.nameSpace_removeAll, "Remove all nameSpace in current scene"),
                       ("delUnusedNode32.png", self.unknowNodes_remove, "Remove unknow noReferenced nodes"),

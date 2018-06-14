@@ -178,11 +178,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         self.initScaleSettings()
 
         self.initSoftSelec()
-        self.initSoftValue()
+        #self.initSoftValue()
         self.softPresetA()
 
         self.initSymModelling()
-        self.initSymTolerance()
+        #self.initSymTolerance()
 
         self.actuToolSettings()
         self.initToggleTweak()
@@ -395,7 +395,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
 
         # soft selection tool
         self.bt_softSelection.clicked.connect(self.softSelection)
-        self.le_softValue.returnPressed.connect(self.softValue)
+        #self.le_softValue.returnPressed.connect(self.softValue)
         self.bt_softVolume.clicked.connect(self.softVolume)
         self.bt_softGlobal.clicked.connect(self.softGlobal)
         self.bt_softSurface.clicked.connect(self.softSurface)
@@ -407,7 +407,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
 
         # symmetric	tool
         self.bt_symMod.clicked.connect(self.symmetricModelling)
-        self.le_symTolerance.returnPressed.connect(self.symTolerance)
+        #self.le_symTolerance.returnPressed.connect(self.symTolerance)
         self.bt_symSwitch.clicked.connect(self.symSwitch)
         self.bt_symX.clicked.connect(self.symX)
         self.bt_symY.clicked.connect(self.symY)
@@ -756,9 +756,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
             self.buttonOff(self.bt_softObject)
             print "softselect is off"
 
+    '''
     def initSoftValue(self):
         softValue = mc.softSelect(q=True, softSelectDistance=True)
         self.le_softValue.setText(str(softValue))
+    '''
 
     def initSymModelling(self):
         if mc.symmetricModelling(q=True, symmetry=True):
@@ -767,9 +769,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
             self.buttonOn(self.bt_symSwitch)
         self.bt_symSwitch.setText(str(mc.symmetricModelling(q=True, about=True)).capitalize())
 
+    '''
     def initSymTolerance(self):
         symTolerance = mc.symmetricModelling(q=True, tolerance=True)
         self.le_symTolerance.setText(str(symTolerance))
+    '''
 
     def initToolsSettings(self):
         self.wg_moveSettings.setVisible(False)
@@ -1906,12 +1910,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
             mc.softSelect(softSelectEnabled=1)
             self.buttonOn(self.bt_softSelection)
             self.initSoftSelec()
-            self.initSoftValue()
+            #self.initSoftValue()
             print ">> Soft Selection is ON."
 
+    '''
     def softValue(self):
         value = self.le_softValue.text()
         mc.softSelect(softSelectDistance=float(value))
+    '''
 
     # mc.setSoftSelectFalloffMode("Volume")
     def softVolume(self):
@@ -1975,7 +1981,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
     def softReset(self):
         mc.softSelect(softSelectReset=1)
         # softSelect -softSelectReset
-        self.le_softValue.setText(str(mc.softSelect(q=True, softSelectDistance=True)))
+        #self.le_softValue.setText(str(mc.softSelect(q=True, softSelectDistance=True)))
         print ">> Soft Selection is RESET"
 
     def symmetricModelling(self):
@@ -2029,14 +2035,16 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         self.buttonOn(self.bt_symZ)
         print ">> Symmetric moddeling is on Z."
 
+    '''
     def symTolerance(self):
         value = self.le_symTolerance.text()
         mc.symmetricModelling(tolerance=float(value))
+    '''
 
     def symReset(self):
         mc.symmetricModelling(reset=1)
         # softSelect -softSelectReset
-        self.le_symTolerance.setText(str(mc.symmetricModelling(q=True, tolerance=True)))
+        #self.le_symTolerance.setText(str(mc.symmetricModelling(q=True, tolerance=True)))
         print ">> Symmetric modelling tool is RESET"
 
     def mirrorNegX(self):  # polyMirrorFace -ws 1  -direction 0 -mergeMode 1 -ch 1;
