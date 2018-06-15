@@ -1453,6 +1453,18 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                               visible=True)
             mc.headsUpDisplay('HUDfaces', label='Faces :', ba='right', da='right', dw=50, s=4, b=8, preset="polyFaces",
                               visible=True)
+
+            actualFilePath = mc.file(sceneName=True, q=True)
+            filePathList = actualFilePath.split('/')[-5:]
+            filePath = filePathList[-5] + '/' + filePathList[-4] + '/' + filePathList[-3] + '/' + filePathList[-2] \
+                     + '/' + filePathList[-1]
+            '''
+            mc.headsUpDisplay(rp=(0, 0))
+            mc.headsUpDisplay(filePath, remove=True)
+            mc.headsUpDisplay(filePath, label='', ba='left', da='left', dw=200, s=0, b=0, visible=True)
+            '''
+            print ">> File path : ", filePath
+
             self.buttonOn(self.bt_hudInfos)
             self.HUDState = 1
             print ">> HUD is ON."
