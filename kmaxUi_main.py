@@ -198,6 +198,8 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         self.actuTypeSelection()
         self.actuToolSettings()
 
+        self.currentFileName()
+
     def initPath(self):
         # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
         path_brut = os.path.realpath(__file__)
@@ -261,6 +263,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                            ("iconWireframe", "wireframeOnShaded.png", self.bt_wireframe, "bouton"),
                            ("iconLight", "light.png", self.bt_defaultLight, "bouton"),
                            ("iconHighlight", "highlightSelect.png", self.bt_selHighlight, "bouton"),
+                           ("iconCamGate", "camGate16.png", self.bt_camGate, "bouton"),
                            ("iconMeshBorder", "meshBorder.png", self.bt_toggleBorderEdge, "bouton"),
                            ("iconUvBorder", "uvBorders.png", self.bt_toggleUvBorder, "bouton"),
                            ("iconIsolate", "isolateSelected.png", self.bt_isolateSel, "bouton"),
@@ -347,6 +350,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         self.bt_selHighlight.clicked.connect(self.selHighlight)
         self.bt_backFaceCulling.clicked.connect(self.backFaceCulling)
         self.bt_twoSideLight.clicked.connect(self.twoSideLight)
+        self.bt_camGate.clicked.connect(self.tglCamGate)
 
         self.bt_isolateSel.clicked.connect(self.isolateSelection)
         self.bt_isolateActu.clicked.connect(self.actuIso)
@@ -481,8 +485,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                         'HUDObjDetInstance',
                         'HUDObjDetDispLayer',
                         'HUDObjDetDistFromCam',
-                        'HUDObjDetNumSelObjs',
-                        'HUDPolyCountVerts',
+                        'HUDObjDetNumSelObjs',#'HUDPolyCountVerts',
                         'HUDPolyCountEdges',
                         'HUDPolyCountFaces',
                         'HUDPolyCountTriangles',
@@ -494,10 +497,12 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         mc.headsUpDisplay('HUDvertex', rem=True)
         mc.headsUpDisplay('HUDedges', rem=True)
         mc.headsUpDisplay('HUDfaces', rem=True)
+        mc.headsUpDisplay(rp=(0, 0))
+        mc.headsUpDisplay('HUDfileName', rem=True)
 
         # show HUD with just modeling selection information (obj, vertex, edges, face)
         self.HUDswitch()
-        self.bt_hudInfos.setChecked(True)
+        self.bt_hudInfos.setChecked(False)
         self.HUDState = 1
 
     def initSelectStyle(self):
@@ -722,7 +727,6 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
 
     def initSoftSelec(self):
         if mc.softSelect(softSelectEnabled=True, q=True):
-            print ">>>>> normalement OK : ", mc.softSelect(softSelectEnabled=1, q=True)
             self.bt_softSelection.setChecked(True)
             self.buttonOn(self.bt_softSelection)
             if mc.softSelect(softSelectFalloff=1, q=True) == 0:
@@ -745,16 +749,15 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                 self.buttonOff(self.bt_softSurface)
                 self.buttonOff(self.bt_softGlobal)
                 self.buttonOn(self.bt_softObject)
-            print "softselect is on"
+            print ">> softselect is on"
         else:
-            print ">>>>> normalement PAS OK : ", mc.softSelect(softSelectEnabled=1, q=True)
             self.bt_softSelection.setChecked(False)
             self.buttonOff(self.bt_softSelection)
             self.buttonOff(self.bt_softVolume)
             self.buttonOff(self.bt_softSurface)
             self.buttonOff(self.bt_softGlobal)
             self.buttonOff(self.bt_softObject)
-            print "softselect is off"
+            print ">> softselect is off"
 
     '''
     def initSoftValue(self):
@@ -1339,6 +1342,18 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                     self.buttonOn(self.bt_selHighlight)
                     print ">> HighLight Selection is ON."
 
+    #toggle camGate
+    def tglCamGate(self):
+        cam = "perspShape"
+        stateCamGate = mc.camera(cam, q=True, displayResolution=True)
+        if stateCamGate:
+            mc.camera(cam, edit=True, displayFilmGate=False, displayResolution=False)  # , overscan=1.0)
+            self.buttonOff(self.bt_camGate)
+        else:
+            mc.camera(cam, edit=True, displayFilmGate=False, displayResolution=True, displayGateMask=False,
+                      overscan=1.3, filmFit="fill")
+            self.buttonOn(self.bt_camGate)
+
     # toggle no/default light  :
     def useDefaultLight(self):
         self.allModelPanel = mc.getPanel(type='modelPanel')
@@ -1433,8 +1448,27 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
         mc.displayRGBColor('background', 0.27, 0.27, 0.27)
         print ">> Background Color SET TO GREY."
 
+    def currentFileName(self):
+        actualFilePath = mc.file(sceneName=True, q=True, expandName=True)
+        filePathList = actualFilePath.split('/')[-5:]
+        filePath = filePathList[-5] + '/' + filePathList[-4] + '/' + filePathList[-3] + '/' + filePathList[-2]  + '/' + filePathList[-1]
+        if filePath == '' or filePathList[-1] == 'untitled':
+            print ">> file path pas ok !"
+            filePath = "New Scene"
+        print ">> HUD File path def : ", filePath
+        return filePath
+
     def HUDswitch(self):
-        if self.HUDState == 0:
+        if self.HUDState == 1:
+            mc.headsUpDisplay('HUDObjDetNumSelObjs', e=True, visible=False)
+            mc.headsUpDisplay('HUDvertex', rem=True)
+            mc.headsUpDisplay('HUDedges', rem=True)
+            mc.headsUpDisplay('HUDfaces', rem=True)
+            mc.headsUpDisplay("HUDfileName", rem=True)
+            self.buttonOff(self.bt_hudInfos)
+            self.HUDState = 0
+            print ">> HUD is OFF."
+        else:
             mc.ToggleObjectDetails()
             # hide useless information in HUD
             mc.headsUpDisplay('HUDObjDetBackfaces', e=True, s=4, b=0, visible=False)
@@ -1444,38 +1478,14 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
             mc.headsUpDisplay('HUDObjDetDistFromCam', e=True, s=4, b=4, visible=False)
 
             # show modeling selection info in HUD
-            mc.headsUpDisplay('HUDObjDetNumSelObjs', e=True, ba='right', da='right', dw=50,
-                              visible=True)
-            mc.headsUpDisplay('HUDvertex', label='Vertex :', ba='right', da='right', dw=50, s=4, b=6,
-                              preset="polyVerts",
-                              visible=True)
-            mc.headsUpDisplay('HUDedges', label='Edges :', ba='right', da='right', dw=50, s=4, b=7, preset="polyEdges",
-                              visible=True)
-            mc.headsUpDisplay('HUDfaces', label='Faces :', ba='right', da='right', dw=50, s=4, b=8, preset="polyFaces",
-                              visible=True)
-
-            actualFilePath = mc.file(sceneName=True, q=True)
-            filePathList = actualFilePath.split('/')[-5:]
-            filePath = filePathList[-5] + '/' + filePathList[-4] + '/' + filePathList[-3] + '/' + filePathList[-2] \
-                     + '/' + filePathList[-1]
-            '''
-            mc.headsUpDisplay(rp=(0, 0))
-            mc.headsUpDisplay(filePath, remove=True)
-            mc.headsUpDisplay(filePath, label='', ba='left', da='left', dw=200, s=0, b=0, visible=True)
-            '''
-            print ">> File path : ", filePath
-
+            mc.headsUpDisplay('HUDObjDetNumSelObjs', e=True, ba='right', da='right', dw=50, visible=True)
+            mc.headsUpDisplay('HUDvertex', label='Vertex :', ba='right', da='right', dw=50, s=4, b=6, preset="polyVerts", visible=True)
+            mc.headsUpDisplay('HUDedges', label='Edges :', ba='right', da='right', dw=50, s=4, b=7, preset="polyEdges", visible=True)
+            mc.headsUpDisplay('HUDfaces', label='Faces :', ba='right', da='right', dw=50, s=4, b=8, preset="polyFaces", visible=True)
+            mc.headsUpDisplay("HUDfileName", label='Scene :', command=self.currentFileName, ba='left', da='left', dw=200, s=0, b=0, visible=True)
             self.buttonOn(self.bt_hudInfos)
             self.HUDState = 1
             print ">> HUD is ON."
-        else:
-            mc.headsUpDisplay('HUDObjDetNumSelObjs', e=True, visible=False)
-            mc.headsUpDisplay('HUDvertex', rem=True)
-            mc.headsUpDisplay('HUDedges', rem=True)
-            mc.headsUpDisplay('HUDfaces', rem=True)
-            self.buttonOff(self.bt_hudInfos)
-            self.HUDState = 0
-            print ">> HUD is OFF."
 
     # x ray 	: setXrayOption true modelPanel4;
     def useXrayMat(self):

@@ -75,12 +75,14 @@ class kShelfBar():
                       ("bt_setSmooth", "smoothSetTool.png", "smoothSetTool.png", "Set smooth tool", self.kmSetSmoothGroupTool),
                       ("bt_separator_06", "separateHor.png", "separateHor.png", "", ""),
                       ("bt_switchDisplayPoly", "switchAllPoly32.png", "switchAllPoly32.png", "Switch display ALL/POLY", self.kmSwitchDisplayPoly),
+                      ("bt_switchLighting", "lighting.png", "lighting.png", "Switch Lighting", self.kmSwitchLighting),
                       ("bt_switchBallPreview", "globe_2.png", "globe_2.png", "Switch renderThumbnailUpdate", self.kmSwitchBallPreview),
                       ("bt_unlockAllAtt", "unlock.png", "unlock.png", "Unlock all attributs", self.kmUnlockAllAtt),
                       ("bt_deleteUnAutorisedNodes", "delUnusedNode32.png", "delUnusedNode32.png", "Delete all unautorised nodes", self.delUnautorisedNodes),
                       ("bt_cleanRmanRdrOptions", "cleanRmanRdrOpions.png", "cleanRmanRdrOpions.png", "clean renderman render options", self.cleanRdrmanRdrOptions),
                       ("bt_clean", "kCleaner.png", "kCleaner.png", "Cleaner tool", self.kmCleanTool),
                       ("bt_spacer", "empty.png", "empty.png", "", ""),
+                      ("bt_connectPC", "connectPC.png", "connectPC.png", "Connect Maya to PyCharm", self.kmConnectPC),
                       ("bt_preferences", "settings.png", "settings.png", "Preferences", self.kmSetting),
                       ("bt_hotkeys", "hotkey.png", "hotkey.png", "Hotkeys Editor", self.kmHotKey),
                       ("bt_plugins", "plugin.png", "plugin.png", "Plug-ins Manager", self.kmPlugIn),
@@ -141,7 +143,7 @@ class kShelfBar():
 
             if imgFileName == "empty.png":
                 mc.iconTextButton(btnName, edit=True,
-                                            width=190,
+                                            width=134,
                                             enable=0)
 
             if imgFileName == "digitSeparator.png":
@@ -212,6 +214,11 @@ class kShelfBar():
 
     def kmExportProps(self):
         pm.mel.tak_ExportProp()
+
+    def kmConnectPC(self):
+        # connection maya / pycharm
+        if not mc.commandPort(':4434', q=True):
+            mc.commandPort(n=':4434')
 
     def kmSetting(self):
         pm.mel.PreferencesWindow()
@@ -337,7 +344,18 @@ class kShelfBar():
                     mc.modelEditor(modelPanelName, polymeshes=1, e=1)
                 else:
                     mc.modelEditor(modelPanelName, allObjects=1, e=1)
-    
+
+    def kmSwitchLighting(self):
+        item = mc.ls("*:c_lighting_work")
+        if item != []:
+            if mc.referenceQuery(item, isNodeReferenced=True):
+                refFile = mc.referenceQuery(item, filename=True)
+                mc.file(refFile, removeReference=True)
+        else:
+            mc.file(
+                "//tak_server/projets/take-it-easy-mike/tak_maya/scenes/lights/for_work/lighting_shading_work/lighting_shading_work_v000.ma",
+                r=1, type="mayaAscii", ignoreVersion=1, mergeNamespacesOnClash=1, namespace="", options="v=0;", pr=1)
+
     def kmSwitchBallPreview(self):
         renderBall =  mc.renderThumbnailUpdate(q=True)
         if renderBall :
