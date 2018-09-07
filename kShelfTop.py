@@ -57,8 +57,10 @@ class kShelfBar():
                       ("bt_saveAs", "tt_saveAs2_b.png", "tt_saveAs2_b.png", "Save the current scene under a new name or export all", self.kmSaveAs),
                       ("bt_exportProps", "exportSelb.png", "exportSelb.png", "Export Prop", self.kmExportProps),
                       ("bt_checkPublishable", "tt_checkPublish_b.png", "tt_checkPublish_b.png", "Check Publishability", self.kmCheckPublishable),
-                      ("bt_buildPresScene", "buildPres.png", "buildPres.png", "build presentation scene", pm.mel.tak_buildPresentationScene),
-                      ("bt_launchPresScene", "launchPres.png", "launchPres.png", "launch presentation scene", pm.mel.tak_launchPresentationRender),
+                      ("bt_compareGeom", "compareGeom.png", "compareGeom.png", "Compare OLD with NEW", self.kmCompareGeom),
+                      ("bt_hardwareShader", "hardwareShader.png", "hardwareShader.png", "Apply hardwareShader on pxr shader", self.kmHardwareShader),
+                      ("bt_buildPresScene", "buildPres.png", "buildPres.png", "build presentation scene", self.buildPresentationScene),
+                      ("bt_launchPresScene", "launchPres.png", "launchPres.png", "launch presentation scene", self.launchPresentationRender),
                       #("bt_separator_03", "separateHor.png", "separateHor.png",  "", ""),
                       ("bt_separator_04", "separateHor.png", "separateHor.png",  "", ""),
                       ("bt_outliner", "outliner32.png", "outliner32.png", "Outliner", self.kmOutliner),
@@ -66,6 +68,7 @@ class kShelfBar():
                       ("bt_nodeEditor", "nodeEditor.png", "nodeEditor.png", "Node Editor", self.kmNodeEditor),
                       ("bt_hyperShade", "hyperShade.png", "hyperShade.png", "Hypershade", self.kmHyperShade),
                       ("bt_textureEditor", "uvTextureEditor.png", "uvTextureEditor.png", "UV Texture Editor", self.kmUVTextureEditor),
+                      ("bt_uvSnapshot", "uvSnapshot.png", "uvSnapshot.png", "UV Snapshot", self.uvSnapshot),
                       ("bt_relationshipEditor", "relation32.png", "relation32b.png", "Relation Ship Editor", self.kmRelationShipEditor),
                       ("bt_separator_05", "separateHor.png", "separateHor.png",  "", ""),
                       ("bt_colorPicker", "colorPicker.png", "colorPicker.png", "Color Shader Picker", self.kmColorPicker),
@@ -143,7 +146,7 @@ class kShelfBar():
 
             if imgFileName == "empty.png":
                 mc.iconTextButton(btnName, edit=True,
-                                            width=134,
+                                            width=40,
                                             enable=0)
 
             if imgFileName == "digitSeparator.png":
@@ -393,7 +396,7 @@ class kShelfBar():
                       "ProductionMotionblur", "DraftMotionBlur", "PreviewGlobalIllum", "PreviewRapidMotion",
                       "PreviewCaustics", "PreviewImrRayTracyOn", "shapeEditorManager1", "shapeEditorManager2",
                       "miContourPreset", "PreviewImrRayTracyOff", "ProductionFineTrace", "Production",
-                      "DraftRapidMotion", "miDefaultOptions", "miDefaultFramebuffer",
+                      "DraftRapidMotion", "miDefaultOptions", "miDefaultOptions1", "miDefaultFramebuffer",
                       "hyperShadePrimaryNodeEditorSavedTabsInfo",)
         allNodes = mentalrayNodes + turtleNodes + ilrNodes + otherNodes
         plop = 0
@@ -428,6 +431,52 @@ class kShelfBar():
 
     def kmCheckPublishable(self):
         pm.mel.CheckPublishable()
+
+    def kmCompareGeom(self):
+        #from tak.maya.compare_geom import compareGeom
+        pm.mel.compareGeom()
+
+    def kmHardwareShader(self):
+        if mc.ls("GEO"):
+            mc.addAttr("GEO", longName="rmb_texture_display", attributeType="bool", keyable=True, defaultValue=True)
+        from tak.maya.hardware_shaders import setHardwareShaders
+        setHardwareShaders()
+
+    def buildPresentationScene(self):
+        pm.mel.tak_buildPresentationScene()
+
+    def launchPresentationRender(self):
+        pm.mel.tak_launchPresentationRender()
+
+    def uvSnapshot(self):
+        valBase = 1
+
+        projectFileName = mc.file(query=True, list=True)
+        UVFolder = projectFileName[0].split('/')
+        del UVFolder[-1]
+        UVFolder[6] = "sourceimages"
+        print ">> : ", UVFolder[9]
+        propsName = UVFolder[9]
+        UVFolder = '/'.join(UVFolder)
+        UVFolder = UVFolder + "/uv"
+
+        if not os.path.exists(UVFolder):
+            os.makedirs(UVFolder)
+
+        from os import listdir
+        from os.path import isfile, join
+
+        onlyfiles = [f for f in listdir(UVFolder) if isfile(join(UVFolder, f))]
+        countFile = len(onlyfiles)
+        print ">> : ", countFile + valBase
+
+        valBase = valBase + countFile
+
+        # fileName = "UV_%s" % valBase
+        fileName = "uv_" + str(propsName) + "_v" + str(valBase)
+        filePathName = UVFolder + "/" + fileName + '.png'
+        print ">> : ", fileName
+        mc.uvSnapshot(o=True, ff="png", n=filePathName, xr=4096, yr=4096)
 
     def kmClock(self):
         heure = strftime("%H:%M:%S", localtime())
