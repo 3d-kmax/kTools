@@ -298,6 +298,7 @@ class kReplacer():
             #self.newObj = mc.duplicate(objSource, renameChildren=True, upstreamNodes=True, returnRootsOnly=True)            
             if mc.radioButton(self.parentOption, query=True, select=True):
                 self.newObj = mc.duplicate(objSource, renameChildren=True, upstreamNodes=True, returnRootsOnly=True)
+                #self.newObj = mc.instance(objSource) #, renameChildren=True, upstreamNodes=True, returnRootsOnly=True)
                 parent = mc.listRelatives(self.target, parent=True)
                 mc.parent(self.newObj, parent)
             

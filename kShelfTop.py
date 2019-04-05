@@ -18,7 +18,7 @@ class kShelfBar():
     def __init__(self):
         
         scaleIcon = 28
-        scaleSeparator = 18
+        scaleSeparator = 16
 
         self.initPath()
 
@@ -34,7 +34,7 @@ class kShelfBar():
         myWindow = mc.window(windowName)
 
         allButtons = [("bt_kMaxToolBar", "kMaxTool32.png", "kMaxTool32b.png", "Launch kMaxTools", self.kMaxTool),
-                      ("bt_kMaxToolBar2", "kMaxTool32.png", "kMaxTool32b.png", "Launch kMaxTools", self.kMaxUi2),
+                      #("bt_kMaxToolBar2", "kMaxTool32.png", "kMaxTool32b.png", "Launch kMaxTools", self.kMaxUi2),
                       ("bt_separator_00", "separateHor.png", "separateHor.png", "", ""),
                       ("bt_kMod", "kMaxMod32.png", "kMaxMod32.png", "Launch kMod Left bar", self.kMod),
                       ("bt_kMaxShelfTop", "kMaxShelfTop32.png", "kMaxShelfTop32.png", "Launch kMaxShelfTop", self.kMaxShelfTop),
@@ -146,7 +146,7 @@ class kShelfBar():
 
             if imgFileName == "empty.png":
                 mc.iconTextButton(btnName, edit=True,
-                                            width=40,
+                                            width=60,
                                             enable=0)
 
             if imgFileName == "digitSeparator.png":
@@ -438,7 +438,8 @@ class kShelfBar():
 
     def kmHardwareShader(self):
         if mc.ls("GEO"):
-            mc.addAttr("GEO", longName="rmb_texture_display", attributeType="bool", keyable=True, defaultValue=True)
+            if not mc.listAttr("GEO", string="rmb_texture_display"):
+                mc.addAttr("GEO", longName="rmb_texture_display", attributeType="bool", keyable=True, defaultValue=True)
         from tak.maya.hardware_shaders import setHardwareShaders
         setHardwareShaders()
 
@@ -524,59 +525,6 @@ class kShelfBar():
 
 kShelfBar()
 
-'''
-    def kmUnfreeze(self):
-        # unfreeze transform PYMEL
-        import pymel.core as pm
-
-        def cleanupUnfreeze(*args):
-            sel = pm.ls(sl=1)
-
-            nodes = pm.ls(args)
-            if not nodes:
-                nodes = sel
-            nodes = pm.ls(nodes, type='transform')
-            if not nodes:
-                raise RuntimeError()
-
-            for node in nodes:
-                _t = node.t.get()
-                _rp = node.rp.get()
-                _rpt = node.rpt.get()
-
-                _shape = None
-                shapes = node.getShapes()
-                if shapes:
-                    _shape = pm.createNode('transform', p=node)
-                    for _sh in shapes:
-                        _sh.setParent(_shape, r=1, s=1)
-                    _shape.setParent(w=1)
-
-                children = node.getChildren(type='transform')
-                for _ch in children:
-                    if not (node.t.isSettable() and node.r.isSettable() and node.s.isSettable()):
-                        pm.warning('cleanupUnfreeze: "%s" (child of "%s") have locked or connected transformations!' % (
-                            str(_ch), str(node)))
-                    _ch.setParent(w=1)
-
-                node.rp.set(0, 0, 0)
-                node.sp.set(0, 0, 0)
-                node.rpt.set(0, 0, 0)
-                node.spt.set(0, 0, 0)
-                node.t.set(_t + _rp + _rpt)
-
-                for _ch in children:
-                    _ch.setParent(node)
-
-                if _shape:
-                    _shape.setParent(node)
-                    pm.makeIdentity(_shape, a=1)
-                    for _sh in shapes:
-                        _sh.setParent(node, r=1, s=1)
-                    pm.delete(_shape)
-
-            pm.select(sel)
-'''
 
 '''  
 MIKROS :      

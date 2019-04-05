@@ -1916,7 +1916,6 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
 
     ##SOFT and SYMMETRIC SELECTION PAN :
 
-    # "softSelect -e -softSelectEnabled true"
     def softSelection(self):
         # self.initSoftSelec()
         # self.initSoftValue()
