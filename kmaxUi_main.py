@@ -42,8 +42,8 @@ import os
 import kmaxUi
 reload(kmaxUi)
 
-import kMod
-import kShelfTop
+import kMod2015
+import kShelf2015
 
 
 def wrapinstance(ptr, base=None):

@@ -5,7 +5,22 @@ import os
 
 
 
-target = "E:/kTools"
+# self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
+path_brut = os.path.realpath(__file__)
+print ">> path brut : ", path_brut
+path_norm = os.path.normpath(path_brut)  # os.path.normcase()
+print ">> path norm : ", path_norm
+path_clean = path_norm.replace("\\", "/")
+print ">> path clean : ", path_clean
+path_list = path_clean.split('/')[:-1]
+print ">> path split : ", path_list
+#path_list.extend(['icons'])
+target = ''
+for item in path_list:
+    target += item + '/'
+print ">> : ", target
+print ">> : ", target[0:-1]
+target = target[0:-1]
 
 widthWin = 64+140+8#+20
 heightWin = 1000
