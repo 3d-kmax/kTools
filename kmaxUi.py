@@ -9,6 +9,10 @@
 
 from PySide import QtCore, QtGui
 
+# from PySide2 import QtWidgets
+# from PySide2 import QtCore
+
+
 class Ui_kmaxToolBar(object):
     def setupUi(self, kmaxToolBar):
         kmaxToolBar.setObjectName("kmaxToolBar")

@@ -1,42 +1,29 @@
-# kMax mod tools
-# Maxime Terray : kMax
-# Remerciements a Sebastien Courtois et a Stephane Hoarau. Cyber Group Studios 
-# 04/04/7/2015
-# Version 0.2
-# Panneau lateral pour Maya 2014
-# Regroupant tous les outils de modelisation utiles
-
 import maya.cmds as mc
-import pymel.core as pm
 import maya.mel as mel
+import pymel.core as pm
 import os
 
 
-class kModBar():
+class KMod():
     def __init__(self):
 
-        scaleIcon = 30
-        scaleSeparator = 12
-        #scaleColumn = scaleIcon+2
+        iconSize = 28
+        separatorSize = 12
+        # scaleColumn = iconSize+2
+        # wscName = "kMod"
 
         self.initPath()
 
-        #self.nPlane = 1
+        windowName = "kMod2Window"
+        toolName = "kMod2"
 
-        window_name = "kWindow"
-        dockName = "dockMod"
-        toolName = "kMod"
+        if mc.window(windowName, q=True, exists=True):
+            mc.deleteUI(windowName)
 
-        if mc.window(window_name, q=True, exists=True):
-            mc.deleteUI(window_name)
-
-        if mc.dockControl(dockName, q=True, exists=True):
-            mc.deleteUI(dockName)
-            
         if mc.toolBar(toolName, q=True, exists=True):
             mc.deleteUI(toolName)
 
-        my_window = mc.window(window_name, toolbox=True, resizeToFitChildren=True, titleBar=False)
+        mc.window(windowName, toolbox=True, resizeToFitChildren=True, titleBar=False)
 
         allButtons = [("bt_plane", "polykPlane.png", "polykPlane.png", "Plane", "Create a polygonal plane on the grid", self.kmPlane, "pm.mel.CreatePolygonPlaneOptions()"),
                       ("bt_planeDisk", "polykDisk.png", "polykDisk.png", "Plane", "Create a tuned polygonal plane on the grid", self.kmPlaneDisk, ""),
@@ -59,7 +46,7 @@ class kModBar():
                       ("bt_separate", "polySeparate.png", "polySeparate.png", "Separate", "Separate the selected polygon object shells or the shells of any selected faces from the object into distinct objects", "pm.mel.SeparatePolygon()", ""),
                       ("bt_combine", "polyUnite.png", "polyUnite.png", "Combine", "Combine the selected polygon objects into one single object to allow operations such as merges or face trims", "pm.mel.polyUnite()", ""),
                       ("bt_mergeVertexTool", "polyMergeVertex.png", "polyMergeVertex.png", "MergeVertexTool", "Interactively select and merge vertices", "pm.mel.MergeVertexTool()", "pm.mel.MergeVertexToolOptions()"),
-                      ("bt_mergeVertex",  "polyMerge.png", "polyMerge.png", "MergeVertex", "Merge vertices / border edges based on selection", "pm.mel.performPolyMerge(0)", "pm.mel.PolyMergeOptions()"),
+                      ("bt_mergeVertex", "polyMerge.png", "polyMerge.png", "MergeVertex", "Merge vertices / border edges based on selection", "pm.mel.performPolyMerge(0)", "pm.mel.PolyMergeOptions()"),
                       ("bt_collapse", "polyCollapseEdge.png", "polyCollapseEdge.png", "Collapse", "Collapse the selected edges or faces", "pm.mel.performPolyCollapse(0)", ""),
                       ("bt_deleteVertexEdges", "polyDelEdgeVertex.png", "polyDelEdgeVertex.png", "DeleteVertexEdges", "Delete the selected Vertices / Edges", "pm.mel.performPolyDeleteElements()", ""),
                       ("bt_splitPolygon", "multicutnex.png", "multicutnex.png", "SplitFace", "Split polygon", self.multiCut, "pm.mel.InteractiveSplitTool()"),
@@ -68,7 +55,7 @@ class kModBar():
                       ("bt_insertEdgeLoop", "polySplitEdgeRing.png", "polySplitEdgeRing.png", "InsertEdge", "Insert edge loop", "pm.mel.SplitEdgeRingTool()", ""),
                       ("bt_slideEdge", "slideEdgeTool.png", "slideEdgeTool.png", "SlideEdge", "Slide edge tool", "pm.mel.SlideEdgeTool()", "pm.mel.SlideEdgeToolOptions()"),
                       ("bt_offsetEdgeLoop", "polyDuplicateEdgeLoop.png", "polyDuplicateEdgeLoop.png", "OffsetEdge", "Offset edge loop", "pm.mel.performPolyDuplicateEdge(0)", "pm.mel.DuplicateEdgesOptions()"),
-                      ("bt_bevel", "polyBevel.png", "polyBevel.png", "Bevel", "Bevel selected edges", "pm.mel.polyBevel(offset=0.5, offsetAsFraction=1, autoFit=1, segments=1, worldSpace=1, uvAssignment=1, fillNgons=1, mergeVertices=1, mergeVertexTolerance=0.0001, smoothingAngle=30, miteringAngle=180, angleTolerance=180)", "pm.mel.BevelPolygonOptions()",),
+                      ("bt_bevel", "polyBevel.png", "polyBevel.png", "Bevel", "Bevel selected edges", "pm.mel.polyBevel(offset=0.5, offsetAsFraction=1, autoFit=1, segments=1, worldSpace=1, uvAssignment=1, fillNgons=1, mergeVertices=1, mergeVertexTolerance=0.0001, smoothingAngle=30, miteringAngle=180, angleTolerance=180)",  "pm.mel.BevelPolygonOptions()",),
                       ("bt_empty_00", "", "", "", "", "", ""),
                       ("bt_separator_05", "separateHorizontal.png", "separateHorizontal.png", "Separator", "", "", ""),
                       ("bt_separator_06", "separateHorizontal.png", "separateHorizontal.png", "Separator", "", "", ""),
@@ -95,49 +82,42 @@ class kModBar():
                       ("bt_instObj", "instanceToObject.png", "instanceToObject.png", "InstanceToObject", "Convert selected instance(s) to object(s)", "pm.mel.ConvertInstanceToObject()", ""),
                       ("bt_edgeToCurve", "polyEdgeToCurve.png", "polyEdgeToCurve.png", "EdgeToCurve", "Convert selected edges to curve", "pm.mel.CreateCurveFromPoly()", ""),
                       ("bt_separator_13", "separateHorizontal.png", "separateHorizontal.png", "Separator", "", "", ""),
-                      ("bt_separator_14", "separateHorizontal.png", "separateHorizontal.png", "Separator", "", "", ""),
+                      ("bt_separator_14", "separateHorizontal.png", "separateHorizontal.png", "Separator", "", "", "")
                       ]
 
-        modeling = mc.rowColumnLayout(numberOfColumns = 2, columnWidth=[(1,scaleIcon),(2,scaleIcon)])
+        mc.rowColumnLayout(numberOfColumns=2, columnWidth=[(1, iconSize), (2, iconSize)])
 
         for btnName, imgFileName, imgHltFileName, btnLabel, btnAnnotation, btnCommand, btnDoubleClic in allButtons:
 
             if btnName == "bt_empty_00":
-                mc.separator(style='none', height=scaleIcon)
+                mc.separator(style='none', height=iconSize)
 
             else:
                 btnName = mc.iconTextButton(image1=self.target + imgFileName,
-                                        highlightImage=self.target + imgHltFileName,
-                                        label=btnLabel,
-                                        annotation=btnAnnotation,
-                                        command=btnCommand,
-                                        doubleClickCommand=btnDoubleClic,
-                                        height=scaleIcon)
+                                            highlightImage=self.target + imgHltFileName,
+                                            label=btnLabel,
+                                            annotation=btnAnnotation,
+                                            command=btnCommand,
+                                            doubleClickCommand=btnDoubleClic,
+                                            height=iconSize)
 
             if imgFileName == "separateHorizontal.png":
-                mc.iconTextButton(btnName, edit=True, height=scaleSeparator, enable=0)
-
-        #my_dock = mc.dockControl(dockName, label="", area='left', content=my_window, allowedArea=['right', 'left'],
-                                 #sizeable=False, width=2*scaleColumn+2) #label="kMod",
+                mc.iconTextButton(btnName, edit=True, height=separatorSize, enable=0)
 
         allowedAreas = ['left', 'right']
-        myTool = mc.toolBar(toolName, area='left', content=my_window, allowedArea=allowedAreas)
+        mc.toolBar(toolName, area='left', content=windowName, allowedArea=allowedAreas)
 
     def initPath(self):
         # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
         path_brut = os.path.realpath(__file__)
-        print ">> path brut : ", path_brut
         path_norm = os.path.normpath(path_brut)  # os.path.normcase()
-        print ">> path norm : ", path_norm
         path_clean = path_norm.replace("\\", "/")
-        print ">> path clean : ", path_clean
         path_list = path_clean.split('/')[:-1]
-        print ">> path split : ", path_list
         path_list.extend(['icons'])
         self.target = ''
         for item in path_list:
             self.target += item + '/'
-        print ">> :", self.target
+        # print ">> :", self.target
 
     def kmPlane(self):
         mc.polyPlane(w=10, h=10, sx=2, sy=2, ax=[0, 1, 0], cuv=2, ch=1)
@@ -171,12 +151,12 @@ class kModBar():
         mc.spaceLocator()
 
     def multiCut(self):
-        #pm.mel.SplitPolygonTool()
+        # pm.mel.SplitPolygonTool()
         mel.eval("SplitPolygonTool()")
         # dR_multiCutTool() 2016
 
     def kmExtrude(self):
-        #pm.mel.performPolyExtrude(0)
+        # pm.mel.performPolyExtrude(0)
         mel.eval("performPolyExtrude(0)")
 
     def kmSmooth(self):
@@ -191,8 +171,9 @@ class kModBar():
         selectionList = mc.ls(selection=True)
         if selectionList:
             for obj in selectionList:
-                mc.polyReduce(obj, version=1, termination=0, percentage=50, sharpness=0, preserveTopology=1, keepQuadsWeight=1,
-                      cachingReduce=1)
+                mc.polyReduce(obj, version=1, termination=0, percentage=50, sharpness=0, preserveTopology=1,
+                              keepQuadsWeight=1,
+                              cachingReduce=1)
         else:
             print ">> No selection"
 
@@ -241,4 +222,5 @@ class kModBar():
         else:
             print ">> No selection"
 
-kModBar()
+
+KMod()

@@ -1,29 +1,21 @@
-# kMax Shelf Top tools
-# Maxime Terray : kMax
-# Remerciements a Sebastien Courtois et a Stephane Hoarau. Cyber Group Studios 
-# 04/04/7/2015
-# Version 0.2
-# Bar top pour Maya 2014
-# Regroupant tous les outils et windows utiles
-
 import maya.cmds as mc
-import pymel.core as pm
 import maya.mel as mel
+import pymel.core as pm
 import os
-#import time
 from time import localtime, strftime
 
 
-class kShelfBar():
+class KShelf():
     def __init__(self):
-        
-        scaleIcon = 28
-        scaleSeparator = 16
+        path = "E:/kTools/icons/"
+        iconSize = 28
+        separatorSize = 12
+        wscName = "kSh"
 
         self.initPath()
 
-        windowName = "kShelfTop"
-        toolName = "toolShelfTop"
+        windowName = "kShelf2Window"
+        toolName = "kShelf2"
 
         if mc.window(windowName, q=True, exists=True):
             mc.deleteUI(windowName)
@@ -90,39 +82,29 @@ class kShelfBar():
                       ("bt_hotkeys", "hotkey.png", "hotkey.png", "Hotkeys Editor", self.kmHotKey),
                       ("bt_plugins", "plugin.png", "plugin.png", "Plug-ins Manager", self.kmPlugIn),
                       ("bt_separator_07", "separateHor.png", "separateHor.png",  "", ""),
-                      ("bt_modelingToolKit", "modelToolKit.png", "modelToolKit.png", "Modeling Tool Kit", self.kmModelingToolKit),
-                      ("bt_attributeEditor", "attributes.png", "attributes.png", "Edit the attributes of the selected object", self.kmAttributeEditor),
-                      ("bt_toolSettings", "toolSettings.png", "toolSettings.png", "Edit settings for current tool",  self.kmToolSettings),
-                      ("bt_channelBoxLayerEditor", "channelLayers.png", "channelLayers.png", "Channel Box / Layer Editor", self.kmChannelBox),
+                      ("bt_attributeEditor", "attributes.png", "attributes.png", "Attribute Editor", self.kmAttributeEditor),
+                      ("bt_channelBox", "channelBox.png", "channelBox.png", "Channel Box", self.kmChannelBox),
+                      ("bt_modelingToolKit", "modelToolkit.png", "modelToolkit.png", "Modeling Tool Kit", self.kmModelingToolKit),
+                      ("bt_toolSettings", "toolSettings.png", "toolSettings.png", "Tool Settings", self.kmToolSettings),
+                      ("bt_layerEditor", "layerEditor.png", "layerEditor.png", "Layer Editor", self.kmLayerEditor),
                       ("bt_separator_08", "separateHor.png", "separateHor.png", "", ""),
-                      ("bt_clock", "clock32.png", "clock32b.png", "Actualise clock", self.kmClock),
-                      ("bt_h01", "digit8.png", "digit8.png", "", ""),
-                      ("bt_h02", "digit8.png", "digit8.png", "", ""),
-                      ("bt_clockSeparator", "digitSeparator.png",  "digitSeparator.png", "", ""),
-                      ("bt_m01", "digit8.png", "digit8.png", "", ""),
-                      ("bt_m02", "digit8.png", "digit8.png", "", ""),
-                      ("bt_separator", "separateHor.png", "separateHor.png", "", ""),
+                      # ("bt_clock", "clock32.png", "clock32b.png", "Actualise clock", self.kmClock),
+                      # ("bt_h01", "digit8.png", "digit8.png", "", ""),
+                      # ("bt_h02", "digit8.png", "digit8.png", "", ""),
+                      # ("bt_clockSeparator", "digitSeparator.png",  "digitSeparator.png", "", ""),
+                      # ("bt_m01", "digit8.png", "digit8.png", "", ""),
+                      # ("bt_m02", "digit8.png", "digit8.png", "", ""),
+                      # ("bt_separator", "separateHor.png", "separateHor.png", "", ""),
                       ("bt_reduce", "minimize32.png", "minimize32.png", "Minimize Maya", self.kmMinimizeMaya),
                       ("bt_toggleInterfaceLines", "toggleLines32.png", "toggleLines32.png", "Toggle interface Lines", self.kmToggleInterfaceLines),
                       ("bt_toggleToolBars", "toggleInterface32.png", "toggleInterface32.png", "Toggle interface Tools Bars", self.kmToggleToolBars),
                       ("bt_close", "close32.png", "close32.png", "Quit Maya", self.kmCloseMaya)
                       ]
-        '''
-        AUTRES :
-        ("bt_scriptView", "scriptEdPersp32.png", "scriptEdPersp32b.png", "Script/Persp", self.kmScriptView),
-        ("bt_textureView", "perspTexture32.png", "perspTexture32b.png", "Texture/Persp", self.kmTextureView),
-        MIKROS :
-        ("bt_basicBrowser", "common_basicBrowser.png", "common_basicBrowser.png", "Basic Browser", self.kmBasicBrowser),
-        ("bt_batcher", "common_batcher.png", "common_batcher.png", "Batcher", self.kmBatcher),
-        ("bt_qualityCheck", "common_qualityCheck.png", "common_qualityCheck.png", "Quality Check", self.kmQualityCheck),
-        ("bt_initScene", "initScene.png", "initScene.png", "Init Scene", self.kmInitScene),
-        ("bt_kitBuilder", "scatter32.png", "scatter32b.png", "Scattering", self.kitBuilder)
-        '''
 
-        mc.rowColumnLayout(numberOfRows = 1, rowHeight=(1, scaleIcon))
+        mc.rowColumnLayout(numberOfRows = 1, rowHeight=(1, iconSize))
 
-        for  btnName, imgFileName, imgHltFileName, btnAnnotation, btnCommand in allButtons:
-
+        for btnName, imgFileName, imgHltFileName, btnAnnotation, btnCommand in allButtons:
+            '''
             if btnName == "bt_h01":
                 self.bt_h01 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
             if btnName == "bt_h02":
@@ -131,48 +113,45 @@ class kShelfBar():
                 self.bt_m01 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
             if btnName == "bt_m02":
                 self.bt_m02 = mc.iconTextButton(image1=self.target + "digit8.png", width=22, enable=0)
+            if imgFileName == "digitSeparator.png":
+                mc.iconTextButton(btnName, edit=True,
+                                            width=10,
+                                            enable=0)
+            '''
 
             if imgFileName != "digit8.png" :
                 btnName = mc.iconTextButton(image1=self.target + imgFileName,
                                             highlightImage=self.target + imgHltFileName,
                                             annotation=btnAnnotation,
                                             command=btnCommand,
-                                            width=scaleIcon)
+                                            width=iconSize)
 
             if imgFileName == "separateHor.png":
                 mc.iconTextButton(btnName, edit=True,
-                                            width=scaleSeparator,
+                                            width=separatorSize,
                                             enable=0)
 
             if imgFileName == "empty.png":
                 mc.iconTextButton(btnName, edit=True,
-                                            width=60,
-                                            enable=0)
-
-            if imgFileName == "digitSeparator.png":
-                mc.iconTextButton(btnName, edit=True,
-                                            width=10,
+                                            width=220,
                                             enable=0)
 
         allowedAreas = ['top', 'bottom']
-        myTool = mc.toolBar(toolName, area='top', content=myWindow, allowedArea=allowedAreas)
-        self.kmClock()
+        mc.toolBar(toolName, area='top', content=myWindow, allowedArea=allowedAreas)
+
+        # self.kmClock()
 
     def initPath(self):
         # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
         path_brut = os.path.realpath(__file__)
-        print ">> path brut : ", path_brut
         path_norm = os.path.normpath(path_brut)  # os.path.normcase()
-        print ">> path norm : ", path_norm
         path_clean = path_norm.replace("\\", "/")
-        print ">> path clean : ", path_clean
         path_list = path_clean.split('/')[:-1]
-        print ">> path split : ", path_list
         path_list.extend(['icons'])
         self.target = ''
         for item in path_list:
             self.target += item + '/'
-        print ">> :", self.target
+        # print ">> :", self.target
 
     def kMaxTool(self):
         import kmaxUi_main
@@ -184,12 +163,12 @@ class kShelfBar():
         reload(kMaxUi2)
 
     def kMod(self):
-        import kMod2015
-        reload(kMod2015)
+        import kMod
+        reload(kMod)
 
     def kMaxShelfTop(self):
-        import kShelf2015
-        reload(kShelf2015)
+        import kShelf
+        reload(kShelf)
 
     def kmNew(self):
         pm.mel.NewScene()
@@ -252,7 +231,7 @@ class kShelfBar():
 
     def kmHyperShade(self):
         pm.mel.HypershadeWindow()
-        
+
     def kmNodeEditor(self):
         pm.mel.NodeEditorWindow()
 
@@ -274,24 +253,18 @@ class kShelfBar():
         #     mc.iconTextButton(self.bt_attributeEditor, image1=self.target + "attribute32b.png", highlightImage=self.target + "attribute32.png", e=True)
         # else:
         #     mc.iconTextButton(self.bt_attributeEditor, image1=self.target + "attribute32.png", highlightImage=self.target + "attribute32b.png", e=True)
+
+        # mc.iconTextButton(bt_attributeEditor, backgroundColor=(103, 141, 178))
         pm.mel.ToggleAttributeEditor()
-        
+
     def kmToolSettings(self):
-        # pm.mel.ToolSettingsWindow()
-        # imageOne = mc.iconTextButton(self.bt_toolSettings, image1=1, q=True)
-        # if imageOne == self.target + "toolSettings32.png":
-        #     mc.iconTextButton(self.bt_toolSettings, image1=self.target + "toolSettings32b.png", highlightImage=self.target + "toolSettings32.png", e=True)
-        # else:
-        #     mc.iconTextButton(self.bt_toolSettings, image1=self.target + "toolSettings32.png", highlightImage=self.target + "toolSettings32b.png", e=True)
         pm.mel.ToggleToolSettings()
 
+    def kmLayerEditor(self, *args):
+        pm.mel.ToggleLayerBar()
+
     def kmChannelBox(self, *args):
-        # imageOne = mc.iconTextButton(self.bt_channelBoxLayerEditor, image1=1, q=True)
-        # if imageOne == self.target + "channel32.png":
-        #     mc.iconTextButton(self.bt_channelBoxLayerEditor, image1=self.target + "channel32b.png", highlightImage=self.target + "channel32.png", e=True)
-        # else:
-        #     mc.iconTextButton(self.bt_channelBoxLayerEditor, image1=self.target + "channel32.png", highlightImage=self.target + "channel32b.png", e=True)
-        pm.mel.ToggleChannelsLayers()
+        pm.mel.ToggleChannelBox()
 
     def kmSinglePerspView(self):
         pm.mel.setNamedPanelLayout("Single Perspective View")
@@ -305,29 +278,29 @@ class kShelfBar():
 
     def kmScriptView(self):
         pm.mel.setNamedPanelLayout("Script/View")
-        
+
     def kmColorPicker(self):
         import kColorizer
         reload(kColorizer)
-                
+
     def kmRandomizer(self):
         import kRandomizer
         reload(kRandomizer)
-    
+
     def kmReplacer(self):
         import kReplacer
-        reload (kReplacer)
+        reload(kReplacer)
 
     def frRenamer(self):
         import renamer.renamer as renamer
-        reload( renamer )
+        reload(renamer)
 
         class_renamer = renamer.Renamer()
         class_renamer.UI()
 
     def kmSetSmoothGroupTool(self):
-        #import setSmoothGroupTool
-        #reload(setSmoothGroupTool)
+        # import setSmoothGroupTool
+        # reload(setSmoothGroupTool)
         import kSmoothSetTool
         reload(kSmoothSetTool)
 
@@ -335,13 +308,13 @@ class kShelfBar():
         import kCleaner
 
         reload(kCleaner)
-        #clean.kmCleaner()
-        
-    def kmSwitchDisplayPoly(self):    
+        # clean.kmCleaner()
+
+    def kmSwitchDisplayPoly(self):
         allModelPanel = mc.getPanel(type='modelPanel')
         if allModelPanel:
             for modelPanelName in allModelPanel:
-                print ">> " , mc.modelEditor(modelPanelName, nCloths=1, q=1)
+                print ">> ", mc.modelEditor(modelPanelName, nCloths=1, q=1)
                 if mc.modelEditor(modelPanelName, nCloths=1, q=1):
                     mc.modelEditor(modelPanelName, allObjects=0, e=1)
                     mc.modelEditor(modelPanelName, polymeshes=1, e=1)
@@ -360,11 +333,11 @@ class kShelfBar():
                 r=1, type="mayaAscii", ignoreVersion=1, mergeNamespacesOnClash=1, namespace="", options="v=0;", pr=1)
 
     def kmSwitchBallPreview(self):
-        renderBall =  mc.renderThumbnailUpdate(q=True)
-        if renderBall :
+        renderBall = mc.renderThumbnailUpdate(q=True)
+        if renderBall:
             mc.renderThumbnailUpdate(False)
             print ">> Render Thumbnail OFF"
-        else :
+        else:
             mc.renderThumbnailUpdate(True)
             print ">> Render Thumbnail ON"
 
@@ -375,7 +348,7 @@ class kShelfBar():
             lock_l = sorted(lock_l, key=lambda s: s.count('|'), reverse=False)
 
             transformAttr_l = ['.tx', '.ty', '.tz', '.rx', '.ry', '.rz', '.sx', '.sy', '.sz', '.shearXY', '.shearXZ',
-                           '.shearYZ', '.rotateAxisX', '.rotateAxisY', '.rotateAxisZ', '.visibility']
+                               '.shearYZ', '.rotateAxisX', '.rotateAxisY', '.rotateAxisZ', '.visibility']
             # transform_global_l = ['.translate', '.rotate', '.scale', '.shear']
 
             for obj in lock_l:
@@ -433,7 +406,7 @@ class kShelfBar():
         pm.mel.CheckPublishable()
 
     def kmCompareGeom(self):
-        #from tak.maya.compare_geom import compareGeom
+        # from tak.maya.compare_geom import compareGeom
         pm.mel.compareGeom()
 
     def kmHardwareShader(self):
@@ -479,6 +452,7 @@ class kShelfBar():
         print ">> : ", fileName
         mc.uvSnapshot(o=True, ff="png", n=filePathName, xr=4096, yr=4096)
 
+    '''
     def kmClock(self):
         heure = strftime("%H:%M:%S", localtime())
         print heure
@@ -486,35 +460,36 @@ class kShelfBar():
         mc.iconTextButton(self.bt_h02, edit=True, image1=self.target + "digit" + heure[1] + ".png")
         mc.iconTextButton(self.bt_m01, edit=True, image1=self.target + "digit" + heure[3] + ".png")
         mc.iconTextButton(self.bt_m02, edit=True, image1=self.target + "digit" + heure[4] + ".png")
+    '''
 
     def kmMinimizeMaya(self):
         mc.minimizeApp()
 
     def kmToggleInterfaceLines(self):
-        pm.mel.toggleShelfTabs() # shelf Tab
-        pm.mel.ToggleMainMenubar() # main menu bar
-        pm.mel.ToggleModelEditorBars() # model editor bar
-        pm.mel.TogglePanelMenubar() # panel menu bar
+        pm.mel.toggleShelfTabs()  # shelf Tab
+        pm.mel.ToggleMainMenubar()  # main menu bar
+        pm.mel.ToggleModelEditorBars()  # model editor bar
+        pm.mel.TogglePanelMenubar()  # panel menu bar
 
     def kmToggleToolBars(self):
         gMainWindow = pm.mel.eval('$tmpVar=$gMainWindow')
 
         if mc.toolBar("MayaWindow|toolBar1", visible=True, q=True):
 
-            mc.toolBar("MayaWindow|toolBar1", visible=False, e=True) # status line
-            mc.toolBar("MayaWindow|toolBar2", visible=False, e=True) # shelf
+            mc.toolBar("MayaWindow|toolBar1", visible=False, e=True)  # status line
+            mc.toolBar("MayaWindow|toolBar2", visible=False, e=True)  # shelf
             # mc.toolBar("MayaWindow|toolBar3", visible=False, e=True) # help line
             # mc.toolBar("MayaWindow|toolBar4", visible=False, e=True) # command line
-            mc.toolBar("MayaWindow|toolBar5", visible=False, e=True) # range slider
-            mc.toolBar("MayaWindow|toolBar6", visible=False, e=True) # time slider
-            mc.toolBar("MayaWindow|toolBar7", visible=False, e=True) # tool box
+            mc.toolBar("MayaWindow|toolBar5", visible=False, e=True)  # range slider
+            mc.toolBar("MayaWindow|toolBar6", visible=False, e=True)  # time slider
+            mc.toolBar("MayaWindow|toolBar7", visible=False, e=True)  # tool box
             mc.window(gMainWindow, titleBar=False, e=True)
-            #self.kmToggleInterfaceLines()
+            # self.kmToggleInterfaceLines()
 
         else:
             mc.toolBar("MayaWindow|toolBar1", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar2", visible=True, e=True)
-            #mc.toolBar("MayaWindow|toolBar4", visible=True, e=True)
+            # mc.toolBar("MayaWindow|toolBar4", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar5", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar6", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar7", visible=True, e=True)
@@ -523,49 +498,5 @@ class kShelfBar():
     def kmCloseMaya(self):
         mc.quit()
 
-kShelfBar()
 
-
-'''  
-MIKROS :      
-
-def kmBasicBrowser(self):
-    from mayaOverrides import tk_command_utils
-    from mayaCore.ui import BusyCursor
-    with BusyCursor():
-        basic_browser_callback = tk_command_utils.get_tk_command('basicBrowser')
-        basic_browser_callback()
-
-def kmBatcher(self):
-    import batcher.templateBatcherGUI
-    reload(batcher.templateBatcherGUI)
-    try : 
-        batcherTemplate.close()
-    except :
-        pass
-    batcherTemplate = batcher.templateBatcherGUI.BatcherTemplate()
-    batcherTemplate.show()
-    batcherTemplate.autoSetCategoryAndTemplate()
-
-def kmQualityCheck(self):
-    # import qualityCheck
-    # qualityCheck.load()
-
-    from qualityCheck import gui2
-    gui2.launch()
-
-def kmInitScene(self):
-    from mayaShotgun import pathShotgun
-    from mayaPipeline import assetPipe
-    assetType = pathShotgun.fieldFromPath(mc.file(query=True, sceneName=True), 'sg_asset_type')
-    assetPipe.createAssetDialog(namespace=':', assetType=assetType)
-    #old
-    #import kmrt.sceneInit
-    #kmrt.sceneInit.sceneInit('setMod')
-
-def kitBuilder(self):
-    import mayaTools.assetKitBuilder.main
-    import mayaTools.assetKitBuilder.core
-
-    mayaTools.assetKitBuilder.main.load()
-'''
+KShelf()
