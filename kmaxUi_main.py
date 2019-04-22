@@ -1228,6 +1228,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
             self.buttonOff(self.bt_selVert)
             self.buttonOff(self.bt_selEdge)
             self.buttonOff(self.bt_selFace)
+            self.buttonOff(self.bt_selMulti)
             self.buttonOff(self.bt_selUv)
             print ">> Select Type : Object"
 
@@ -1238,6 +1239,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                 self.buttonOn(self.bt_selVert)
                 self.buttonOff(self.bt_selEdge)
                 self.buttonOff(self.bt_selFace)
+                self.buttonOff(self.bt_selMulti)
                 self.buttonOff(self.bt_selUv)
                 print ">> Select Type : Vertex"
 
@@ -1247,6 +1249,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                 self.buttonOff(self.bt_selVert)
                 self.buttonOn(self.bt_selEdge)
                 self.buttonOff(self.bt_selFace)
+                self.buttonOff(self.bt_selMulti)
                 self.buttonOff(self.bt_selUv)
                 print ">> Select Type : Edge"
 
@@ -1256,35 +1259,20 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                 self.buttonOff(self.bt_selVert)
                 self.buttonOff(self.bt_selEdge)
                 self.buttonOn(self.bt_selFace)
+                self.buttonOff(self.bt_selMulti)
                 self.buttonOff(self.bt_selUv)
                 print ">> Select Type : Face"
-
-            ''' un bouton multi :
-            if mc.selectType(q=True, meshComponents=True):
-                self.bt_selMulti.setChecked(True)
-                self.bt_selMulti.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                        "selection-background-color: rgb(150, 150, 150);\n")
-                self.bt_selObj.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                        "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selEdge.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                        "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selVert.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                        "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selFace.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                        "selection-background-color: " + self.selectColor + ";\n")
-                self.bt_selUv.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                        "selection-background-color: " + self.selectColor + ";\n")
-                print ">> Select Type : Multi"
-                '''
 
             if mc.selectType(q=True, meshComponents=True):
                 self.bt_selVert.setChecked(True)
                 self.bt_selEdge.setChecked(True)
                 self.bt_selFace.setChecked(True)
+                self.bt_selMulti.setChecked(True)
                 self.buttonOff(self.bt_selObj)
                 self.buttonOn(self.bt_selVert)
                 self.buttonOn(self.bt_selEdge)
                 self.buttonOn(self.bt_selFace)
+                self.buttonOn(self.bt_selMulti)
                 self.buttonOff(self.bt_selUv)
                 print ">> Select Type : Multi"
 
@@ -1294,6 +1282,7 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
                 self.buttonOff(self.bt_selVert)
                 self.buttonOff(self.bt_selEdge)
                 self.buttonOff(self.bt_selFace)
+                self.buttonOff(self.bt_selMulti)
                 self.buttonOn(self.bt_selUv)
                 print ">> Select Type : UV"
 
@@ -1302,11 +1291,11 @@ class KmaxWin(QtGui.QWidget, kmaxUi.Ui_kmaxToolBar):  # QtWidgets?
 
     def buttonOn(self, buttonName):
         buttonName.setStyleSheet("background-color: " + self.selectColor + ";\n"
-                                                                           "selection-background-color: rgb(150, 150, 150);\n")
+                                    "selection-background-color: rgb(150, 150, 150);\n")
 
     def buttonOff(self, buttonName):
         buttonName.setStyleSheet("background-color: " + self.unSelectColor + ";\n"
-                                                                             "selection-background-color: " + self.selectColor + ";\n")
+                                     "selection-background-color: " + self.selectColor + ";\n")
 
     # pour renommer l'object selectionne
     def renameTransform(self):

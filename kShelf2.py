@@ -15,13 +15,13 @@ class KShelf():
         self.initPath()
 
         windowName = "kShelf2Window"
-        toolName = "kShelf2"
+        self.toolName = "kShelf2"
 
         if mc.window(windowName, q=True, exists=True):
             mc.deleteUI(windowName)
 
-        if mc.toolBar(toolName, q=True, exists=True):
-            mc.deleteUI(toolName)
+        if mc.toolBar(self.toolName, q=True, exists=True):
+            mc.deleteUI(self.toolName)
 
         myWindow = mc.window(windowName)
 
@@ -77,6 +77,7 @@ class KShelf():
                       ("bt_cleanRmanRdrOptions", "cleanRmanRdrOpions.png", "cleanRmanRdrOpions.png", "clean renderman render options", self.cleanRdrmanRdrOptions),
                       ("bt_clean", "kCleaner.png", "kCleaner.png", "Cleaner tool", self.kmCleanTool),
                       ("bt_spacer", "empty.png", "empty.png", "", ""),
+                      ("bt_uiDesigner", "uid.png", "uid.png", "UI Designer", self.kmUiDesigner),
                       ("bt_connectPC", "connectPC.png", "connectPC.png", "Connect Maya to PyCharm", self.kmConnectPC),
                       ("bt_preferences", "settings.png", "settings.png", "Preferences", self.kmSetting),
                       ("bt_hotkeys", "hotkey.png", "hotkey.png", "Hotkeys Editor", self.kmHotKey),
@@ -133,11 +134,11 @@ class KShelf():
 
             if imgFileName == "empty.png":
                 mc.iconTextButton(btnName, edit=True,
-                                            width=220,
+                                            width=200,
                                             enable=0)
 
         allowedAreas = ['top', 'bottom']
-        mc.toolBar(toolName, area='top', content=myWindow, allowedArea=allowedAreas)
+        mc.toolBar(self.toolName, area='top', content=myWindow, allowedArea=allowedAreas)
 
         # self.kmClock()
 
@@ -154,21 +155,21 @@ class KShelf():
         # print ">> :", self.target
 
     def kMaxTool(self):
-        import kmaxUi_main
-        reload(kmaxUi_main)
-        kmaxUi_main.launchUi()
+        import kTool
+        reload(kTool)
+        kTool.KTool()
 
     def kMaxUi2(self):
         import kMaxUi2
         reload(kMaxUi2)
 
     def kMod(self):
-        import kMod
-        reload(kMod)
+        import kMod2
+        reload(kMod2)
 
     def kMaxShelfTop(self):
-        import kShelf
-        reload(kShelf)
+        import kShelf2
+        reload(kShelf2)
 
     def kmNew(self):
         pm.mel.NewScene()
@@ -273,8 +274,8 @@ class KShelf():
         pm.mel.setNamedPanelLayout("Four View")
 
     def kmOutlinerView(self):
-        # pm.mel.ToggleOutliner()
-        pm.mel.setNamedPanelLayout("Persp/Outliner")
+        pm.mel.ToggleOutliner()
+        # pm.mel.setNamedPanelLayout("Persp/Outliner")
 
     def kmScriptView(self):
         pm.mel.setNamedPanelLayout("Script/View")
@@ -309,6 +310,15 @@ class KShelf():
 
         reload(kCleaner)
         # clean.kmCleaner()
+
+    def kmUiDesigner(self):
+        # import sys
+        # sys.path.append('e:\\sdd_UIDesigner_new\\scripts\\')
+        # import sdd_UIDNew
+        # reload(sdd_UIDNew)
+        from sdd_UIDNew import UIDesigner
+        execfile('E:\\sdd_UIDesigner_new\\scripts\\sdd_UIDNew.py')
+        UIDesigner('E:\\sdd_UIDesigner_new\\scripts\\').show()
 
     def kmSwitchDisplayPoly(self):
         allModelPanel = mc.getPanel(type='modelPanel')
@@ -466,12 +476,13 @@ class KShelf():
         mc.minimizeApp()
 
     def kmToggleInterfaceLines(self):
-        pm.mel.toggleShelfTabs()  # shelf Tab
-        pm.mel.ToggleMainMenubar()  # main menu bar
+        # pm.mel.toggleShelfTabs()  # shelf Tab
+        # pm.mel.ToggleMainMenubar()  # main menu bar
         pm.mel.ToggleModelEditorBars()  # model editor bar
         pm.mel.TogglePanelMenubar()  # panel menu bar
 
     def kmToggleToolBars(self):
+        ''' 2015
         gMainWindow = pm.mel.eval('$tmpVar=$gMainWindow')
 
         if mc.toolBar("MayaWindow|toolBar1", visible=True, q=True):
@@ -485,7 +496,6 @@ class KShelf():
             mc.toolBar("MayaWindow|toolBar7", visible=False, e=True)  # tool box
             mc.window(gMainWindow, titleBar=False, e=True)
             # self.kmToggleInterfaceLines()
-
         else:
             mc.toolBar("MayaWindow|toolBar1", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar2", visible=True, e=True)
@@ -493,6 +503,31 @@ class KShelf():
             mc.toolBar("MayaWindow|toolBar5", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar6", visible=True, e=True)
             mc.toolBar("MayaWindow|toolBar7", visible=True, e=True)
+            mc.window(gMainWindow, titleBar=True, e=True)
+        '''
+        gMainWindow = pm.mel.eval('$tmpVar=$gMainWindow')
+
+        if mc.workspaceControl("StatusLine", query=True, visible=True):
+            mc.workspaceControl("StatusLine", edit=True, visible=False)
+            mc.workspaceControl("Shelf", edit=True, visible=False)
+            # mc.workspaceControl("Help Line", edit=True, visible=False)
+            # mc.workspaceControl("Command Line", edit=True, visible=False)
+            mc.workspaceControl("RangeSlider", edit=True, visible=False)
+            mc.workspaceControl("TimeSlider", edit=True, visible=False)
+            mc.workspaceControl("ToolBox", edit=True, visible=False)
+            # KShelf()
+            # kMod.KMod()
+            mc.window(gMainWindow, titleBar=False, e=True)
+        else:
+            mc.workspaceControl("StatusLine", edit=True, visible=True)
+            mc.workspaceControl("Shelf", edit=True, visible=True)
+            mc.workspaceControl("HelpLine", edit=True, visible=True)
+            mc.workspaceControl("CommandLine", edit=True, visible=True)
+            mc.workspaceControl("RangeSlider", edit=True, visible=True)
+            mc.workspaceControl("TimeSlider", edit=True, visible=True)
+            mc.workspaceControl("ToolBox", edit=True, visible=True)
+            # mc.deleteUI(self.toolName)
+            # kMod.KMod().mc.deleteUI(self.toolName)
             mc.window(gMainWindow, titleBar=True, e=True)
 
     def kmCloseMaya(self):
