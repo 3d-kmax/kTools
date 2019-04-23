@@ -217,8 +217,9 @@ class KTool():
         mc.iconTextRadioButton(width=44, height=22, image=self.path + 'snapPoint.png', style='iconOnly', font='tinyBoldLabelFont')
 
         # mc.showWindow(self.winName)
+        # gMainWindow = pm.mel.eval('$tmpVar=$gMainWindow')
         allowedAreas = ['left', 'right']
-        mc.toolBar(self.toolBarName, area='right', content=self.winName, allowedArea=allowedAreas)
+        mc.toolBar(self.toolBarName, area='right', content=self.winName, allowedArea=allowedAreas) # , parent=gMainWindow)
 
     def initPath(self):
         # self.path = "/homes/mte/maya/2016/scripts/kTools/icons/"
@@ -347,24 +348,29 @@ class KTool():
         # self.initDoubleSide()
         # self.initVisPivot()
 
-        # mc.deleteUI(self.om_history, menuItem=True)
-        # mc.optionMenu(self.om_history, edit=True, numberOfItems=1)
-        # mc.menuItem(parent=self.om_history, label='')
+        histNum = mc.optionMenu(self.om_history, query=True, numberOfItems=True) + 1
+        print ">>>  : ", histNum
+        mc.textField(self.tf_transformName, edit=True, text='')
+        mc.textField(self.tf_shapeName, edit=True, text='')
+        for n in range(1, histNum):
+            itemName = "hist_" + str(n)
+            mc.deleteUI(itemName, menuItem=True)
+            print ">>> : ", itemName, " deleted !!"
 
         selectionList = mc.ls(selection=True, o=True)
         if selectionList:
-            mc.textField(self.tf_transformName, edit=True, text=selectionList[-1])
+            print selectionList[-1]
             history = mc.listHistory(selectionList, interestLevel=2)
             histNum = len(history)
+            mc.textField(self.tf_transformName, edit=True, text=selectionList[-1])
             mc.textField(self.tf_shapeName, edit=True, text=history[0])
             mc.optionMenu(self.om_history, edit=True, numberOfItems=histNum)
             for n in range(1, histNum):
                 selec = history[n]
-                print ">> selec : ", selec
-                print ">> history : ", history[-1]
-                mc.menuItem(parent=self.om_history, label=selec)
-
+                itemName = "hist_" + str(n)
+                mc.menuItem(itemName, parent=self.om_history, label=selec)
+        else:
+            print "pas de selection"
 
     def setIconTool(self, toolType):
-        #print ">>> : ", self.path + toolType + 'png'
         self.lb_tool = mc.iconTextStaticLabel(self.lb_tool, edit=True, image=self.path + toolType + '.png')

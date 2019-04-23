@@ -510,8 +510,8 @@ class KShelf():
         if mc.workspaceControl("StatusLine", query=True, visible=True):
             mc.workspaceControl("StatusLine", edit=True, visible=False)
             mc.workspaceControl("Shelf", edit=True, visible=False)
-            # mc.workspaceControl("Help Line", edit=True, visible=False)
-            # mc.workspaceControl("Command Line", edit=True, visible=False)
+            mc.workspaceControl("HelpLine", edit=True, visible=False)
+            mc.workspaceControl("CommandLine", edit=True, visible=False)
             mc.workspaceControl("RangeSlider", edit=True, visible=False)
             mc.workspaceControl("TimeSlider", edit=True, visible=False)
             mc.workspaceControl("ToolBox", edit=True, visible=False)
@@ -521,8 +521,8 @@ class KShelf():
         else:
             mc.workspaceControl("StatusLine", edit=True, visible=True)
             mc.workspaceControl("Shelf", edit=True, visible=True)
-            mc.workspaceControl("HelpLine", edit=True, visible=True)
             mc.workspaceControl("CommandLine", edit=True, visible=True)
+            mc.workspaceControl("HelpLine", edit=True, visible=True, dockToControl=("CommandLine", "right"))
             mc.workspaceControl("RangeSlider", edit=True, visible=True)
             mc.workspaceControl("TimeSlider", edit=True, visible=True)
             mc.workspaceControl("ToolBox", edit=True, visible=True)
