@@ -16,8 +16,8 @@ def catchJobException(func):
 
 class KTool():
 
-# INITIALISATION :
-# initialisation des variables et des etats des boutons de kmaxToolBar en fonction de celles de maya
+    # INITIALISATION :
+    # initialisation des variables et des etats des boutons de kmaxToolBar en fonction de celles de maya
 
     def __init__(self):
         self.wscName = "kToolWorkspace"
@@ -32,12 +32,14 @@ class KTool():
         self.scriptJobIds = []
         self.initScriptJobs()
 
+        self.initVisibility()
         self.actuSelection()
         self.actuTypeSelection()
         self.actuToolSettings()
         self.initSelectStyle()
 
-# build UI
+    # BUILD UI
+
     def buildUI(self):
         if mc.window(self.winName, query=True, exists=True):
             mc.deleteUI(self.winName)
@@ -54,7 +56,8 @@ class KTool():
         mc.columnLayout('columnLayout1', height=1100, adjustableColumn=True)
 
 
-# build UI : Frame 'Common Selection Options'
+        # build UI : Common Selection Options
+
         mc.frameLayout('selection_Layout', parent='columnLayout1', collapsable=True, label='Common Selection Options')
         mc.columnLayout('columnLayout2')
         mc.rowColumnLayout(numberOfColumns=2)
@@ -69,10 +72,10 @@ class KTool():
         self.bt_selFace = mc.iconTextRadioButton(width=44, height=32, image=self.path + 'facesnex.png', onCommand=self.selFace)
         mc.rowColumnLayout(parent='columnLayout2', numberOfColumns=4, columnSpacing=[[2, 1], [3, 1], [4, 1]])
         mc.iconTextRadioCollection()
-        self.bt_marqueeSelStyle = mc.iconTextRadioButton(width=44, height=22, label='Marquee',  style='textOnly', font='tinyBoldLabelFont', select=True)
-        self.bt_dragSelStyle = mc.iconTextRadioButton(width=44, height=22, label='Drag',  style='textOnly', font='tinyBoldLabelFont')
+        self.bt_marqueeSelStyle = mc.iconTextRadioButton(width=44, height=22, label='Marquee',  style='textOnly', font='tinyBoldLabelFont', onCommand=self.selectionStyleSwitch)
+        self.bt_dragSelStyle = mc.iconTextRadioButton(width=44, height=22, label='Drag',  style='textOnly', font='tinyBoldLabelFont', onCommand=self.selectionStyleSwitch)
         self.bt_tweakSelStyle = mc.iconTextRadioButton(width=44, height=22, label='Tweak',  style='textOnly', font='tinyBoldLabelFont')
-        self.bt_camSwitch = mc.iconTextCheckBox(width=44, height=22, label='Cam B',  style='textOnly', font='tinyBoldLabelFont')
+        self.bt_camSwitch = mc.iconTextCheckBox(width=44, height=22, label='Cam B',  style='textOnly', font='tinyBoldLabelFont', changeCommand=self.camSwitch)
         mc.rowColumnLayout('rowColumnLayout4', parent='columnLayout2', numberOfColumns=2, columnWidth=[[1, 20], [2, 160]])
         mc.iconTextStaticLabel(width=20, height=20, image=self.path + 'transform.png')
         self.tf_transformName = mc.textField(enterCommand=self.renameTransform)
@@ -84,7 +87,8 @@ class KTool():
         self.tf_selByName = mc.textField(placeholderText='select by name', enterCommand=self.selectByName)
 
 
-# build UI : Frame 'Transform'
+        # build UI : Transform
+
         mc.frameLayout('transform_Layout', parent='columnLayout1', collapsable=True, label='Transform')
         mc.columnLayout('columnLayout3')
         mc.channelBox('channelBox1', width=180, height=192, # preventOverride=False,
@@ -94,34 +98,36 @@ class KTool():
                                     fixedAttrList=("translateX", "translateY", "translateZ", "rotateX", "rotateY",
                                                    "rotateZ", "scaleX", "scaleY", "scaleZ", 'visibility'))
         mc.gridLayout(numberOfRows=5, numberOfColumns=4, cellWidth=45, cellHeight=44)
-        mc.iconTextButton(width=44, height=44, enableBackground=True, image=self.path + 'deleteHistory.png')
-        mc.iconTextButton(width=44, height=44, enableBackground=True, image=self.path + 'centerPivot.png')
-        mc.iconTextButton(enable=False, width=44, height=44, enableBackground=True, image=self.path + 'deleteHistory.png', label='//',  style='textOnly')
-        mc.iconTextButton(enable=False, width=44, height=44, enableBackground=True, image=self.path + 'deleteHistory.png', label='//',  style='textOnly')
-        mc.iconTextButton(width=44, height=44, enableBackground=True, image=self.path + 'resetTransform.png')
-        mc.iconTextButton(width=44, height=44, enableBackground=True, image=self.path + 'matchTransform.png')
-        mc.iconTextButton(width=44, height=44, enableBackground=True, image=self.path + 'freezeTransform.png')
-        mc.iconTextButton(width=44, height=44, enableBackground=True, image=self.path + 'unfreeze.png')
+        mc.iconTextButton(width=44, height=44, enableBackground=False, image=self.path + 'deleteHistory.png', command=self.deleteHistory)
+        mc.iconTextButton(width=44, height=44, enableBackground=False, image=self.path + 'centerPivot.png', command=self.centerPivot)
+        mc.iconTextButton(width=44, height=44, enableBackground=False, label='//',  style='textOnly', enable=False)
+        self.bt_visibility = mc.iconTextCheckBox(width=44, height=44, image=self.path + 'visibility.png', changeCommand=self.visibility)
+        mc.iconTextButton(width=44, height=44, enableBackground=False, image=self.path + 'resetTransform.png', command=self.resetAllTransform)
+        mc.iconTextButton(width=44, height=44, enableBackground=False, image=self.path + 'matchTransform.png', command=self.matchAllTransforms)
+        mc.iconTextButton(width=44, height=44, enableBackground=False, image=self.path + 'freezeTransform.png', command=self.freezeAllTransform)
+        mc.iconTextButton(width=44, height=44, enableBackground=False, image=self.path + 'unfreeze.png', command=self.unFreeze)
         mc.gridLayout(parent='columnLayout3', numberOfRows=4, numberOfColumns=4, cellWidth=45, cellHeight=22)
-        mc.iconTextButton(width=44, label='R.T',  style='textOnly')
-        mc.iconTextButton(width=44, height=22, label='M.T',  style='textOnly')
-        mc.iconTextButton(width=44, height=22, label='F.T',  style='textOnly')
-        mc.iconTextButton(enable=False, width=44, height=22, label='//',  style='textOnly')
-        mc.iconTextButton(width=44, height=22, label='R.R',  style='textOnly')
-        mc.iconTextButton(width=44, height=22, label='M.R',  style='textOnly')
-        mc.iconTextButton(width=44, height=22, label='F.R',  style='textOnly')
+        mc.iconTextButton(width=44, height=22, label='R.T', style='textOnly', image=self.path + 'resetSmall.png', command=self.resetTranslation)
+        mc.iconTextButton(width=44, height=22, label='M.T', style='textOnly', image=self.path + 'matchSmall.png', command=self.matchTranslate)
+        mc.iconTextButton(width=44, height=22, label='F.T', style='textOnly', image=self.path + 'freezeSmall.png', command=self.freezeTranslate)
+        mc.iconTextButton(width=44, height=22, label='//',  style='textOnly', enable=False)
+        mc.iconTextButton(width=44, height=22, label='R.R', style='textOnly', image=self.path + 'resetSmall.png', command=self.resetRotation)
+        mc.iconTextButton(width=44, height=22, label='M.R', style='textOnly', image=self.path + 'matchSmall.png', command=self.matchRotate)
+        mc.iconTextButton(width=44, height=22, label='F.R', style='textOnly', image=self.path + 'freezeSmall.png', command=self.freezeRotate)
         mc.iconTextCheckBox(width=44, height=22, image=self.path + 'snapToggle.png')
-        mc.iconTextButton(width=44, height=22, label='R.S',  style='textOnly')
-        mc.iconTextButton(width=44, height=22, label='M.S',  style='textOnly')
-        mc.iconTextButton(width=44, height=22, label='F.S',  style='textOnly')
-        mc.iconTextButton(enable=False, width=44, height=22, label='//',  style='textOnly')
+        mc.iconTextButton(width=44, height=22, label='R.S', style='textOnly', image=self.path + 'resetSmall.png', command=self.resetScaling)
+        mc.iconTextButton(width=44, height=22, label='M.S', style='textOnly', image=self.path + 'matchSmall.png', command=self.matchScale)
+        mc.iconTextButton(width=44, height=22, label='F.S', style='textOnly', image=self.path + 'freezeSmall.png', command=self.freezeScale)
+        mc.iconTextButton(width=44, height=22, label='//',  style='textOnly', enable=False)
 
 
-# build UI : Frame 'Display'
+        # build UI : Display
+
         mc.frameLayout('display_Layout', parent='columnLayout1', collapsable=True, label='Display')
 
 
-# build UI : Frame 'Tool Settings'
+        # build UI : Tool Settings
+
         self.fl_tool = mc.frameLayout('tool_Layout', parent='columnLayout1', collapsable=True, label='Tool Settings')
         mc.columnLayout('columnLayout6')
         mc.rowColumnLayout(numberOfColumns=4, columnSpacing=[[2, 1], [3, 1], [4, 1]])
@@ -159,7 +165,8 @@ class KTool():
         mc.iconTextCheckBox(width=44, height=22, enableBackground=True, label='Smt.Ext',  style='textOnly', font='tinyBoldLabelFont')
 
 
-# build UI : Frame 'Soft'
+        # build UI : Soft selection
+
         mc.frameLayout('soft_Layout', parent='columnLayout1', collapsable=True, label='Soft')
         mc.columnLayout('columnLayout5')
         mc.rowColumnLayout('rowColumnLayout9', height=46, numberOfColumns=3, columnSpacing=[[2, 1], [3, 1]])
@@ -181,7 +188,8 @@ class KTool():
         mc.iconTextRadioButton(width=44, height=22, image=self.path + 'softPresetC.png',  style='iconOnly', font='tinyBoldLabelFont')
 
 
-# build UI : Frame 'Symmetry'
+        # build UI : Symmetry
+
         mc.frameLayout('sym_Layout', parent='columnLayout1', collapsable=True, label='Symmetry')
         mc.columnLayout('columnLayout4')
         mc.rowColumnLayout(height=46, numberOfColumns=2)
@@ -202,8 +210,9 @@ class KTool():
         mc.floatField(width=44, height=22, precision=3)
 
 
-# build UI : Frame 'Step Snap'
-        mc.frameLayout('step_Layout', parent='columnLayout1', collapsable=True, label='Step Snap')
+        # build UI : Step Snap
+
+        mc.frameLayout('step_Layout', parent='columnLayout1', collapsable=True, label='Step & Snap')
         mc.columnLayout('columnLayout7')
         mc.rowColumnLayout(height=46, numberOfColumns=2)
         mc.iconTextCheckBox(width=44, height=44, image=self.path + 'snapPixel.png', label='Snap',  style='iconAndTextVertical', font='tinyBoldLabelFont')
@@ -229,7 +238,7 @@ class KTool():
         mc.toolBar(self.toolBarName, area='right', content=self.winName, allowedArea=allowedAreas) # , parent=gMainWindow)
 
 
-# DEFINITION DES FONCTIONS D'INITIALISATION :
+    # DEFINITION DES FONCTIONS D'INITIALISATION :
 
     def initPath(self):
         # self.path = "/homes/mte/maya/2016/scripts/kTools/icons/"
@@ -254,7 +263,7 @@ class KTool():
 
     def initSelectStyle(self):
         if mc.selectPref(q=True, paintSelect=True):
-            mc.iconTextRadioButton(self.bt_dragSelStyle, edit=True,select=True)
+            mc.iconTextRadioButton(self.bt_dragSelStyle, edit=True, select=True)
             if mc.selectPref(q=True, paintSelectWithDepth=True):
                 mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=True)
             else:
@@ -265,6 +274,16 @@ class KTool():
                 mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=True)
             else:
                 mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=False)
+
+    def initVisibility(self):
+        selectionList = mc.ls(selection=True, type='transform')
+        if selectionList:
+            #selectionList = mc.ls(selection=True, type='transform')
+            stateVIS = mc.getAttr(selectionList[-1] + ".visibility")
+            if stateVIS:
+                mc.iconTextCheckBox(self.bt_visibility, edit=True, value=True)
+            else:
+                mc.iconTextCheckBox(self.bt_visibility, edit=True, value=False)
 
     def initScriptJobs(self):
         self.scriptJobIds.append(mc.scriptJob(parent=self.winName, event=("SelectModeChanged", catchJobException(self.actuTypeSelection))))
@@ -281,6 +300,7 @@ class KTool():
         if ctxType == "manipMove":
             self.setIconTool("manipMove")
             mc.frameLayout(self.fl_tool, edit=True, label="Move Settings")
+            mc.iconTextRadioButton(self.bt_tweakSelStyle, edit=True, enable=True)
             # self.wg_rotateSettings.setVisible(False)
             # self.wg_scaleSettings.setVisible(False)
             # self.wg_nullSettings.setVisible(False)
@@ -289,6 +309,7 @@ class KTool():
         if ctxType == "manipRotate":
             self.setIconTool("manipRotate")
             mc.frameLayout(self.fl_tool, edit=True, label="Rotate Settings")
+            mc.iconTextRadioButton(self.bt_tweakSelStyle, edit=True, enable=True)
             # self.wg_moveSettings.setVisible(False)
             # self.wg_scaleSettings.setVisible(False)
             # self.wg_nullSettings.setVisible(False)
@@ -297,6 +318,7 @@ class KTool():
         if ctxType == "manipScale":
             self.setIconTool("manipScale")
             mc.frameLayout(self.fl_tool, edit=True, label="Scale Settings")
+            mc.iconTextRadioButton(self.bt_tweakSelStyle, edit=True, enable=True)
             # self.wg_moveSettings.setVisible(False)
             # self.wg_rotateSettings.setVisible(False)
             # self.wg_nullSettings.setVisible(False)
@@ -305,6 +327,7 @@ class KTool():
         if ctxType == "selectTool":
             self.setIconTool("selectTool")
             mc.frameLayout(self.fl_tool, edit=True, label="Tool Settings")
+            mc.iconTextRadioButton(self.bt_tweakSelStyle, edit=True, enable=False)
             # self.wg_moveSettings.setVisible(False)
             # self.wg_rotateSettings.setVisible(False)
             # self.wg_scaleSettings.setVisible(False)
@@ -361,7 +384,7 @@ class KTool():
                 mc.iconTextRadioButton(self.bt_selMulti, edit=True, enableBackground=False)
 
     def actuSelection(self):
-        # self.initVisibility()
+        self.initVisibility()
         # self.initDoubleSide()
         # self.initVisPivot()
 
@@ -376,7 +399,7 @@ class KTool():
 
         selectionList = mc.ls(selection=True, o=True)
         if selectionList:
-            print selectionList[-1]
+            # print selectionList[-1]
             history = mc.listHistory(selectionList, interestLevel=2)
             histNum = len(history)
             mc.textField(self.tf_transformName, edit=True, text=selectionList[-1])
@@ -387,6 +410,7 @@ class KTool():
                 itemName = "hist_" + str(n)
                 mc.menuItem(itemName, parent=self.om_history, label=selec)
         else:
+            mc.iconTextCheckBox(self.bt_visibility, edit=True, value=False)
             print "pas de selection"
 
     def openAttributEditor(self, histItem):
@@ -403,24 +427,20 @@ class KTool():
             return QtGui.QWidget.closeEvent(self, event)
 
 
-# FONCTIONS APPELE PAR LES BOUTONS DE LA "KMAX TOOL BAR"
+    # DEFINITION DES FONCTIONS D'INTERACTIONS :
 
-# COMMON SELECTION OPTIONS
+    # Common Selection Options
 
-# DEFINITION DES FONCTIONS D'INTERACTIONS :
+    def selObject(self, *args):
+        mc.selectMode(object=True)
 
-# 'Common Selection Options'
-    def renameTransform(self, txt):
-        selectionList = mc.ls(selection=True, type='transform')
-        if selectionList:
-            mc.rename(selectionList[-1], txt)
-            print ">> Object New Name : " + txt
-        else:
-            print ">> You need a selection"
-        self.actuSelection()
+    def selMulti(self, *args):
+        mc.selectMode(component=True)
+        mc.selectType(meshComponents=True)
 
-    def selectByName(self, txt):
-        mc.select(txt)
+    def selUv(self, *args):
+        mc.selectMode(component=True)
+        mc.selectType(polymeshUV=True)
 
     def selVertex(self, *args):
         mc.selectMode(component=True)
@@ -434,13 +454,384 @@ class KTool():
         mc.selectMode(component=True)
         mc.selectType(facet=True)
 
-    def selObject(self, *args):
-        mc.selectMode(object=True)
+    def renameTransform(self, txt):
+        selectionList = mc.ls(selection=True, type='transform')
+        if selectionList:
+            mc.rename(selectionList[-1], txt)
+            print ">> Object New Name : " + txt
+        else:
+            print ">> You need a selection"
+        self.actuSelection()
 
-    def selMulti(self, *args):
-        mc.selectMode(component=True)
-        mc.selectType(meshComponents=True)
+    def selectByName(self, txt):
+        mc.select(txt)
 
-    def selUv(self, *args):
-        mc.selectMode(component=True)
-        mc.selectType(polymeshUV=True)
+    def selectionStyleSwitch(self, *args):
+        if mc.selectPref(query=True, paintSelect=True):
+            mc.selectPref(paintSelect=False)
+            mc.iconTextRadioButton(self.bt_marqueeSelStyle, edit=True, select=True)
+            #self.bt_selectionStyle.setText("Marquee")
+            print ">> Selection mode is MARQUEE."
+            if mc.selectPref(query=True, useDepth=True):
+                mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=True)
+                #self.bt_camSwitch.setChecked(True)
+                #self.buttonOn(self.bt_camSwitch)
+            else:
+                mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=False)
+                #self.bt_camSwitch.setChecked(False)
+                #self.buttonOff(self.bt_camSwitch)
+        else:
+            mc.selectPref(paintSelect=True)
+            mc.iconTextRadioButton(self.bt_dragSelStyle, edit=True, select=True)
+            #self.bt_selectionStyle.setText("Drag")
+            print ">> Selection mode is DRAG."
+            if mc.selectPref(query=True, paintSelectWithDepth=True):
+                mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=True)
+                #self.bt_camSwitch.setChecked(True)
+                #self.buttonOn(self.bt_camSwitch)
+            else:
+                mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=False)
+                #self.bt_camSwitch.setChecked(False)
+                #self.buttonOff(self.bt_camSwitch)
+
+    def camSwitch(self, *args):
+        if mc.selectPref(q=True, paintSelect=True):
+            if mc.selectPref(q=True, paintSelectWithDepth=True):
+                mc.selectPref(paintSelectWithDepth=False)
+                mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=False)
+            else:
+                mc.selectPref(paintSelectWithDepth=True)
+                mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=True)
+        else:
+            if mc.selectPref(q=True, useDepth=True):
+                mc.selectPref(useDepth=0)
+                mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=False)
+            else:
+                mc.selectPref(useDepth=1)
+                mc.iconTextCheckBox(self.bt_camSwitch, edit=True, value=True)
+
+
+    # Transform menu :
+
+    def deleteHistory(self):
+        mc.DeleteHistory()
+        print ">> History Deleted"
+
+    def centerPivot(self):
+        mc.CenterPivot()
+        print ">> Center Pivot"
+
+    def visibility(self, *args):
+        selectionList = mc.ls(selection=True, type='transform')
+        if selectionList:
+            state = mc.getAttr(selectionList[-1] + ".visibility")
+            if state:
+                mc.setAttr(selectionList[-1] + ".visibility", 0)
+                mc.iconTextCheckBox(self.bt_visibility, edit=True, value=False)
+            else:
+                mc.setAttr(selectionList[-1] + ".visibility", 1)
+                mc.iconTextCheckBox(self.bt_visibility, edit=True, value=True)
+        else:
+            mc.iconTextCheckBox(self.bt_visibility, edit=True, value=False)
+            print ">> No selection"
+
+
+    def resetTranslation(self):
+        '''
+        Reset object Translation to the origin (0,0,0)
+        '''
+        selectionList = mc.ls(selection=True, type='transform')
+        if not selectionList:
+            print ">> No Selection"
+        else:
+            for obj in selectionList:
+                mc.xform(obj, absolute=True, t=[0, 0, 0])
+
+    def resetRotation(self):
+        '''
+        Reset object Rotation to (0,0,0)
+        '''
+        selectionList = mc.ls(selection=True, type='transform')
+        if not selectionList:
+            print ">> No Selection"
+        else:
+            for obj in selectionList:
+                mc.xform(obj, absolute=True, ro=[0, 0, 0])
+
+    def resetScaling(self):
+        '''
+        Reset object Scaling to (1,1,1)
+        '''
+        selectionList = mc.ls(selection=True, type='transform')
+        if not selectionList:
+            print ">> No Selection"
+        else:
+            for obj in selectionList:
+                mc.xform(obj, absolute=True, s=[1, 1, 1])
+
+    def resetAllTransform(self):
+        """
+        Reset All Transform on selected Objects
+        """
+        selectionList = mc.ls(selection=True, type='transform')
+        if not selectionList:
+            print ">> No Selection"
+        else:
+            for obj in selectionList:
+                mc.xform(obj, absolute=True, t=[0, 0, 0], ro=[0, 0, 0], s=[1, 1, 1])
+
+
+    def matchTranslate(self):
+        selectionList = mc.ls(selection=True, type='transform')
+        if len(selectionList) >= 2:
+            newTranslation = mc.xform(selectionList[-1], q=True, translation=True, worldSpace=True)
+            for objMacth in selectionList[:-1]:
+                mc.xform(objMacth, p=True, translation=newTranslation, worldSpace=True)
+            print ">> Match Translate"
+        else:
+            print ">> No good Selection"
+
+    def matchRotate(self):
+        selectionList = mc.ls(selection=True, type='transform')
+        if len(selectionList) >= 2:
+            newRotation = mc.xform(selectionList[-1], q=True, rotation=True, worldSpace=True)
+            for objMacth in selectionList[:-1]:
+                mc.xform(objMacth, p=True, rotation=newRotation, worldSpace=True)
+            print ">> Match Rotate"
+        else:
+            print ">> No good Selection"
+
+    def matchScale(self):
+        selectionList = mc.ls(selection=True, type='transform')
+        if len(selectionList) >= 2:
+            newScale = mc.xform(selectionList[-1], q=True, scale=True)
+            for objMacth in selectionList[:-1]:
+                mc.xform(objMacth, p=True, scale=newScale)
+            print ">> Match Scale"
+        else:
+            print ">> No good Selection"
+
+    def matchAllTransforms(self):
+        self.matchTranslate()
+        self.matchRotate()
+        self.matchScale()
+        # mc.select(selectionList[0], replace=True)
+        print ">> Match All Transfroms"
+
+
+    def freezeTranslate(self):
+        '''
+        Freeze object Translation to (0,0,0)
+        '''
+        selectionList = mc.ls(selection=True, type='transform')
+        if not selectionList:
+            print ">> No Selection"
+        else:
+            mc.makeIdentity(a=1, t=1, r=0, s=0, n=0, pn=1)
+            print ">> Translate Freezed"
+        self.actuSelection()  # actualiser les valeurs de transform
+
+    def freezeRotate(self):
+        '''
+        Freeze object Rotation to (0,0,0)
+        '''
+        selectionList = mc.ls(selection=True, type='transform')
+        if not selectionList:
+            print ">> No Selection"
+        else:
+            mc.makeIdentity(a=1, t=0, r=1, s=0, n=0, pn=1)
+            print ">> Rotate Freezed"
+        self.actuSelection()  # actualiser les valeurs de transform
+
+    def freezeScale(self):
+        '''
+        Freeze object Scale to (0,0,0)
+        '''
+        selectionList = mc.ls(selection=True, type='transform')
+        if not selectionList:
+            print ">> No Selection"
+        else:
+            mc.makeIdentity(a=1, t=0, r=0, s=1, n=0, pn=1)
+        print ">> Scale Freezed"
+        self.actuSelection()  # actualiser les valeurs de transform
+
+    def freezeAllTransform(self):
+        '''
+        Freeze All Transform on selected Objects
+        '''
+        selectionList = mc.ls(selection=True, type='transform')
+        if not selectionList:
+            print ">> No Selection"
+        else:
+            mc.makeIdentity(a=1, t=1, r=1, s=1, n=1, pn=1)
+            print ">> All transformations Freezed"
+        self.actuSelection()  # actualiser les valeurs de transform
+
+
+    def unFreeze(self):
+        def cleanupUnfreeze(*args):
+            sel = pm.ls(sl=1)
+
+            nodes = pm.ls(args)
+            if not nodes:
+                nodes = sel
+            nodes = pm.ls(nodes, type='transform')
+            if not nodes:
+                raise RuntimeError()
+
+            for node in nodes:
+                _t = node.t.get()
+                _rp = node.rp.get()
+                _rpt = node.rpt.get()
+
+                _shape = None
+                shapes = node.getShapes()
+                if shapes:
+                    _shape = pm.createNode('transform', p=node)
+                    for _sh in shapes:
+                        _sh.setParent(_shape, r=1, s=1)
+                    _shape.setParent(w=1)
+
+                children = node.getChildren(type='transform')
+                for _ch in children:
+                    if not (node.t.isSettable() and node.r.isSettable() and node.s.isSettable()):
+                        pm.warning('cleanupUnfreeze: "%s" (child of "%s") have locked or connected transformations!' % (
+                            str(_ch), str(node)))
+                    _ch.setParent(w=1)
+
+                node.rp.set(0, 0, 0)
+                node.sp.set(0, 0, 0)
+                node.rpt.set(0, 0, 0)
+                node.spt.set(0, 0, 0)
+                node.t.set(_t + _rp + _rpt)
+
+                for _ch in children:
+                    _ch.setParent(node)
+
+                if _shape:
+                    _shape.setParent(node)
+                    pm.makeIdentity(_shape, a=1)
+                    for _sh in shapes:
+                        _sh.setParent(node, r=1, s=1)
+                    pm.delete(_shape)
+
+            pm.select(sel)
+
+        cleanupUnfreeze()
+
+    '''
+    def visPivot(self):
+        selectionList = mc.ls(selection=True, type='transform')
+        stateScalePivot = mc.getAttr(selectionList[-1] + ".displayScalePivot")
+        stateRotatePivot = mc.getAttr(selectionList[-1] + ".displayRotatePivot")
+        if stateScalePivot:
+            mc.setAttr(selectionList[-1] + ".displayScalePivot", 0)
+            mc.setAttr(selectionList[-1] + ".displayRotatePivot", 0)
+            self.buttonOff(self.bt_visPivot)
+        else:
+            mc.setAttr(selectionList[-1] + ".displayScalePivot", 1)
+            mc.setAttr(selectionList[-1] + ".displayRotatePivot", 1)
+            self.buttonOn(self.bt_visPivot)
+            
+    def doubleSide(self):
+        # selectionList = mc.ls( selection=True, type='mesh' )
+        print ">> button doubleside is DISABLE !"
+        startSelection = mc.ls(selection=True)#, type="transform")
+        selShapes = mc.listRelatives(startSelection, shapes=True)
+        selLocShapes = mc.ls(type='locator')
+        for obj in selLocShapes:
+            selShapes.remove(obj)
+        selectionList = mc.listRelatives(selShapes, p=True)
+
+        state = mc.getAttr(selectionList[-1]+".doubleSided")
+        if selectionList:
+            for obj in selectionList:
+                if state:
+                    mc.setAttr(obj+".doubleSided", 0)
+                    self.bt_doubleSide.setStyleSheet("background-color: "+self.unSelectColor+";\n"
+                                                    "selection-background-color: "+self.selectColor+";\n")
+                else:
+                    mc.setAttr(obj+".doubleSided", 1)
+                    self.bt_doubleSide.setStyleSheet("background-color: "+self.selectColor+";\n"
+                                                    "selection-background-color: rgb(150, 150, 150);\n")        
+
+    def selNgones(self):
+        mel.eval(
+            'polyCleanupArgList 3 { "0","2","1","0","1","0","0","0","0","1e-005","0","1e-005","0","1e-005","0","-1","0" };')
+        print ">> nGones selected"
+
+    def tglDisplayNormals(self):
+        startSelection = mc.ls(selection=True, exactType="transform")
+        if startSelection:
+            selShapes = mc.listRelatives(startSelection, shapes=True)
+            if selShapes:
+                # stateNormals = mc.polyOptions(selShapes[-1], displayNormal=True, query=True)[0]
+                stateNormals = mc.getAttr(selShapes[-1] + '.displayNormal')
+                # print ">> ", startSelection, selShapes[-1], stateNormals
+
+                if stateNormals:
+                    for obj in selShapes:
+                        mc.polyOptions(obj, displayNormal=False)
+                        # mc.setAttr(obj + '.displayNormal', False)
+                    msg = ">> Display Normals OFF"
+                else:
+                    for obj in selShapes:
+                        mc.polyOptions(obj, displayNormal=True, facet=True, point=False, sizeNormal=1)
+                        # mc.setAttr(obj + '.displayNormal', True)
+                    msg = ">> Display Normals ON"
+            else:
+                msg = ">> No Shape selected"
+        else:
+            msg = ">> No Selection"
+
+        print msg
+
+    def noHistory(self):
+        history = mc.constructionHistory(q=True, tgl=True)
+        if history:
+            mc.constructionHistory(tgl=False)
+            self.buttonOff(self.bt_noHistory)
+            print ">> Without Construction History !!!"
+        else:
+            mc.constructionHistory(tgl=True)
+            self.buttonOn(self.bt_noHistory)
+            print ">> With Construction History"
+ 
+    def alignX(self):
+        selectionList = mc.ls(selection=True)
+        if selectionList:
+            mc.scale(0, selectionList, relative=True, objectCenterPivot=True, scaleX=1)
+        print ">> Selected components align on X"
+
+    def alignY(self):
+        selectionList = mc.ls(selection=True)
+        if selectionList:
+            mc.scale(0, selectionList, relative=True, objectCenterPivot=True, scaleY=1)
+        print ">> Selected components align on Y"
+
+    def alignZ(self):
+        selectionList = mc.ls(selection=True)
+        if selectionList:
+            mc.scale(0, selectionList, relative=True, objectCenterPivot=True, scaleZ=1)
+        print ">> Selected components align on Z"
+
+    def makeLiveMesh(self):
+        selectionList = mc.ls(selection=True, type='transform')
+        # buttonState = self.bt_makeLive.isChecked(q=True)
+        if selectionList:
+            if self.makeLiveState:
+                mc.makeLive(none=True)
+                self.makeLiveState = 0
+                self.buttonOff(self.bt_makeLive)
+                print ">>", selectionList[-1], "is DEAD"
+            else:
+                mc.makeLive(selectionList[-1])
+                self.makeLiveState = 1
+                self.buttonOn(self.bt_makeLive)
+                print ">>", selectionList[-1], "is aLIVE"
+        else:
+            mc.makeLive(none=True)
+            self.makeLiveState = 0
+            self.buttonOff(self.bt_makeLive)
+            print ">> No selection // All is DEAD"
+    '''
