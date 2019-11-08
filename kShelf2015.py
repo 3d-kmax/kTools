@@ -349,14 +349,15 @@ class kShelfBar():
                     mc.modelEditor(modelPanelName, allObjects=1, e=1)
 
     def kmSwitchLighting(self):
-        item = mc.ls("*:c_lighting_work")
+        item = mc.ls("*:lighting")
         if item != []:
             if mc.referenceQuery(item, isNodeReferenced=True):
                 refFile = mc.referenceQuery(item, filename=True)
                 mc.file(refFile, removeReference=True)
         else:
             mc.file(
-                "//tak_server/projets/take-it-easy-mike/tak_maya/scenes/lights/for_work/lighting_shading_work/lighting_shading_work_v000.ma",
+                "//kee_server/projets/keeya/kee_maya//scenes/_show/kee_pres_lighting_shading.ma",
+                # "//tak_server/projets/take-it-easy-mike/tak_maya/scenes/lights/for_work/lighting_shading_work/lighting_shading_work_v000.ma",
                 r=1, type="mayaAscii", ignoreVersion=1, mergeNamespacesOnClash=1, namespace="", options="v=0;", pr=1)
 
     def kmSwitchBallPreview(self):
@@ -444,10 +445,10 @@ class kShelfBar():
         setHardwareShaders()
 
     def buildPresentationScene(self):
-        pm.mel.tak_buildPresentationScene()
+        pm.mel.teaser_buildPresentationScene()
 
     def launchPresentationRender(self):
-        pm.mel.tak_launchPresentationRender()
+        pm.mel.teaser_launchPresentationRender()
 
     def uvSnapshot(self):
         valBase = 1

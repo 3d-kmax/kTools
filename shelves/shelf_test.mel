@@ -1,0 +1,34 @@
+global proc shelf_test () {
+    global string $gBuffStr;
+    global string $gBuffStr0;
+    global string $gBuffStr1;
+
+
+    shelfButton
+        -enableCommandRepeat 1
+        -enable 1
+        -width 35
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "kMod" 
+        -enableBackground 0
+        -align "center" 
+        -label "kMod" 
+        -labelOffset 0
+        -font "plainLabelFont" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0 0 0 0.5 
+        -image "E:/kTools/icons/kMod.png" 
+        -image1 "E:/kTools/icons/kMod.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import kMod2\nreload(kMod2)" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    
+}

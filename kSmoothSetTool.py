@@ -18,10 +18,10 @@ class kSmoothSetTool():
         path_clean = path_norm.replace("\\", "/")
         path_list = path_clean.split('/')[:-1]
         path_list.extend(['icons'])
-        self.target = ''
+        self.iconsPath = ''
         for item in path_list:
-            self.target += item + '/'
-        print "Target >> :", self.target
+            self.iconsPath += item + '/'
+        print "Target >> :", self.iconsPath
 
     def smoothSetToolUI(self):
         windowName = "smoothSetTool"
@@ -42,14 +42,14 @@ class kSmoothSetTool():
         mc.rowLayout(numberOfColumns=3, columnWidth=[(1, 54), (2, 54), (3, 54)])
         smstUI_smoothLvl_set = mc.iconTextRadioCollection("Smooth level")
         self.smstUI_smoothLvl0 = mc.iconTextRadioButton(l="0 ", style='iconAndTextHorizontal',
-                                                   image=self.target + "polyCube2016.png",
-                                                   selectionImage=self.target + "polyCube2016b.png")
+                                                   image=self.iconsPath + "polyCube2016.png",
+                                                   selectionImage=self.iconsPath + "polyCube2016b.png")
         self.smstUI_smoothLvl1 = mc.iconTextRadioButton(l="1 ", style='iconAndTextHorizontal',
-                                                   image=self.target + "kSphere32.png",
-                                                   selectionImage=self.target + "kSphere32b.png")
+                                                   image=self.iconsPath + "kSphere32.png",
+                                                   selectionImage=self.iconsPath + "kSphere32b.png")
         self.smstUI_smoothLvl2 = mc.iconTextRadioButton(l="2 ", style='iconAndTextHorizontal',
-                                                   image=self.target + "polySphere2016.png",
-                                                   selectionImage=self.target + "polySphere2016b.png")
+                                                   image=self.iconsPath + "polySphere2016.png",
+                                                   selectionImage=self.iconsPath + "polySphere2016b.png")
         mc.setParent('..')
         mc.setParent('..')
 
@@ -167,7 +167,6 @@ class kSmoothSetTool():
             mc.sets(n='smooth' + str(value))
 
     def kApplyRdrSmoothAttr(self, *args):
-        print "hello"
         # add smooth to mesh
         smooth1 = []
         smooth2 = []

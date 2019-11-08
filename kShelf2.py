@@ -28,12 +28,14 @@ class KShelf():
         allButtons = [("bt_kMaxToolBar", "kMaxTool32.png", "kMaxTool32b.png", "Launch kMaxTools", self.kMaxTool),
                       #("bt_kMaxToolBar2", "kMaxTool32.png", "kMaxTool32b.png", "Launch kMaxTools", self.kMaxUi2),
                       ("bt_separator_00", "separateHor.png", "separateHor.png", "", ""),
+
                       ("bt_kMod", "kMaxMod32.png", "kMaxMod32.png", "Launch kMod Left bar", self.kMod),
                       ("bt_kMaxShelfTop", "kMaxShelfTop32.png", "kMaxShelfTop32.png", "Launch kMaxShelfTop", self.kMaxShelfTop),
                       ("bt_outlinerView", "outliner.png", "outliner.png", "Outliner/Persp", self.kmOutlinerView),
                       ("bt_singlePerspView", "singlePerspLayout2016_32.png", "singlePerspLayout2016_32.png", "Single Perspective View", self.kmSinglePerspView),
                       ("bt_fourView", "fourViewLayout2016_32.png", "fourViewLayout2016_32.png", "Four View", self.kmFourView),
                       ("bt_separator_01", "separateHor.png", "separateHor.png", "", ""),
+
                       ("bt_new", "new.png", "new.png", "Create a New Scene", self.kmNew),
                       ("bt_classicOpen", "open.png", "open.png", "Open a Scene", self.kmClassicOpenScene),
                       ("bt_classicSave", "save.png", "save.png", "Save the current Scene", self.kmClassicSave),
@@ -43,13 +45,21 @@ class KShelf():
                       ("bt_export", "export.png", "export.png", "Export entire scene into one file", self.kmExport),
                       ("bt_exportSel", "exportSel.png", "exportSel.png", "Export Selection...", self.kmExportSel),
                       ("bt_referenceEditor", "reference.png", "reference.png", "Reference Editor", self.kmReferenceEditor),
-                      ("bt_separator_02", "separateHor.png", "separateHor.png",  "", ""),
+                      ("bt_separator_02", "separateHor.png", "separateHor.png", "", ""),
+
                       ("bt_open", "teamtTo.png", "teamtTo.png", "Open a Scene", self.kmOpen),
                       ("bt_save", "tt_save2_b.png", "tt_save2_b.png", "Save the current Scene", self.kmSave),
                       ("bt_saveAs", "tt_saveAs2_b.png", "tt_saveAs2_b.png", "Save the current scene under a new name or export all", self.kmSaveAs),
                       ("bt_exportProps", "exportSelb.png", "exportSelb.png", "Export Prop", self.kmExportProps),
-                      ("bt_checkPublishable", "tt_checkPublish_b.png", "tt_checkPublish_b.png", "Check Publishability", self.kmCheckPublishable),
-                      ("bt_compareGeom", "compareGeom.png", "compareGeom.png", "Compare OLD with NEW", self.kmCompareGeom),
+                      ("bt_separator_10", "separateHor.png", "separateHor.png", "", ""),
+
+                      ("bt_modelUpdater", "compareGeom.png", "compareGeom.png", "modelUpdater", self.kmCompareGeom),
+                      ("bt_cleanupGeo", "cleanupgeo.png", "cleanupgeo.png", "CleanUp Geo by Thomas G", self.cleanupGeo),
+
+                      ("bt_checkPublishable", "yes.png", "yes.png", "Check Publishability", self.kmCheckPublishable),
+                      ("bt_publish", "publish.png", "publish.png", "Send Publish", self.publish),
+                      ("bt_separator_09", "separateHor.png", "separateHor.png", "", ""),
+
                       ("bt_hardwareShader", "hardwareShader.png", "hardwareShader.png", "Apply hardwareShader on pxr shader", self.kmHardwareShader),
                       ("bt_buildPresScene", "buildPres.png", "buildPres.png", "build presentation scene", self.buildPresentationScene),
                       ("bt_launchPresScene", "launchPres.png", "launchPres.png", "launch presentation scene", self.launchPresentationRender),
@@ -134,7 +144,7 @@ class KShelf():
 
             if imgFileName == "empty.png":
                 mc.iconTextButton(btnName, edit=True,
-                                            width=200,
+                                            width=100,
                                             enable=0)
 
         allowedAreas = ['top', 'bottom']
@@ -229,6 +239,11 @@ class KShelf():
 
     def kmReferenceEditor(self):
         pm.mel.ReferenceEditor()
+
+    def cleanupGeo(self):
+        # cleanup_geo
+        from gemini.maya.utils.modelcleanup import ModelCleanupUI
+        ModelCleanupUI().show()
 
     def kmHyperShade(self):
         pm.mel.HypershadeWindow()
@@ -414,6 +429,9 @@ class KShelf():
 
     def kmCheckPublishable(self):
         pm.mel.CheckPublishable()
+
+    def publish(self):
+        print ">> publish send !"
 
     def kmCompareGeom(self):
         # from tak.maya.compare_geom import compareGeom

@@ -36,7 +36,7 @@ class kColorizer():
                       ("redShader32.png", 0.70, 0.63, 0.63, "red"),
                       ("purpleShader32.png", 0.67, 0.63, 0.70, "purple"),
                       ("brownShader32.png", 0.70, 0.66, 0.63, "brown"),
-                      ("lightGrayShader32.png", 0.8, 0.8, 0.8, "white"),
+                      ("lightGrayShader32.png", 0.95, 0.95, 0.95, "white"),
                       ("blackShader32.png", 0.25, 0.25, 0.25, "black")]
 
         self.nbBtn = len(allButtons)
@@ -92,13 +92,9 @@ class kColorizer():
     def initPath(self):
         # self.target = "/homes/mte/maya/2016/scripts/kTools/icons/"
         path_brut = os.path.realpath(__file__)
-        print ">> path brut : ", path_brut
         path_norm = os.path.normpath(path_brut)  # os.path.normcase()
-        print ">> path norm : ", path_norm
         path_clean = path_norm.replace("\\", "/")
-        print ">> path clean : ", path_clean
         path_list = path_clean.split('/')[:-1]
-        print ">> path split : ", path_list
         path_list.extend(['icons'])
         self.target = ''
         for item in path_list:
