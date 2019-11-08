@@ -9,7 +9,7 @@ class baker():
         self.blueColor = [0.32156, 0.52156, 0.65098]
         self.itemToBake = []
         self.initPath()
-        self.bakerUi()
+        self.bakerUi2()
 
     # USER INTERFACE
     def bakerUi(self):
@@ -24,31 +24,6 @@ class baker():
         self.setMeshButton = mc.button(label='Prepare mesh', command=self.setMesh, height=buttonHeight, width=110)
         self.snapUvsButton = mc.button(label='Snap Uvs', enable=False, command=self.snapUvs, height=buttonHeight, width=110)
 
-        '''
-        mc.frameLayout('dirt', parent='bakerColumnLayout', marginHeight=0, collapsable=False, label='Dirt :')
-        self.setDirtRow = mc.rowLayout(numberOfColumns=5, enable=False)
-        self.setDirtButton = mc.button(label='Set Dirt', annotation='Import and set dirt shader', command=self.setDirt, height=buttonHeight, width=60)
-        mc.iconTextRadioCollection('dirtResolutions')
-        self.setDirt512 = mc.iconTextRadioButton(label='512', style='textOnly', height=buttonHeight, width=30, enable=False, onCommand=self.setDirtResolution)
-        self.setDirt1024 = mc.iconTextRadioButton(label='1024', style='textOnly', height=buttonHeight, width=30, enable=False, onCommand=self.setDirtResolution)
-        self.setDirt2048 = mc.iconTextRadioButton(label='2048', style='textOnly', height=buttonHeight, width=30, enable=False, onCommand=self.setDirtResolution)
-        self.setDirt4096 = mc.iconTextRadioButton(label='4096', style='textOnly', height=buttonHeight, width=30, enable=False, onCommand=self.setDirtResolution, select=True)
-        mc.setParent('..')
-        self.bakeDirtButton = mc.button(label='Bake Occlusion', enable=False, command=self.bakeShader, height=buttonHeight)
-        mc.setParent('..')
-     
-        mc.frameLayout('curvature', parent='bakerColumnLayout', marginHeight=0, collapsable=False, label='Curvature :')
-        self.setCurvatureRow = mc.rowLayout(numberOfColumns=5, enable=False)
-        self.setCurvatureButton = mc.button(label='Set Curv', command=self.setCurvature, height=buttonHeight, width=60)
-        mc.iconTextRadioCollection('curvatureResolutions')
-        self.setCurv512 = mc.iconTextRadioButton(label='512', style='textOnly', height=buttonHeight, width=30, enable=False, onCommand=self.setCurvResolution)
-        self.setCurv1024 = mc.iconTextRadioButton(label='1024', style='textOnly', height=buttonHeight, width=30, enable=False, onCommand=self.setCurvResolution)
-        self.setCurv2048 = mc.iconTextRadioButton(label='2048', style='textOnly', height=buttonHeight, width=30, enable=False, onCommand=self.setCurvResolution)
-        self.setCurv4096 = mc.iconTextRadioButton(label='4096', style='textOnly', height=buttonHeight, width=30, enable=False, onCommand=self.setCurvResolution, select=True)
-        mc.setParent('..')
-        self.bakeCurvatureButton = mc.button(label='Bake Curvature', enable=False, command=self.bakeShader, height=buttonHeight)
-        mc.setParent('..')
-        '''
         mc.frameLayout('Dirt', parent='bakerColumnLayout', marginHeight=0, collapsable=False, label='Dirt :')
         self.setDirtRow = mc.rowLayout(numberOfColumns=3, enable=True)
         self.setDirtButton = mc.button(label='SET', annotation='Import and set dirt shader', command=self.setDirt, height=2*buttonHeight, width=2*buttonHeight)
@@ -82,6 +57,28 @@ class baker():
         self.cleanRefButton = mc.button(label='Reset', annotation='Clean Scene and Reset Tool', enable=False, command=self.cleanScene, height=buttonHeight)
 
         mc.window('bakerWindow', edit=True, wh=(150, 12*buttonHeight))
+        mc.showWindow('bakerWindow')
+
+    def bakerUi2(self):
+        buttonSize = 40
+        if (mc.window('bakerWindow', q=True, ex=True)): mc.deleteUI('bakerWindow')
+
+        mc.window('bakerWindow', t='Baker', s=False, mnb=False, mxb=False, tlb=True)
+        # mc.rowLayout(numberOfColumns=1, enable=True)
+
+        mc.rowColumnLayout('bakerRCL', numberOfColumns=4, columnSpacing=[(1, 1), (2, 1), (3, 1), (4, 1)], rowSpacing=[(1, 1), (2, 1), (3, 1), (4, 1)])
+
+        #mc.iconTextStaticLabel(style='iconOnly', label='baker', image=self.iconPath + '/baker.png', height=buttonSize, width=buttonSize)
+        self.setMeshButton = mc.iconTextButton(label='Prepare mesh', style='textOnly', command=self.setMesh, height=buttonSize, width=buttonSize)
+        self.snapUvsButton = mc.iconTextButton(label='Snap Uvs', style='iconOnly', image=self.iconPath + '/uvSnapshot.png', enable=False, command=self.snapUvs, height=buttonSize, width=buttonSize)
+        self.openFolderButton = mc.iconTextButton(label='Open Folder', style='iconOnly', image=self.iconPath + '/open.png', height=buttonSize, width=buttonSize)
+        self.cleanRefButton = mc.iconTextButton(label='Reset', style='iconOnly', image=self.iconPath + '/resetTransform.png', annotation='Clean Scene and Reset Tool', enable=False, command=self.cleanScene, height=buttonSize, width=buttonSize)
+
+        self.setDirtButton = mc.button(label='DIRT', annotation='Import and set dirt shader', command=self.setDirt, height=buttonSize, width=buttonSize)
+        self.setCurvatureButton = mc.button(label='CURV', annotation='Import and set curvature shader', command=self.setCurvature, height=buttonSize, width=buttonSize)
+
+
+        mc.window('bakerWindow', edit=True, wh=(165, 5 * buttonSize))
         mc.showWindow('bakerWindow')
 
     # INIT PATH/FOLDER
